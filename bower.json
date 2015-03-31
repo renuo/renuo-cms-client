@@ -1,0 +1,28 @@
+{
+  "name": "renuo-cms-client",
+  "version": "0.0.0",
+  "description": "Client for the Renuo CMS",
+  "main": "dist/renuo-cms-client.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "CMS",
+    "Renuo",
+    "Client"
+  ],
+  "authors": [
+    "Nicolas Eckhart <nicolas.eckhart@renuo.ch> (https://www.renuo.ch)",
+    "Lukas Elmer <lukas.elmer@renuo.ch> (https://www.renuo.ch)",
+    "Diego Steiner <diego.steiner@renuo.ch> (https://www.renuo.ch)",
+    "Cyril Kyburz <cyril.kyburz@renuo.ch> (https://www.renuo.ch)"
+  ],
+  "homepage": "https://www.renuo.ch",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
