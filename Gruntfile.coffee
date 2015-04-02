@@ -65,16 +65,6 @@ module.exports = (grunt) ->
         configFile: 'test/karma.conf.coffee'
         singleRun: true
 
-    connect:
-      server:
-        options:
-          port: 9000
-          base:
-            path: 'www-root'
-            options:
-              index: 'index.html'
-              maxAge: 300000
-
   grunt.registerTask 'serve', 'Compile then start a connect web server', (target) ->
     grunt.task.run [
       'sass'
@@ -93,6 +83,5 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-watch'
-  grunt.loadNpmTasks 'grunt-contrib-connect'
 
 
