@@ -1,0 +1,15 @@
+{
+  "name": "jasmine-expect",
+  "homepage": "https://github.com/JamieMason/Jasmine-Matchers",
+  "version": "1.22.3",
+  "_release": "1.22.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.22.3",
+    "commit": "d441ec64e3a4cec39d5b7d86981cbca94cb33dce"
+  },
+  "_source": "git://github.com/JamieMason/Jasmine-Matchers.git",
+  "_target": "~1.22.3",
+  "_originalSource": "jasmine-expect",
+  "_direct": true
+}
