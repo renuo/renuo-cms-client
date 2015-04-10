@@ -2,6 +2,9 @@
   "name": "renuo-cms-client",
   "version": "0.0.1",
   "repository": "https://github.com/renuo/renuo-cms-client",
+  "dependencies": {
+    "jquery": "latest"
+  },
   "devDependencies": {
     "coffee-script": "^1.8.0",
     "grunt": "^0.4.1",

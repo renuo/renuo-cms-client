@@ -1,6 +1,5 @@
 'use strict'
 
-protractorTestPort = 17325 + Math.floor(Math.random() * 50)
 module.exports = (grunt) ->
   require('load-grunt-tasks') grunt
   require('time-grunt') grunt
@@ -31,7 +30,7 @@ module.exports = (grunt) ->
         options:
           style: 'expanded'
         files:
-          'src/css/renuo-cms-client.css': 'src/sass/renuo-cms-client.scss'
+          'src/css/renuo_cms_client.css': 'src/sass/renuo_cms_client.scss'
 
     cssmin:
       dist:
@@ -49,7 +48,7 @@ module.exports = (grunt) ->
     coffee:
       compile:
         files:
-          'src/js/renuo-cms-client.js': 'src/coffee/renuo-cms-client.coffee'
+          'src/js/renuo_cms_client.js': 'src/coffee/renuo_cms_client.coffee'
 
     uglify:
       options:
@@ -58,23 +57,33 @@ module.exports = (grunt) ->
           drop_console: true
       dist:
         files:
-          'dist/renuo-cms-client.min.js': 'src/js/renuo-cms-client.js'
+          'dist/renuo_cms_client.min.js': 'src/js/renuo_cms_client.js'
 
     karma:
       unit:
         configFile: 'test/karma.conf.coffee'
         singleRun: true
 
-  grunt.registerTask 'serve', 'Compile then start a connect web server', (target) ->
+  grunt.registerTask 'serve', 'compile and minify everything', (target) ->
     grunt.task.run [
-      'sass'
-      'cssmin'
-      'coffee'
-      'uglify'
+      'compile'
       'watch'
     ]
 
+  grunt.registerTask 'lint', [
+    'coffeelint'
+    'jshint'
+  ]
+
+  grunt.registerTask 'compile', [
+    'sass'
+    'cssmin'
+    'coffee'
+    'uglify'
+  ]
+
   grunt.registerTask 'test', [
+    'compile'
     'karma'
   ]
 
@@ -83,5 +92,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-watch'
+
 
 

@@ -3,7 +3,6 @@ karmaTestPort = 17425 + Math.floor(Math.random() * 50)
 browsers = ['PhantomJS']
 plugins = [
   'karma-phantomjs-launcher'
-  'karma-coverage'
 ]
 
 if process.env.MULTIPLE_BROWSERS
@@ -18,12 +17,11 @@ module.exports = (config) ->
 
     files: [
       'bower_components/jquery/dist/jquery.js'
-      'bower_components/underscore/underscore.js'
       'bower_components/jasmine-expect/dist/jasmine-matchers.js'
       'bower_components/jasmine-jquery/lib/jasmine-jquery.js'
       'src/coffee/*.coffee'
-      'test/mock/**/*.coffee'
       'test/spec/**/*.coffee'
+      'test/mock/**/*.coffee'
     ]
 
     exclude: []
@@ -43,19 +41,7 @@ module.exports = (config) ->
     colors: true
 
     preprocessors:
-      'app/**/*.coffee': 'coverage'
-      'test/**/*.coffee': 'coffee'
-      'app/views/**/*.html': 'ng-html2js'
+      '**/*.coffee': 'coffee'
 
-    ngHtml2JsPreprocessor:
-      stripPrefix: 'app/'
-      moduleName: 'electionMarketApp'
+    reporters: ['progress']
 
-    reporters: ['progress', 'coverage']
-
-    coverageReporter:
-      reporters:
-        [
-          {type: 'text-summary', dir: '.tmp/coverage/'}
-          {type: 'text', dir: '.tmp/coverage/'}
-        ]
