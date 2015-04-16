@@ -3,6 +3,7 @@ karmaTestPort = 17425 + Math.floor(Math.random() * 50)
 browsers = ['PhantomJS']
 plugins = [
   'karma-phantomjs-launcher'
+  'karma-coverage'
 ]
 
 if process.env.MULTIPLE_BROWSERS
@@ -21,7 +22,6 @@ module.exports = (config) ->
       'bower_components/jasmine-jquery/lib/jasmine-jquery.js'
       'src/coffee/*.coffee'
       'test/spec/**/*.coffee'
-      'test/mock/**/*.coffee'
     ]
 
     exclude: []
@@ -42,6 +42,7 @@ module.exports = (config) ->
 
     preprocessors:
       '**/*.coffee': 'coffee'
+      'src/**/*.js': 'coverage'
 
-    reporters: ['progress']
+    reporters: ['progress', 'coverage']
 

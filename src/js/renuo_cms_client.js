@@ -4,11 +4,11 @@
 
   RenuoCmsClient = (function() {
     function RenuoCmsClient() {
-      this.initializeContentBlocks(((function(_this) {
+      this.initializeContentBlocks((function(_this) {
         return function() {
           return $('a.edit').click(function() {
             var editLink = this;
-            return _this.makeContentBlockEditable($(editLink).parent().parent().attr('data-block'), function() {
+            return _this.getContentBlockForEdit($(editLink).parent().parent().attr('data-block'), function() {
               return $('a.save').click(function() {
                 var saveLink = this;
                 var blockID, newContent;
@@ -19,11 +19,37 @@
             });
           });
         };
-      })(this)));
+      })(this));
     }
 
     RenuoCmsClient.prototype.getApiKey = function() {
       return 'Token token=772a91a136caa729fb8e09277c05310e';
+    };
+
+    RenuoCmsClient.prototype.getApiUrl = function() {
+      return 'http://localhost:3000/api/';
+    };
+
+    RenuoCmsClient.prototype.initializeContentBlocks = function(callback) {
+      return $.ajax({
+        type: 'GET',
+        url: this.getApiUrl() + 'content_blocks.json',
+        beforeSend: (function(_this) {
+          return function(xhr) {
+            return xhr.setRequestHeader('Authorization', _this.getApiKey());
+          };
+        })(this),
+        dataType: 'json',
+        success: (function(_this) {
+          return function(data) {
+            return $.each(data, function(index, value) {
+              console.log(value);
+              _this.drawContentBlock(value);
+              return callback();
+            });
+          };
+        })(this)
+      });
     };
 
     RenuoCmsClient.prototype.drawContentBlock = function(contentBlock) {
@@ -37,34 +63,10 @@
       }
     };
 
-    RenuoCmsClient.prototype.makeContentBlockEditable = function(id, callback) {
+    RenuoCmsClient.prototype.getContentBlockForEdit = function(id, callback) {
       return $.ajax({
         type: 'GET',
-        url: 'http://localhost:3000/api/content_blocks/' + id + '.json',
-        beforeSend: (function(_this) {
-          return function(xhr) {
-            return xhr.setRequestHeader('Authorization', _this.getApiKey());
-          };
-        })(this),
-        dataType: 'json',
-        success: function(data) {
-          var contentBlockHolder;
-          $('div[data-block=\'' + data.id + '\']').replaceWith('<div data-block=\'' + data.id + '\'></div>');
-          contentBlockHolder = $('div[data-block=\'' + data.id + '\']');
-          if (contentBlockHolder.length > 0) {
-            $(contentBlockHolder).addClass('content-block');
-            $(contentBlockHolder).append('<div class=\'toolbar\'><a class=\'save\'>save</a></div>');
-            $(contentBlockHolder).append('<textarea id=\'block_' + data.id + '\'>' + data.content + '</textarea>');
-            return callback();
-          }
-        }
-      });
-    };
-
-    RenuoCmsClient.prototype.initializeContentBlocks = function(callback) {
-      return $.ajax({
-        type: 'GET',
-        url: 'http://localhost:3000/api/content_blocks.json',
+        url: this.getApiUrl() + 'content_blocks/' + id + '.json',
         beforeSend: (function(_this) {
           return function(xhr) {
             return xhr.setRequestHeader('Authorization', _this.getApiKey());
@@ -73,19 +75,29 @@
         dataType: 'json',
         success: (function(_this) {
           return function(data) {
-            return $.each(data, function(index, value) {
-              _this.drawContentBlock(value);
-              return callback();
-            });
+            console.log(data);
+            return _this.makeContentBlockEditable(data, callback);
           };
         })(this)
       });
     };
 
+    RenuoCmsClient.prototype.makeContentBlockEditable = function(data, callback) {
+      var contentBlockHolder;
+      $('div[data-block=\'' + data.id + '\']').replaceWith('<div data-block=\'' + data.id + '\'></div>');
+      contentBlockHolder = $('div[data-block=\'' + data.id + '\']');
+      if (contentBlockHolder.length > 0) {
+        $(contentBlockHolder).addClass('content-block');
+        $(contentBlockHolder).append('<div class=\'toolbar\'><a class=\'save\'>save</a></div>');
+        $(contentBlockHolder).append('<textarea id=\'block_' + data.id + '\'>' + data.content + '</textarea>');
+        return callback();
+      }
+    };
+
     RenuoCmsClient.prototype.createContentBlock = function(newContentPath, newContent) {
       return $.ajax({
         type: 'POST',
-        url: 'http://localhost:3000/api/content_blocks.json',
+        url: this.getApiUrl() + 'content_blocks.json',
         beforeSend: (function(_this) {
           return function(xhr) {
             return xhr.setRequestHeader('Authorization', _this.getApiKey());
@@ -105,10 +117,9 @@
     };
 
     RenuoCmsClient.prototype.updateContentBlock = function(id, newContent) {
-      console.log('update started');
-      $.ajax({
+      return $.ajax({
         type: 'PUT',
-        url: 'http://localhost:3000/api/content_blocks/' + id + '.json',
+        url: this.getApiUrl() + 'content_blocks/' + id + '.json',
         beforeSend: (function(_this) {
           return function(xhr) {
             return xhr.setRequestHeader('Authorization', _this.getApiKey());
@@ -121,17 +132,16 @@
         },
         dataType: 'json',
         success: function(msg) {
-          console.log('success');
+          console.log(msg);
           return location.reload();
         }
       });
-      return console.log('done');
     };
 
     RenuoCmsClient.prototype.deleteContentBlock = function(id) {
       return $.ajax({
         type: 'DELETE',
-        url: 'http://localhost:3000/api/content_blocks/' + id + '.json',
+        url: this.getApiUrl() + 'content_blocks/' + id + '.json',
         beforeSend: (function(_this) {
           return function(xhr) {
             return xhr.setRequestHeader('Authorization', _this.getApiKey());
