@@ -2,7 +2,6 @@
 
 describe 'RenuoCmsClient', ->
   renuoCmsClient = undefined
-  jasmine.getJSONFixtures().fixturesPath = '/Users/nicolaseckhart/Workspace/renuo-cms-client/test/fixtures/';
 
   beforeEach ->
     renuoCmsClient = new RenuoCmsClient()
