@@ -85,6 +85,6 @@ grunt lint
 
 ## Contact
 
-For more information on election-market please check out
+For more information on the renuo-cms-client please check out
 [https://github.com/renuo/renuo-cms-client](https://github.com/renuo/renuo-cms-client)
 or contact [Renuo GmbH](info@renuo.ch).
