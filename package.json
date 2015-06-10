@@ -46,5 +46,16 @@
     "protractor": "^1.5.0",
     "time-grunt": "^0.3.1",
     "tsd": "^0.6.1"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "analyze": true,
+  "scripts": {
+    "prestart": "npm install",
+    "postinstall": "bower install",
+    "start": "grunt serve",
+    "pretest": "npm install",
+    "test": "grunt test"
   }
 }
