@@ -13,15 +13,14 @@ if process.env.MULTIPLE_BROWSERS
 
 module.exports = (config) ->
   config.set
-    basePath: '../'
+    basePath: './'
     frameworks: ['jasmine']
 
     files: [
       'bower_components/jquery/dist/jquery.js'
       'bower_components/jasmine-expect/dist/jasmine-matchers.js'
       'bower_components/jasmine-jquery/lib/jasmine-jquery.js'
-      'src/coffee/*.coffee'
-      'test/spec/**/*.coffee'
+      'test/tests.js'
     ]
 
     exclude: []
@@ -41,8 +40,13 @@ module.exports = (config) ->
     colors: true
 
     preprocessors:
-      '**/*.coffee': 'coffee'
-      'src/**/*.js': 'coverage'
+      'test/tests.js': 'coverage'
 
     reporters: ['progress', 'coverage']
 
+    coverageReporter:
+      reporters:
+        [
+          { type: 'text-summary', dir: '.tmp/coverage/' }
+          { type: 'text', dir: '.tmp/coverage/' }
+        ]

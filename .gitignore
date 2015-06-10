@@ -15,3 +15,4 @@ bower_components
 .DS_Store
 typings
 .tscache
+test

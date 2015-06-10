@@ -15,13 +15,21 @@ module.exports = (grunt) ->
           'cssmin'
         ]
         ts:
-          files: ['src/ts/*.ts']
-          tasks: ['ts']
+          files: ['src/ts/{,*/}{,*/}*.ts', '!src/ts/{,*/}{,*/}*_spec.ts']
+          tasks: ['ts:default']
+        tsTest:
+          files: ['src/ts/{,*/}{,*/}*.ts']
+          tasks: ['ts:test']
 
     ts:
       default:
-        src: 'src/ts/*.ts'
+        src: ['src/ts/{,*/}{,*/}*.ts', '!src/ts/{,*/}{,*/}*_spec.ts']
         out: 'src/js/renuo_cms_client.js'
+        options:
+          target: 'es6'
+      test:
+        src: 'src/ts/{,*/}{,*/}*.ts'
+        out: 'test/tests.js'
         options:
           target: 'es6'
 
@@ -71,7 +79,7 @@ module.exports = (grunt) ->
 
     karma:
       unit:
-        configFile: 'test/karma.conf.coffee'
+        configFile: 'karma.conf.coffee'
         singleRun: true
 
   grunt.registerTask 'serve', 'compile and minify everything', (target) ->
