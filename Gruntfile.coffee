@@ -14,6 +14,16 @@ module.exports = (grunt) ->
           'sass'
           'cssmin'
         ]
+        ts:
+          files: ['src/ts/*.ts']
+          tasks: ['ts']
+
+    ts:
+      default:
+        src: 'src/ts/*.ts'
+        out: 'src/js/renuo_cms_client.js'
+        options:
+          target: 'es6'
 
     jshint:
       options:

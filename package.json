@@ -31,6 +31,7 @@
     "grunt-protractor-runner": "^1.1.4",
     "grunt-slim": "^0.1.0",
     "grunt-svgmin": "^0.4.0",
+    "grunt-ts": "^4.1.2",
     "grunt-usemin": "^3.0.0",
     "jasmine-expect": "^1.22.3",
     "jshint-stylish": "^0.2.0",
@@ -43,6 +44,7 @@
     "karma-phantomjs-launcher": "^0.1.4",
     "load-grunt-tasks": "^0.4.0",
     "protractor": "^1.5.0",
-    "time-grunt": "^0.3.1"
+    "time-grunt": "^0.3.1",
+    "tsd": "^0.6.1"
   }
 }
