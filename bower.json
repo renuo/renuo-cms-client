@@ -4,7 +4,7 @@
   "description": "Client for the Renuo CMS",
   "main": "dist/renuo-cms-client.js",
   "devDependencies": {
-    "jquery": "~1.7.4",
+    "jquery": "latest",
     "jasmine": "~2.2.1",
     "jasmine-expect": "~1.22.3",
     "jasmine-jquery": "~2.1.0"
