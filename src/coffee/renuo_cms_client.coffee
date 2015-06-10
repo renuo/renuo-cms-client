@@ -2,7 +2,7 @@
 
 class RenuoCmsClient
 
-  constructor: ->
+  constructor: (@apiKey, @apiUrl) ->
     @initializeContentBlocks =>
       $('a.edit').click =>
         # TODO: Fix this hack!
@@ -15,50 +15,45 @@ class RenuoCmsClient
             @updateContentBlock blockID, newContent
 
   getApiKey: ->
-    'Token token=772a91a136caa729fb8e09277c05310e'
+    "Token token=#{@apiKey}"
 
   getApiUrl: ->
-    'http://localhost:3000/api/'
+    @apiUrl
 
   initializeContentBlocks: (callback) ->
     $.ajax
       type: 'GET'
       url: @getApiUrl() + 'content_blocks.json'
-      beforeSend: (xhr) =>
-        xhr.setRequestHeader 'Authorization', @getApiKey()
+      beforeSend: @authorizeAjax
       dataType: 'json'
       success: (data) =>
         $.each data, (index, value) =>
-          console.log value
           @drawContentBlock value
           callback()
 
+  getEmptyContentBlockHolder: (id) ->
+    $("div[data-block='" + id + "']").empty().addClass('content-block')
+
   drawContentBlock: (contentBlock) ->
-    $('div[data-block=\'' + contentBlock.id + '\']').replaceWith '<div data-block=\'' + contentBlock.id + '\'></div>'
-    contentBlockHolder = $('div[data-block=\'' + contentBlock.id + '\']')
+    contentBlockHolder = @getEmptyContentBlockHolder(contentBlock.id)
     if contentBlockHolder.length > 0
-      $(contentBlockHolder).addClass 'content-block'
-      $(contentBlockHolder).append '<div class=\'toolbar\'><a class=\'edit\'>edit</a></div>'
-      $(contentBlockHolder).append '<div class=\'content\'>' + contentBlock.content + '</div>'
+      contentBlockHolder.append($('<div>').addClass('toolbar').append($('<a>').addClass('edit').text('edit')))
+      contentBlockHolder.append($('<div>').addClass('content').html(contentBlock.content))
 
   getContentBlockForEdit: (id, callback) ->
     $.ajax
       type: 'GET'
       url: @getApiUrl() + 'content_blocks/' + id + '.json'
-      beforeSend: (xhr) =>
-        xhr.setRequestHeader 'Authorization', @getApiKey()
+      beforeSend: @authorizeAjax
       dataType: 'json'
       success: (data) =>
-        console.log data
         @makeContentBlockEditable(data, callback)
 
   makeContentBlockEditable: (data, callback) ->
-    $('div[data-block=\'' + data.id + '\']').replaceWith '<div data-block=\'' + data.id + '\'></div>'
-    contentBlockHolder = $('div[data-block=\'' + data.id + '\']')
+    contentBlockHolder = @getEmptyContentBlockHolder(data.id)
     if contentBlockHolder.length > 0
-      $(contentBlockHolder).addClass 'content-block'
-      $(contentBlockHolder).append '<div class=\'toolbar\'><a class=\'save\'>save</a></div>'
-      $(contentBlockHolder).append '<textarea id=\'block_' + data.id + '\'>' + data.content + '</textarea>'
+      contentBlockHolder.append($('<div>').addClass('toolbar').append($('<a>').addClass('save').text('save')))
+      contentBlockHolder.append($('<textarea>').attr('id', 'block_' + data.id).html(data.content))
       callback()
 
   # POST to API to create a new ContentBlock
@@ -66,29 +61,24 @@ class RenuoCmsClient
     $.ajax
       type: 'POST'
       url: @getApiUrl() + 'content_blocks.json'
-      beforeSend: (xhr) =>
-        xhr.setRequestHeader 'Authorization', @getApiKey()
+      beforeSend: @authorizeAjax
       data:
         content_block:
           content_path: newContentPath
           content: newContent
       dataType: 'json'
-      success: (msg) ->
-        console.log msg
 
   # PUT to API to update ContentBlock content column
   updateContentBlock: (id, newContent) ->
     $.ajax
       type: 'PUT'
       url: @getApiUrl() + 'content_blocks/' + id + '.json'
-      beforeSend: (xhr) =>
-        xhr.setRequestHeader 'Authorization', @getApiKey()
+      beforeSend: @authorizeAjax
       data:
         content_block:
           content: newContent
       dataType: 'json'
       success: (msg) ->
-        console.log msg
         location.reload()
 
   # DELETE to API to delete ContentBlock
@@ -96,10 +86,10 @@ class RenuoCmsClient
     $.ajax
       type: 'DELETE'
       url: @getApiUrl() + 'content_blocks/' + id + '.json'
-      beforeSend: (xhr) =>
-        xhr.setRequestHeader 'Authorization', @getApiKey()
+      beforeSend: @authorizeAjax
       dataType: 'json'
-      success: (msg) ->
-        console.log msg
+
+  authorizeAjax: (xhr) =>
+    xhr.setRequestHeader 'Authorization', @getApiKey()
 
 window.renuoCmsClient = RenuoCmsClient
