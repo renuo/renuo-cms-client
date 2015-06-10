@@ -4,6 +4,8 @@
 
 ```
 # Install dependencies
+npm install -g tsd bower
+tsd reinstall --save --overwrite
 npm install
 # Execute tests
 grunt test
@@ -59,14 +61,28 @@ its package manager (npm) installed.  You can get them from [http://nodejs.org/]
 You'll also need bower, which you can get by running:
 
 ```
-npm install -g bower
+npm install -g tsd bower
 ```
 
 Then install the dependencies:
 
 ```
+tsd reinstall --save --overwrite
 npm install
-bower install
+```
+
+## Dependencies / Type Definitions
+
+Install a new dependency (e.g. jquery): 
+
+```
+tsd query jquery --action install --save
+```
+
+Reinstall dependencies: 
+
+```
+tsd reinstall --save --overwrite
 ```
 
 ## Testing
