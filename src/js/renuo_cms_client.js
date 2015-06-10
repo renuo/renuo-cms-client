@@ -1,9 +1,13 @@
 (function() {
   'use strict';
-  var RenuoCmsClient;
+  var RenuoCmsClient,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   RenuoCmsClient = (function() {
-    function RenuoCmsClient() {
+    function RenuoCmsClient(apiKey, apiUrl) {
+      this.apiKey = apiKey;
+      this.apiUrl = apiUrl;
+      this.authorizeAjax = __bind(this.authorizeAjax, this);
       this.initializeContentBlocks((function(_this) {
         return function() {
           return $('a.edit').click(function() {
@@ -23,27 +27,22 @@
     }
 
     RenuoCmsClient.prototype.getApiKey = function() {
-      return 'Token token=772a91a136caa729fb8e09277c05310e';
+      return "Token token=" + this.apiKey;
     };
 
     RenuoCmsClient.prototype.getApiUrl = function() {
-      return 'http://localhost:3000/api/';
+      return this.apiUrl;
     };
 
     RenuoCmsClient.prototype.initializeContentBlocks = function(callback) {
       return $.ajax({
         type: 'GET',
         url: this.getApiUrl() + 'content_blocks.json',
-        beforeSend: (function(_this) {
-          return function(xhr) {
-            return xhr.setRequestHeader('Authorization', _this.getApiKey());
-          };
-        })(this),
+        beforeSend: this.authorizeAjax,
         dataType: 'json',
         success: (function(_this) {
           return function(data) {
             return $.each(data, function(index, value) {
-              console.log(value);
               _this.drawContentBlock(value);
               return callback();
             });
@@ -52,14 +51,16 @@
       });
     };
 
+    RenuoCmsClient.prototype.getEmptyContentBlockHolder = function(id) {
+      return $("div[data-block='" + id + "']").empty().addClass('content-block');
+    };
+
     RenuoCmsClient.prototype.drawContentBlock = function(contentBlock) {
       var contentBlockHolder;
-      $('div[data-block=\'' + contentBlock.id + '\']').replaceWith('<div data-block=\'' + contentBlock.id + '\'></div>');
-      contentBlockHolder = $('div[data-block=\'' + contentBlock.id + '\']');
+      contentBlockHolder = this.getEmptyContentBlockHolder(contentBlock.id);
       if (contentBlockHolder.length > 0) {
-        $(contentBlockHolder).addClass('content-block');
-        $(contentBlockHolder).append('<div class=\'toolbar\'><a class=\'edit\'>edit</a></div>');
-        return $(contentBlockHolder).append('<div class=\'content\'>' + contentBlock.content + '</div>');
+        contentBlockHolder.append($('<div>').addClass('toolbar').append($('<a>').addClass('edit').text('edit')));
+        return contentBlockHolder.append($('<div>').addClass('content').html(contentBlock.content));
       }
     };
 
@@ -67,15 +68,10 @@
       return $.ajax({
         type: 'GET',
         url: this.getApiUrl() + 'content_blocks/' + id + '.json',
-        beforeSend: (function(_this) {
-          return function(xhr) {
-            return xhr.setRequestHeader('Authorization', _this.getApiKey());
-          };
-        })(this),
+        beforeSend: this.authorizeAjax,
         dataType: 'json',
         success: (function(_this) {
           return function(data) {
-            console.log(data);
             return _this.makeContentBlockEditable(data, callback);
           };
         })(this)
@@ -84,12 +80,10 @@
 
     RenuoCmsClient.prototype.makeContentBlockEditable = function(data, callback) {
       var contentBlockHolder;
-      $('div[data-block=\'' + data.id + '\']').replaceWith('<div data-block=\'' + data.id + '\'></div>');
-      contentBlockHolder = $('div[data-block=\'' + data.id + '\']');
+      contentBlockHolder = this.getEmptyContentBlockHolder(data.id);
       if (contentBlockHolder.length > 0) {
-        $(contentBlockHolder).addClass('content-block');
-        $(contentBlockHolder).append('<div class=\'toolbar\'><a class=\'save\'>save</a></div>');
-        $(contentBlockHolder).append('<textarea id=\'block_' + data.id + '\'>' + data.content + '</textarea>');
+        contentBlockHolder.append($('<div>').addClass('toolbar').append($('<a>').addClass('save').text('save')));
+        contentBlockHolder.append($('<textarea>').attr('id', 'block_' + data.id).html(data.content));
         return callback();
       }
     };
@@ -98,21 +92,14 @@
       return $.ajax({
         type: 'POST',
         url: this.getApiUrl() + 'content_blocks.json',
-        beforeSend: (function(_this) {
-          return function(xhr) {
-            return xhr.setRequestHeader('Authorization', _this.getApiKey());
-          };
-        })(this),
+        beforeSend: this.authorizeAjax,
         data: {
           content_block: {
             content_path: newContentPath,
             content: newContent
           }
         },
-        dataType: 'json',
-        success: function(msg) {
-          return console.log(msg);
-        }
+        dataType: 'json'
       });
     };
 
@@ -120,11 +107,7 @@
       return $.ajax({
         type: 'PUT',
         url: this.getApiUrl() + 'content_blocks/' + id + '.json',
-        beforeSend: (function(_this) {
-          return function(xhr) {
-            return xhr.setRequestHeader('Authorization', _this.getApiKey());
-          };
-        })(this),
+        beforeSend: this.authorizeAjax,
         data: {
           content_block: {
             content: newContent
@@ -132,7 +115,6 @@
         },
         dataType: 'json',
         success: function(msg) {
-          console.log(msg);
           return location.reload();
         }
       });
@@ -142,16 +124,13 @@
       return $.ajax({
         type: 'DELETE',
         url: this.getApiUrl() + 'content_blocks/' + id + '.json',
-        beforeSend: (function(_this) {
-          return function(xhr) {
-            return xhr.setRequestHeader('Authorization', _this.getApiKey());
-          };
-        })(this),
-        dataType: 'json',
-        success: function(msg) {
-          return console.log(msg);
-        }
+        beforeSend: this.authorizeAjax,
+        dataType: 'json'
       });
+    };
+
+    RenuoCmsClient.prototype.authorizeAjax = function(xhr) {
+      return xhr.setRequestHeader('Authorization', this.getApiKey());
     };
 
     return RenuoCmsClient;
