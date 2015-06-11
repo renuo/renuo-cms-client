@@ -10,7 +10,7 @@ class DomService {
   public drawContentBlock(contentBlock:ContentBlock) {
     var contentBlockHolder = this.emptyContentBlock(contentBlock)
     if (contentBlockHolder.length > 0) {
-      contentBlockHolder.append(jQuery('<div>').addClass('toolbar').append($('<a>').addClass('edit').text('edit')))
+      contentBlockHolder.append(jQuery('<div>').addClass('toolbar').append(jQuery('<a>').addClass('edit').text('edit')))
       contentBlockHolder.append(jQuery('<div>').addClass('content').html(contentBlock.content))
     }
   }
@@ -18,8 +18,8 @@ class DomService {
   public makeContentBlockEditable(contentBlock:ContentBlock) {
     var contentBlockHolder = this.emptyContentBlock(contentBlock)
     if (contentBlockHolder.length > 0) {
-      contentBlockHolder.append($('<div>').addClass('toolbar').append($('<a>').addClass('save').text('save')))
-      contentBlockHolder.append($('<textarea>').attr('id', 'block_' + contentBlock.id).html(contentBlock.content))
+      contentBlockHolder.append(jQuery('<div>').addClass('toolbar').append(jQuery('<a>').addClass('save').text('save')))
+      contentBlockHolder.append(jQuery('<textarea>').attr('id', 'block_' + contentBlock.id).html(contentBlock.content))
     }
   }
 }
