@@ -101,7 +101,7 @@ module.exports = (grunt) ->
   ]
 
   grunt.registerTask 'test', [
-    'compile'
+    'ts:test'
     'karma'
   ]
 
