@@ -52,14 +52,14 @@ class AjaxService {
     })
   }
 
-  private getUrl(id?:number) {
+  getUrl(id?:number) {
     var url = this.url + 'api/content_blocks'
     if(typeof id === 'number') { url += '/' + id }
     url += '.json'
     return url
   }
 
-  private getData(contentBlock:ContentBlock) {
+  getData(contentBlock:ContentBlock) {
     var data = {
       content_block: {
         content: contentBlock.content,
