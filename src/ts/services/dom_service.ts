@@ -18,4 +18,18 @@ class DomService {
     contentBlockHolder.append(jQuery('<div>').addClass('toolbar').append(jQuery('<a>').addClass('save').text('save')))
     contentBlockHolder.append(jQuery('<textarea>').attr('id', 'block_' + contentBlock.id).html(contentBlock.content))
   }
+
+  // TODO: Test
+  public addEditEventListener(contentBlock:ContentBlock, callback:any) {
+    jQuery("div[data-block='" + contentBlock.id + "'] .edit").on('click', function () {
+      callback(contentBlock)
+    })
+  }
+
+  public addSaveEventListener(contentBlock:ContentBlock, callback:any) {
+    jQuery("div[data-block='" + contentBlock.id + "'] .save").on('click', function () {
+      contentBlock.content = jQuery(this).find('.content').html()
+      callback(contentBlock)
+    })
+  }
 }
