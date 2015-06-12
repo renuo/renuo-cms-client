@@ -1,5 +1,5 @@
 class DependencyInjectionContainer {
-  objects = {};
+  objects = {}
 
   constructor() {
     this.objects[AjaxService] = new AjaxService('url') // TODO: set per config class
