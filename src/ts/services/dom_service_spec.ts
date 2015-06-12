@@ -22,17 +22,28 @@ describe('DomService', function () {
   it('can get a contentBlockHolder based on a contentBlock', function () {
     expect(domService.emptyContentBlock(contentBlock)).toBeDefined();
     expect(domService.emptyContentBlock(contentBlock).attr('data-block')).toBe('1');
+    expect($("div[data-block='1']").children().length).toBe(0)
   });
 
   it('can draw a contentBlock', function () {
     expect(domService.emptyContentBlock(contentBlock).hasClass('content-block')).toBe(true);
     domService.drawContentBlock(contentBlock);
     expect($("div[data-block='1']").hasClass('content-block')).toBe(true);
+    expect($("div[data-block='1']").find('.toolbar').is('div')).toBe(true);
+    expect($("div[data-block='1']").find('a').hasClass('edit')).toBe(true);
+    expect($("div[data-block='1']").find('a').text()).toBe('edit');
+    expect($("div[data-block='1']").find('.content').is('div')).toBe(true);
+    expect($("div[data-block='1']").find('.content').html()).toBe('Foo Bar');
   });
 
   it('can make a drawn ContentBlock editable', function () {
     domService.drawContentBlock(contentBlock);
     domService.makeContentBlockEditable(contentBlock);
-    expect($('textarea#block_1')).toBeDefined();
+    expect($("div[data-block='1']").hasClass('content-block')).toBe(true);
+    expect($("div[data-block='1']").find('.toolbar').is('div')).toBe(true);
+    expect($("div[data-block='1']").find('a').hasClass('save')).toBe(true);
+    expect($("div[data-block='1']").find('a').text()).toBe('save');
+    expect($("div[data-block='1']").find('textarea').attr('id')).toBe('block_1');
+    expect($("div[data-block='1']").find('textarea').html()).toBe('Foo Bar');
   });
 });
