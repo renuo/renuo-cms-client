@@ -20,6 +20,8 @@ module.exports = (config) ->
       'bower_components/jquery/dist/jquery.js'
       'bower_components/jasmine-expect/dist/jasmine-matchers.js'
       'bower_components/jasmine-jquery/lib/jasmine-jquery.js'
+      'bower_components/jquery-mockjax/jquery.mockjax.js'
+      'bower_components/Faker/build/build/faker.js'
       'test/tests.js'
     ]
 

@@ -3,11 +3,11 @@
 class ContentBlock {
   id:number;
   content:string;
-  content_path:string;
+  contentPath:string;
 
-  constructor(id:number, content:string, content_path:string) {
+  constructor(id:number, content:string, contentPath:string) {
     this.id = id;
     this.content = content;
-    this.content_path = content_path;
+    this.contentPath = contentPath;
   }
 }

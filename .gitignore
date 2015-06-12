@@ -16,3 +16,4 @@ bower_components
 typings
 .tscache
 test
+.tmp
