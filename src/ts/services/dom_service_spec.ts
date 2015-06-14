@@ -1,16 +1,17 @@
-///<reference path="../../../typings/tsd.d.ts"/>
-///<reference path="dom_service.ts"/>
-///<reference path="../models/content_block.ts"/>
+///<reference path='../../../typings/tsd.d.ts'/>
+///<reference path='dom_service.ts'/>
+///<reference path='../models/content_block.ts'/>
+declare var faker
 
 describe('DomService', function () {
   var domService:DomService, contentBlock:ContentBlock
 
   var getDomContentBlock = function (contentBlock:ContentBlock) {
-    return $("div[data-block='" + contentBlock.id + "']")
+    return $(`div[data-block='${contentBlock.id}']`)
   }
 
   var clearText = function (text:string) {
-    return text.replace(/(\r\n|\n|\r)/gm,"")
+    return text.replace(/(\r\n|\n|\r)/gm, '')
   }
 
   beforeEach(function () {

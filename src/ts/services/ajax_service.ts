@@ -1,5 +1,5 @@
-///<reference path="../../../typings/tsd.d.ts"/>
-///<reference path="../models/content_block.ts"/>
+///<reference path='../../../typings/tsd.d.ts'/>
+///<reference path='../models/content_block.ts'/>
 
 class AjaxService {
   url:string

@@ -1,10 +1,10 @@
-///<reference path="../../../typings/tsd.d.ts"/>
-///<reference path="../models/content_block.ts"/>
+///<reference path='../../../typings/tsd.d.ts'/>
+///<reference path='../models/content_block.ts'/>
 
 class DomService {
 
   public emptyContentBlock(contentBlock:ContentBlock):JQuery {
-    return jQuery("div[data-block='" + contentBlock.id + "']").empty().addClass('content-block')
+    return jQuery(`div[data-block='${contentBlock.id}']`).empty().addClass('content-block')
   }
 
   public drawContentBlock(contentBlock:ContentBlock) {
@@ -21,13 +21,13 @@ class DomService {
 
   // TODO: Test
   public addEditEventListener(contentBlock:ContentBlock, callback:any) {
-    jQuery("div[data-block='" + contentBlock.id + "'] .edit").on('click', function () {
+    jQuery(`div[data-block='${contentBlock.id}'] .edit`).on('click', function () {
       callback(contentBlock)
     })
   }
 
   public addSaveEventListener(contentBlock:ContentBlock, callback:any) {
-    jQuery("div[data-block='" + contentBlock.id + "'] .save").on('click', function () {
+    jQuery(`div[data-block='${contentBlock.id}'] .save`).on('click', function () {
       contentBlock.content = jQuery(this).find('.content').html()
       callback(contentBlock)
     })

@@ -45,7 +45,8 @@
     "load-grunt-tasks": "^0.4.0",
     "protractor": "^1.5.0",
     "time-grunt": "^0.3.1",
-    "tsd": "^0.6.1"
+    "tsd": "^0.6.1",
+    "grunt-tslint": "~2.2.0-beta"
   },
   "engines": {
     "node": ">=0.10.0"

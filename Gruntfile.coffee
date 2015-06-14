@@ -14,34 +14,35 @@ module.exports = (grunt) ->
           'sass'
           'cssmin'
         ]
-        ts:
-          files: ['src/ts/{,*/}{,*/}*.ts', '!src/ts/{,*/}{,*/}*_spec.ts']
-          tasks: ['ts:default']
-        tsTest:
-          files: ['src/ts/{,*/}{,*/}*.ts']
-          tasks: ['ts:test']
+      ts:
+        files: ['src/ts/{,*/}{,*/}*.ts', '!src/ts/{,*/}{,*/}*_spec.ts']
+        tasks: ['ts:default']
+      tsTest:
+        files: ['src/ts/{,*/}{,*/}*.ts']
+        tasks: ['ts:test']
 
     ts:
       default:
         src: ['src/ts/{,*/}{,*/}*.ts', '!src/ts/{,*/}{,*/}*_spec.ts']
         out: 'src/js/renuo_cms_client.js'
         options:
-          target: 'es6'
+          target: 'es5'
       test:
         src: 'src/ts/{,*/}{,*/}*.ts'
         out: 'test/tests.js'
         options:
-          target: 'es6'
+          target: 'es5'
 
     jshint:
       options:
         jshintrc: '.jshintrc'
         reporter: require('jshint-stylish')
 
-    coffeelint:
-      src: ['src/coffee/*.coffee', 'Gruntfile.coffee']
+    tslint:
       options:
-        configFile: 'coffeelint.json'
+        configuration: grunt.file.readJSON("tslint.json")
+      files:
+        src: ['src/ts/{,*/}{,*/}*.ts']
 
     sass:
       dist:
@@ -62,11 +63,6 @@ module.exports = (grunt) ->
           dest: 'dist/'
           ext: '.min.css'
         }]
-
-    coffee:
-      compile:
-        files:
-          'src/js/renuo_cms_client.js': 'src/coffee/renuo_cms_client.coffee'
 
     uglify:
       options:
@@ -89,14 +85,13 @@ module.exports = (grunt) ->
     ]
 
   grunt.registerTask 'lint', [
-    'coffeelint'
+    'tslint'
     'jshint'
   ]
 
   grunt.registerTask 'compile', [
     'sass'
     'cssmin'
-    'coffee'
     'uglify'
   ]
 
@@ -107,9 +102,5 @@ module.exports = (grunt) ->
 
   grunt.loadNpmTasks 'grunt-contrib-sass'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
-  grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-watch'
-
-
-

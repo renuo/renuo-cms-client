@@ -1,27 +1,29 @@
-///<reference path="../../../typings/tsd.d.ts"/>
-///<reference path="dependency_injection_container.ts"/>
+///<reference path='../../../typings/tsd.d.ts'/>
+///<reference path='dependency_injection_container.ts'/>
+///<reference path='../services/ajax_service.ts'/>
+///<reference path='../services/dom_service.ts'/>
 
 // TODO: look if a better way exists to test it
-describe("DependencyInjectionContainer", function () {
+describe('DependencyInjectionContainer', function () {
   var dic:DependencyInjectionContainer
 
   beforeEach(function() {
     dic = new DependencyInjectionContainer()
   })
 
-  it("can be initialized", function () {
+  it('can be initialized', function () {
     expect(dic).not.toBe(null)
   })
 
-  it("initialize the AjaxService", function () {
-    expect(dic.objects[AjaxService]).toBeDefined()
+  it('initialize the AjaxService', function () {
+    expect(dic.objects[<any>AjaxService]).toBeDefined()
   })
 
-  it("initialize the DomService", function () {
-    expect(dic.objects[DomService]).toBeDefined()
+  it('initialize the DomService', function () {
+    expect(dic.objects[<any>DomService]).toBeDefined()
   })
 
-  it("can get back the right service", function () {
+  it('can get back the right service', function () {
     expect(dic.get(AjaxService)).toBeDefined()
     expect(dic.get(DomService)).toBeDefined()
   })

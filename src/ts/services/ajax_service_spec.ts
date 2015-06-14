@@ -1,8 +1,9 @@
-///<reference path="../../../typings/tsd.d.ts"/>
-///<reference path="ajax_service.ts"/>
-///<reference path="../models/content_block.ts"/>
+///<reference path='../../../typings/tsd.d.ts'/>
+///<reference path='ajax_service.ts'/>
+///<reference path='../models/content_block.ts'/>
+declare var faker
 
-describe("AjaxService", function () {
+describe('AjaxService', function () {
   var ajaxService:AjaxService
   var baseUrl:string
   var urlWithParam:string
@@ -10,7 +11,7 @@ describe("AjaxService", function () {
   var mockData = {}
 
   beforeEach(function(){
-    baseUrl = 'https://' + faker.internet.domainName() + '/'
+    baseUrl = `https://${faker.internet.domainName()}/`
     ajaxService = new AjaxService(baseUrl)
     mockData = {
       id: faker.random.number(),
@@ -18,27 +19,27 @@ describe("AjaxService", function () {
       contentPath: faker.address.streetAddress()
     }
     urlWithParam = baseUrl + 'api/content_blocks.json'
-    urlWithoutParam = baseUrl + 'api/content_blocks/' + mockData.id + '.json'
+    urlWithoutParam = baseUrl + `api/content_blocks/${(<any>mockData).id}.json`
   })
 
-  it("can be initialized", function () {
+  it('can be initialized', function () {
     expect(ajaxService).not.toBe(null)
   })
 
-  it("has the correct url", function () {
+  it('has the correct url', function () {
     expect(ajaxService.url).toBe(baseUrl)
   })
 
-  it("builds the correct url without parameter", function () {
+  it('builds the correct url without parameter', function () {
     expect(ajaxService.getUrl()).toBe(urlWithParam)
   })
 
-  it("builds the correct url with parameter", function () {
-    expect(ajaxService.getUrl(mockData.id)).toBe(urlWithoutParam)
+  it('builds the correct url with parameter', function () {
+    expect(ajaxService.getUrl((<any>mockData).id)).toBe(urlWithoutParam)
   })
 
-  it("extracts the correct data of a content block", function () {
-    var contentBlock = new ContentBlock(mockData.id, mockData.content, mockData.contentPath)
+  it('extracts the correct data of a content block', function () {
+    var contentBlock = new ContentBlock((<any>mockData).id, (<any>mockData).content, (<any>mockData).contentPath)
     var expectedResult = {
           content_block: {
             content: contentBlock.content,
@@ -49,7 +50,7 @@ describe("AjaxService", function () {
     expect(ajaxService.getData(contentBlock)).toEqual(expectedResult)
   })
 
-  it("can create a new GET request to receive all content blocks", function () {
+  it('can create a new GET request to receive all content blocks', function () {
     $.mockjax({
       url: urlWithParam,
       dataType: 'json',
@@ -57,21 +58,21 @@ describe("AjaxService", function () {
     })
 
     var callback = function (data) {
-      expect(data[0].id).toBe(mockData.id)
-      expect(data[0].content).toBe(mockData.content)
-      expect(data[0].contentPath).toBe(mockData.contentPath)
+      expect((<any>data[0]).id).toBe((<any>mockData).id)
+      expect((<any>data[0]).content).toBe((<any>mockData).content)
+      expect((<any>data[0]).contentPath).toBe((<any>mockData).contentPath)
     }
 
     spyOn($, 'ajax')
 
     ajaxService.selectContentBlocks(callback)
 
-    expect($.ajax.calls.mostRecent().args[0].type).toEqual('GET')
-    expect($.ajax.calls.mostRecent().args[0].url).toEqual(urlWithParam)
-    expect($.ajax.calls.mostRecent().args[0].success).toEqual(callback)
+    expect((<any>$.ajax).calls.mostRecent().args[0].type).toEqual('GET')
+    expect((<any>$.ajax).calls.mostRecent().args[0].url).toEqual(urlWithParam)
+    expect((<any>$.ajax).calls.mostRecent().args[0].success).toEqual(callback)
   })
 
-  it("can create a new GET request to receive one content block", function () {
+  it('can create a new GET request to receive one content block', function () {
     $.mockjax({
       url: urlWithoutParam,
       dataType: 'json',
@@ -79,21 +80,21 @@ describe("AjaxService", function () {
     })
 
     var callback = function (data) {
-      expect(data.id).toBe(mockData.id)
-      expect(data.content).toBe(mockData.content)
-      expect(data.contentPath).toBe(mockData.contentPath)
+      expect((<any>data).id).toBe((<any>mockData).id)
+      expect((<any>data).content).toBe((<any>mockData).content)
+      expect((<any>data).contentPath).toBe((<any>mockData).contentPath)
     }
 
     spyOn($, 'ajax')
 
-    ajaxService.selectContentBlock(mockData.id, callback)
+    ajaxService.selectContentBlock((<any>mockData).id, callback)
 
-    expect($.ajax.calls.mostRecent().args[0].type).toEqual('GET')
-    expect($.ajax.calls.mostRecent().args[0].url).toEqual(urlWithoutParam)
-    expect($.ajax.calls.mostRecent().args[0].success).toEqual(callback)
+    expect((<any>$.ajax).calls.mostRecent().args[0].type).toEqual('GET')
+    expect((<any>$.ajax).calls.mostRecent().args[0].url).toEqual(urlWithoutParam)
+    expect((<any>$.ajax).calls.mostRecent().args[0].success).toEqual(callback)
   })
 
-  it("can create a new POST request for creating a content block", function () {
+  it('can create a new POST request for creating a content block', function () {
     $.mockjax({
       url: urlWithParam
     })
@@ -103,15 +104,15 @@ describe("AjaxService", function () {
 
     spyOn($, 'ajax')
 
-    ajaxService.createContentBlock(new ContentBlock(mockData.id, mockData.content, mockData.contentPath), callback)
+    ajaxService.createContentBlock(new ContentBlock((<any>mockData).id, (<any>mockData).content, (<any>mockData).contentPath), callback)
 
-    expect($.ajax.calls.mostRecent().args[0].type).toEqual('POST')
-    expect($.ajax.calls.mostRecent().args[0].url).toEqual(urlWithParam)
-    expect($.ajax.calls.mostRecent().args[0].success).toEqual(callback)
+    expect((<any>$.ajax).calls.mostRecent().args[0].type).toEqual('POST')
+    expect((<any>$.ajax).calls.mostRecent().args[0].url).toEqual(urlWithParam)
+    expect((<any>$.ajax).calls.mostRecent().args[0].success).toEqual(callback)
   })
 
 
-  it("can create a new PUT request for updating a content block", function () {
+  it('can create a new PUT request for updating a content block', function () {
     $.mockjax({
       url: urlWithoutParam
     })
@@ -121,15 +122,15 @@ describe("AjaxService", function () {
 
     spyOn($, 'ajax')
 
-    ajaxService.updateContentBlock(new ContentBlock(mockData.id, mockData.content, mockData.contentPath), callback)
+    ajaxService.updateContentBlock(new ContentBlock((<any>mockData).id, (<any>mockData).content, (<any>mockData).contentPath), callback)
 
-    expect($.ajax.calls.mostRecent().args[0].type).toEqual('PUT')
-    expect($.ajax.calls.mostRecent().args[0].url).toEqual(urlWithoutParam)
-    expect($.ajax.calls.mostRecent().args[0].success).toEqual(callback)
+    expect((<any>$.ajax).calls.mostRecent().args[0].type).toEqual('PUT')
+    expect((<any>$.ajax).calls.mostRecent().args[0].url).toEqual(urlWithoutParam)
+    expect((<any>$.ajax).calls.mostRecent().args[0].success).toEqual(callback)
   })
 
 
-  it("can create a new DELETE request for deleting a content block", function () {
+  it('can create a new DELETE request for deleting a content block', function () {
     $.mockjax({
       url: urlWithoutParam
     })
@@ -139,10 +140,10 @@ describe("AjaxService", function () {
 
     spyOn($, 'ajax')
 
-    ajaxService.deleteContentBlock(new ContentBlock(mockData.id, mockData.content, mockData.contentPath), callback)
+    ajaxService.deleteContentBlock(new ContentBlock((<any>mockData).id, (<any>mockData).content, (<any>mockData).contentPath), callback)
 
-    expect($.ajax.calls.mostRecent().args[0].type).toEqual('DELETE')
-    expect($.ajax.calls.mostRecent().args[0].url).toEqual(urlWithoutParam)
-    expect($.ajax.calls.mostRecent().args[0].success).toEqual(callback)
+    expect((<any>$.ajax).calls.mostRecent().args[0].type).toEqual('DELETE')
+    expect((<any>$.ajax).calls.mostRecent().args[0].url).toEqual(urlWithoutParam)
+    expect((<any>$.ajax).calls.mostRecent().args[0].success).toEqual(callback)
   })
 })
