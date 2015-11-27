@@ -1,13 +1,16 @@
 # Renuo CMS Client Script
 
+## Installation
+
+```sh
+git clone git@github.com:renuo/renuo-cms-client.git
+cd renuo-cms-client
+bin/setup
+```
+
 ## Summary
 
 ```
-# Install dependencies
-npm install -g tsd bower
-tsd reinstall --save --overwrite
-npm install
-# Execute tests
 grunt test
 # Compile and minify all your code
 grunt serve
