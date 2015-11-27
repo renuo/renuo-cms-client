@@ -1,6 +1,6 @@
 {
   "name": "renuo-cms-client",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Client for the Renuo CMS",
   "main": "dist/renuo-cms-client.js",
   "devDependencies": {
