@@ -6,11 +6,15 @@
     "jquery": "latest"
   },
   "devDependencies": {
+    "browser-sync": "^2.10.0",
     "del": "^2.1.0",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.0",
+    "gulp-livereload": "^3.8.1",
     "gulp-sourcemaps": "^1.6.0",
+    "gulp-tslint": "^3.6.0",
     "gulp-typescript": "^2.9.2",
+    "superstatic": "^3.0.0",
     "tsd": "*",
     "tslint": "*",
     "typescript": "*"

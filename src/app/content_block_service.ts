@@ -5,3 +5,4 @@ class ContentBlockService {
     return new ContentBlock('', contentPath, '');
   }
 }
+console.log('hello!');
