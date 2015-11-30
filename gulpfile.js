@@ -8,6 +8,7 @@ var tslint = require('gulp-tslint');
 var connect = require('gulp-connect');
 var uglify = require('gulp-uglify');
 var karma = require('karma');
+var open = require('open');
 
 var tsProject = ts.createProject('tsconfig.json');
 var tsSpecsProject = ts.createProject('tsconfig_specs.json');
@@ -22,7 +23,6 @@ var run_if = function (env, truthy, falsy) {
 };
 
 
-
 gulp.task('test', function (done) {
   new karma.Server({
     configFile: __dirname + '/karma.conf.coffee',
@@ -35,7 +35,6 @@ gulp.task('tdd', function (done) {
     configFile: __dirname + '/karma.conf.coffee',
   }, done).start();
 });
-
 
 
 gulp.task('tslint', function () {
@@ -54,15 +53,15 @@ gulp.task('copyhtml', function () {
     .pipe(connect.reload());
 });
 
-gulp.task('serve', ['clean', 'copyhtml', 'tslint', 'tscompile', 'watch'], function (callback) {
+gulp.task('serve', ['clean', 'copyhtml', 'tslint', 'tscompile', 'tscompile-specs', 'watch'], function (callback) {
   connect.server({
     root: ['.tmp', './bower_components'],
     livereload: true,
     host: 'renuo-cms-client.dev'
   });
+  open('http://renuo-cms-client.dev:8080');
   callback();
 });
-
 
 
 gulp.task('ts-single-compile', function () {
@@ -88,9 +87,11 @@ gulp.task('ts-specs-compile', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch('src/**/*.ts', ['tslint', 'tscompile']);
+  gulp.watch('src/**/*.ts', ['tslint', 'ts-single-compile', 'ts-specs-compile']);
+  gulp.watch('.tmp/specs.js', ['test']);
   gulp.watch('demo/**/*.html', ['copyhtml']);
 });
 
 gulp.task('tscompile', ['tslint', 'ts-single-compile']);
-gulp.task('default', ['tslint', 'tscompile']);
+gulp.task('tscompile-specs', ['tslint', 'ts-specs-compile']);
+gulp.task('default', ['tslint', 'tscompile', 'tscompile-specs', 'test']);
