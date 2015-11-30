@@ -32,13 +32,13 @@ describe('AjaxService', function () {
   describe('#fetchContentBlock', function () {
     it('fetches a content block with the right request method', function () {
       spyOn(jQuery, 'ajax').and.callFake(function (request:any) {
-        expect(request.url).toBe('/v1/api-key/content_blocks/my-path');
+        expect(request.url).toBe('/v1/api-keyx/content_blocks/my-path');
         expect(request.type).toBe('get');
         expect(request.dataType).toBe('json');
         return ajax_response(newContentBlock);
       });
       const service = new AjaxService();
-      service.fetchContentBlock('api-key', 'my-path').then(() => {
+      service.fetchContentBlock('api-keyx', 'my-path').then(() => {
       });
     });
 
