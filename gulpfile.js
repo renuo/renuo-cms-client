@@ -14,7 +14,6 @@ var tsProject = ts.createProject('tsconfig.json');
 var tsSpecsProject = ts.createProject('tsconfig_specs.json');
 
 // TODO: setup uglyfier
-// TODO: setup jasmine
 // TODO: setup protractor
 
 var run_if = function (env, truthy, falsy) {
@@ -29,13 +28,6 @@ gulp.task('test', function (done) {
     singleRun: true
   }, done).start();
 });
-
-gulp.task('tdd', function (done) {
-  new karma.Server({
-    configFile: __dirname + '/karma.conf.coffee',
-  }, done).start();
-});
-
 
 gulp.task('tslint', function () {
   return gulp.src('src/**/*.ts')
