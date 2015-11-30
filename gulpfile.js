@@ -55,6 +55,10 @@ gulp.task('serve', ['clean', 'copyhtml', 'tslint', 'tscompile', 'tscompile-specs
   callback();
 });
 
+gulp.task('tdd', ['clean', 'copyhtml', 'tslint', 'tscompile', 'tscompile-specs', 'watch'], function (callback) {
+  callback();
+});
+
 
 gulp.task('ts-single-compile', function () {
   return gulp.src('src/app/main.ts')
