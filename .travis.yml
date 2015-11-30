@@ -1,13 +1,13 @@
 language: node_js
 before_script:
+  - npm install -g bower tsd tslint karma gulp jshint
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - npm install -g bower tsd tslint karma gulp jshint
   - npm install
   - tsd reinstall --save --overwrite
-cache:
-  bundler: true
-  directories:
-    - node_modules
+#cache:
+  #bundler: true
+  #directories:
+  #  - node_modules
 env:
   - MULTIPLE_BROWSERS="1"
