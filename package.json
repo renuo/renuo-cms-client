@@ -2,6 +2,7 @@
   "name": "renuo-cms-client",
   "version": "0.0.1",
   "repository": "https://github.com/renuo/renuo-cms-client",
+  "license": "MIT License",
   "dependencies": {
     "jquery": "latest"
   },
