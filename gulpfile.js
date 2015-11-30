@@ -6,6 +6,7 @@ var babel = require('gulp-babel');
 var del = require('del');
 var tslint = require('gulp-tslint');
 var connect = require('gulp-connect');
+var uglify = require('gulp-uglify');
 
 var tsProject = ts.createProject('tsconfig.json');
 
@@ -36,7 +37,7 @@ gulp.task('copyhtml', function () {
 
 gulp.task('serve', ['clean', 'copyhtml', 'tslint', 'tscompile', 'watch'], function (callback) {
   connect.server({
-    root: '.tmp',
+    root: ['.tmp', './bower_components'],
     livereload: true,
     host: 'renuo-cms-client.dev'
   });

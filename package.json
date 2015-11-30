@@ -17,6 +17,7 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-tslint": "^3.6.0",
     "gulp-typescript": "^2.9.2",
+    "gulp-uglify": "^1.5.1",
     "protractor": "^3.0.0",
     "superstatic": "^3.0.0",
     "tsd": "*",
