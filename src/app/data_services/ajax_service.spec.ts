@@ -29,7 +29,7 @@ describe('AjaxService', function () {
     }
   };
 
-  describe('#fetch', function () {
+  describe('#fetchContentBlock', function () {
     it('Fetches a content block with the right request method', function () {
       spyOn(jQuery, 'ajax').and.callFake(function (request:any) {
         expect(request.url).toBe('/v1/api-key/content_blocks/my-path');
@@ -38,14 +38,14 @@ describe('AjaxService', function () {
         return ajax_response(newContentBlock);
       });
       const service = new AjaxService('api-key');
-      service.fetch('my-path').then((result) => {
+      service.fetchContentBlock('my-path').then((result) => {
       });
     });
 
     it('Fetches a new content block', function () {
       spyOn(jQuery, 'ajax').and.returnValue(ajax_response(newContentBlock));
       const service = new AjaxService('api-key');
-      service.fetch('my-path').then((result) => {
+      service.fetchContentBlock('my-path').then((result) => {
         expect(result.content_block.api_key).toBe('api-key');
         expect(result.content_block.content_path).toBe('my-path');
         expect(result.content_block.content).toBe('');
@@ -57,7 +57,7 @@ describe('AjaxService', function () {
     it('Fetches an existing content block', function () {
       spyOn(jQuery, 'ajax').and.returnValue(ajax_response(existingContentBlock));
       const service = new AjaxService('api-key');
-      service.fetch('my-path').then((result) => {
+      service.fetchContentBlock('my-path').then((result) => {
         expect(result.content_block.api_key).toBe('api-key');
         expect(result.content_block.content_path).toBe('my-path');
         expect(result.content_block.content).toBe('some content');
