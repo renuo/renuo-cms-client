@@ -6,6 +6,7 @@
     "jquery": "latest"
   },
   "devDependencies": {
+    "bower": "*",
     "coffee-script": "^1.10.0",
     "del": "^2.1.0",
     "gulp": "^3.9.0",
