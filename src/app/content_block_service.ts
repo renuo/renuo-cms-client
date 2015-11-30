@@ -1,6 +1,6 @@
 ///<reference path="content_block.ts"/>
 
-class ContentBlockService {
+export default class ContentBlockService {
   loadContent(contentPath:string) {
     //return new ContentBlock('', contentPath, '');
   }
