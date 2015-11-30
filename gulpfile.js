@@ -7,8 +7,10 @@ var del = require('del');
 var tslint = require('gulp-tslint');
 var connect = require('gulp-connect');
 var uglify = require('gulp-uglify');
+var karma = require('karma');
 
 var tsProject = ts.createProject('tsconfig.json');
+var tsSpecsProject = ts.createProject('tsconfig_specs.json');
 
 // TODO: setup uglyfier
 // TODO: setup jasmine
@@ -18,6 +20,23 @@ var run_if = function (env, truthy, falsy) {
   if (!falsy) falsy = gutil.noop();
   return gutil.env.type === env ? truthy : falsy;
 };
+
+
+
+gulp.task('test', function (done) {
+  new karma.Server({
+    configFile: __dirname + '/karma.conf.coffee',
+    singleRun: true
+  }, done).start();
+});
+
+gulp.task('tdd', function (done) {
+  new karma.Server({
+    configFile: __dirname + '/karma.conf.coffee',
+  }, done).start();
+});
+
+
 
 gulp.task('tslint', function () {
   return gulp.src('src/**/*.ts')
@@ -44,10 +63,23 @@ gulp.task('serve', ['clean', 'copyhtml', 'tslint', 'tscompile', 'watch'], functi
   callback();
 });
 
+
+
 gulp.task('ts-single-compile', function () {
   return gulp.src('src/app/main.ts')
     .pipe(sourcemaps.init())
     .pipe(ts(tsProject))
+    .pipe(babel({presets: ['es2015']}))
+    .pipe(sourcemaps.write('.'))
+    .pipe(run_if('production', uglify()))
+    .pipe(gulp.dest('.tmp'))
+    .pipe(connect.reload());
+});
+
+gulp.task('ts-specs-compile', function () {
+  return gulp.src('src/app/**/*_spec.ts')
+    .pipe(sourcemaps.init())
+    .pipe(ts(tsSpecsProject))
     .pipe(babel({presets: ['es2015']}))
     .pipe(sourcemaps.write('.'))
     .pipe(run_if('production', uglify()))
