@@ -40,8 +40,8 @@
   "scripts": {
     "prestart": "npm install",
     "postinstall": "bower install",
-    "start": "grunt serve",
+    "start": "gulp serve",
     "pretest": "npm install",
-    "test": "grunt test"
+    "test": "gulp test"
   }
 }
