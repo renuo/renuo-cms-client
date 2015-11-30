@@ -68,7 +68,7 @@ gulp.task('ts-single-compile', function () {
 });
 
 gulp.task('ts-specs-compile', function () {
-  return gulp.src('src/app/**/*_spec.ts')
+  return gulp.src('src/app/**/*.spec.ts')
     .pipe(sourcemaps.init())
     .pipe(ts(tsSpecsProject))
     .pipe(babel({presets: ['es2015']}))

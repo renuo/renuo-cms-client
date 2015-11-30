@@ -1,4 +1,4 @@
-///<reference path="content_block.ts"/>
+///<reference path="models/content_block.ts"/>
 
 class ContentBlockService {
   loadContent(contentPath:string) {
