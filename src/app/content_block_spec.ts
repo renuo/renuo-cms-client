@@ -4,8 +4,8 @@
 describe('ContentBlock', function () {
   it('contains spec with an expectation', function () {
     var block = new ContentBlock('content', 'path', 'api-key');
-    expect(block.content).toEqual('content');
-    expect(block.contentPath).toEqual('path');
-    expect(block.apiKey).toEqual('api-key');
+    expect(block.content).toBe('content');
+    expect(block.contentPath).toBe('path');
+    expect(block.apiKey).toBe('api-key');
   });
 });

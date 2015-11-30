@@ -1,5 +1,8 @@
-# Karma configuration
-# Generated on Mon Nov 30 2015 18:51:03 GMT+0100 (CET)
+browsers = ['PhantomJS']
+
+if process.env.MULTIPLE_BROWSERS
+  console.info 'adding chrome and firefox'
+  browsers.push('Chrome', 'Firefox')
 
 module.exports = (config) ->
   config.set
@@ -63,7 +66,7 @@ module.exports = (config) ->
 
     # start these browsers
     # available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome']
+    browsers: browsers
 
 
     # Continuous Integration mode
