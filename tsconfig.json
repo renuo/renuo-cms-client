@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "noImplicitAny": false,
-    "sourceMap": true,
-    "module": "commonjs"
+    "noImplicitAny": true,
+    "sourceMap": false,
+    "outFile": "out.js",
+    "inlineSourceMap": true
   }
 }

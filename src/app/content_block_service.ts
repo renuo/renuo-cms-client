@@ -2,6 +2,6 @@
 
 class ContentBlockService {
   loadContent(contentPath:string) {
-    //return new ContentBlock('', contentPath, '');
+    return new ContentBlock('', contentPath, '');
   }
 }
