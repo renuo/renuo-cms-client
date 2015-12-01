@@ -11,8 +11,13 @@ cache:
   bundler: true
   directories:
   - node_modules
+compiler:
+- g++
+- gcc
+- clang
 env:
   global:
+  - CXX=g++-4.8
   - secure: G8NSqBVJVX4mLrsWKDZh9eUMhlQrs/9z+9gAu8YC7mQ8ed0BlY4idrNI5vaD/+LsKSxEqhYO7U08Tn3KrtSo1sr7sSI47F1g/F8VCMXQW2eC89BiZh+9Td1qETvsW/jTFpF5QaQJBf5d6WBlpVp98KQOlLvUIL+Kyl08hhRmk/k=
 addons:
   apt:
