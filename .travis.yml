@@ -6,11 +6,15 @@ before_script:
 - tsd reinstall --save --overwrite
 before_install:
 - export CHROME_BIN=chromium-browser
-- npm install -g bower tsd tslint karma gulp
+- npm install -g bower tsd tslint gulp
 cache:
   bundler: true
   directories:
   - node_modules
+  - $(npm config get prefix)/bin/bower
+  - $(npm config get prefix)/bin/tsd
+  - $(npm config get prefix)/bin/tslint
+  - $(npm config get prefix)/bin/gulp
 env:
   global:
   - CXX=g++-4.8
