@@ -5,10 +5,12 @@ before_script:
   - sh -e /etc/init.d/xvfb start
   - npm install
   - tsd reinstall --save --overwrite
-#cache:
-  #bundler: true
-  #directories:
-  #  - node_modules
+before_install:
+  - export CHROME_BIN=chromium-browser
+cache:
+  bundler: true
+  directories:
+    - node_modules
 compiler:
   - g++
   - gcc
