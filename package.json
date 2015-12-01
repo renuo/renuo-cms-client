@@ -3,9 +3,7 @@
   "version": "0.0.1",
   "repository": "https://github.com/renuo/renuo-cms-client",
   "license": "MIT License",
-  "dependencies": {
-    "jquery": "latest"
-  },
+  "dependencies": {},
   "devDependencies": {
     "bower": "*",
     "coffee-script": "^1.10.0",
@@ -16,7 +14,7 @@
     "gulp-karma": "0.0.5",
     "gulp-livereload": "^3.8.1",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-tslint": "^3.6.0",
+    "gulp-tslint": "^4.1.0",
     "gulp-typescript": "^2.9.2",
     "gulp-uglify": "^1.5.1",
     "karma": "^0.13.15",
