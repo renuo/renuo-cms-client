@@ -58,10 +58,11 @@ describe('AjaxService', function () {
         expect(parsed.content_block.content).toBe('content');
         expect(parsed.content_block.content_path).toBe('path');
         expect(parsed.content_block.api_key).toBe('my-api-key');
+        expect(parsed.private_api_key).toBe('pk');
         return ajax_response(newContentBlock);
       });
       const service = new AjaxService();
-      service.storeContentBlock(new ContentBlock('content', 'path', 'my-api-key')).then(() => {
+      service.storeContentBlock(new ContentBlock('content', 'path', 'my-api-key'), 'pk').then(() => {
       });
     });
   });
