@@ -5,6 +5,7 @@ before_script:
   - sh -e /etc/init.d/xvfb start
   - npm install
   - echo $TSDRC > .tsdrc
+  - cat .tsdrc
   - tsd reinstall --save --overwrite
 before_install:
   - export CHROME_BIN=chromium-browser
