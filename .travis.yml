@@ -2,7 +2,7 @@ language: node_js
 before_script:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
-- npm install
+#- npm install
 - echo {\"token\":\"$TSDRC_TOKEN\"} > .tsdrc
 - tsd reinstall --save --overwrite
 before_install:
@@ -17,10 +17,9 @@ compiler:
 - gcc
 - clang
 env:
-  matrix:
   global:
     - CXX=g++-4.9
-    secure: G8NSqBVJVX4mLrsWKDZh9eUMhlQrs/9z+9gAu8YC7mQ8ed0BlY4idrNI5vaD/+LsKSxEqhYO7U08Tn3KrtSo1sr7sSI47F1g/F8VCMXQW2eC89BiZh+9Td1qETvsW/jTFpF5QaQJBf5d6WBlpVp98KQOlLvUIL+Kyl08hhRmk/k=
+    - secure: G8NSqBVJVX4mLrsWKDZh9eUMhlQrs/9z+9gAu8YC7mQ8ed0BlY4idrNI5vaD/+LsKSxEqhYO7U08Tn3KrtSo1sr7sSI47F1g/F8VCMXQW2eC89BiZh+9Td1qETvsW/jTFpF5QaQJBf5d6WBlpVp98KQOlLvUIL+Kyl08hhRmk/k=
 apt:
   sources:
   - ubuntu-toolchain-r-test
