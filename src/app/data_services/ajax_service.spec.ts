@@ -1,33 +1,14 @@
 ///<reference path="../../../typings/jasmine/jasmine.d.ts"/>
 ///<reference path="ajax_service.ts"/>
+///<reference path="../mocks/ajax_service_mock_data.ts"/>
 
 describe('AjaxService', function () {
   function ajax_response(response:Object) {
     return jQuery.Deferred().resolve(response).promise();
   }
 
-  const newContentBlock = {
-    content_block: {
-      api_key: 'api-key',
-      content_path: 'my-path',
-      content: '',
-      created_at: 0,
-      updated_at: 0
-    }
-  };
-
-  const createdAt = new Date(2015, 11, 30);
-  const updatedAt = new Date(2015, 12, 3);
-
-  const existingContentBlock = {
-    content_block: {
-      api_key: 'api-key',
-      content_path: 'my-path',
-      content: 'some content',
-      created_at: createdAt,
-      updated_at: updatedAt
-    }
-  };
+  const newContentBlock = AjaxServiceMockData.newContentBlock();
+  const existingContentBlock = AjaxServiceMockData.existingContentBlock();
 
   describe('#fetchContentBlock', function () {
     it('fetches a content block with the right request method', function () {
@@ -61,8 +42,8 @@ describe('AjaxService', function () {
         expect(result.content_block.api_key).toBe('api-key');
         expect(result.content_block.content_path).toBe('my-path');
         expect(result.content_block.content).toBe('some content');
-        expect(result.content_block.created_at).toBe(createdAt);
-        expect(result.content_block.updated_at).toBe(updatedAt);
+        expect(result.content_block.created_at).toBe(existingContentBlock.content_block.created_at);
+        expect(result.content_block.updated_at).toBe(existingContentBlock.content_block.updated_at);
       });
     });
   });
