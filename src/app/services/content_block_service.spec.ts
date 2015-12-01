@@ -4,15 +4,10 @@
 ///<reference path="../mocks/ajax_service_mock_data.ts"/>
 
 describe('ContentBlockService', function () {
-  it('loads an empty content block when no block exists', function () {
+  it('loads a content block', function () {
     const ajaxService = new AjaxService();
-    spyOn(ajaxService, 'fetchContentBlock').and.callFake(function (apiKey:string, contentPath:string) {
-      expect(apiKey).toBe('api-key');
-      expect(contentPath).toBe('my-path');
-      return jQuery.Deferred(() => {
-        return AjaxServiceMockData.existingContentBlock();
-      });
-    });
+    spyOn(ajaxService, 'fetchContentBlock').and.callFake(
+      () => jQuery.Deferred().resolve(AjaxServiceMockData.existingContentBlock()).promise());
 
     const service = new ContentBlockService(ajaxService);
     service.loadContent('api-key', 'my-path').then(function (block:ContentBlock) {
@@ -22,5 +17,6 @@ describe('ContentBlockService', function () {
       expect(block.createdAt).toEqual(new Date(2015, 11, 30));
       expect(block.updatedAt).toEqual(new Date(2015, 12, 3));
     });
+    expect(ajaxService.fetchContentBlock).toHaveBeenCalledWith('api-key', 'my-path');
   });
 });

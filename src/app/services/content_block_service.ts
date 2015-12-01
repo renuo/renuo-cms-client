@@ -7,8 +7,8 @@ class ContentBlockService {
 
   loadContent(apiKey:string, contentPath:string):JQueryPromise<ContentBlock> {
     return this.ajaxService.fetchContentBlock(apiKey, contentPath).then(function (raw) {
-      const contentBlock = raw.content_block;
-      return new ContentBlock(contentBlock, apiKey, '');
+      const b = raw.content_block;
+      return new ContentBlock(b.content, b.content_path, b.api_key, b.created_at, b.updated_at);
     });
   }
 }
