@@ -14,7 +14,10 @@ compiler:
   - gcc
   - clang
 env:
+  matrix:
   - MULTIPLE_BROWSERS="1"
+  global:
+    secure: B7zX8d8TBwKhW1wJLWSLsl5r20A0UViHhJDdrnMR4I25/ix2mrT1JCXBzHWlDn3nLZE6NuFoW7/J82qGiTrcs7Jvmrpnn0Ar6kbX+xCXsNDlDaYfg/odDY/Xy4ltGpMhMWjig7JAW5PrzABh9KAHjZQELESDH3dmtHhgkroWIyE=
 apt:
   sources:
   - ubuntu-toolchain-r-test
