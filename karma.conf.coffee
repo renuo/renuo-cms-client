@@ -1,7 +1,8 @@
 browsers = ['PhantomJS']
 
-if process.env.MULTIPLE_BROWSERS
-  console.info 'adding chrome and firefox'
+if process.env.TRAVIS
+  browsers.push('ChromeTravisCi', 'Firefox')
+else if process.env.MULTIPLE_BROWSERS
   browsers.push('Chrome', 'Firefox')
 
 module.exports = (config) ->
@@ -62,6 +63,10 @@ module.exports = (config) ->
     # enable / disable watching file and executing tests whenever any file changes
     autoWatch: true
 
+    customLaunchers:
+      ChromeTravisCi:
+        base: 'Chrome',
+        flags: ['--no-sandbox']
 
     # start these browsers
     # available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
