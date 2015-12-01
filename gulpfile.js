@@ -102,7 +102,7 @@ gulp.task('clean-js-specs', function (callback) {
 });
 
 gulp.task('watch', function (done) {
-  gulp.watch('src/**/*.ts', ['test']);
+  gulp.watch('src/**/*.ts', ['test', 'tscompile']);
   gulp.watch('demo/**/*.html', ['copyhtml']);
   return done();
 });

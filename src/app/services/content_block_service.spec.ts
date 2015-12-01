@@ -5,7 +5,7 @@
 
 describe('ContentBlockService', function () {
   it('loads a content block', function () {
-    const ajaxService = new AjaxService();
+    const ajaxService = new AjaxService('');
     spyOn(ajaxService, 'fetchContentBlock').and.callFake(
       () => jQuery.Deferred().resolve(AjaxServiceMockData.existingContentBlock()).promise());
 

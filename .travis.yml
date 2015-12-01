@@ -10,6 +10,7 @@ before_script:
   #directories:
   #  - node_modules
 compiler:
+  - g++
   - gcc
   - clang
 env:
