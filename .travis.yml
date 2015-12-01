@@ -20,6 +20,7 @@ compiler:
 env:
   matrix:
   - MULTIPLE_BROWSERS="1"
+  - CXX=g++-4.8
   global:
   - secure: B7zX8d8TBwKhW1wJLWSLsl5r20A0UViHhJDdrnMR4I25/ix2mrT1JCXBzHWlDn3nLZE6NuFoW7/J82qGiTrcs7Jvmrpnn0Ar6kbX+xCXsNDlDaYfg/odDY/Xy4ltGpMhMWjig7JAW5PrzABh9KAHjZQELESDH3dmtHhgkroWIyE=
   - secure: hyQmAitKOH4sdPSpHfggYg5sX8WADQRJ1Flxy4U7ukv4VU727UWJVjIRBcjpeucTDhaOGi4/0dQq3bHaAHS6mkatwP0ZoQ6XPnay1HPAaU1q+AtEMUSnT+1s4RH7zPWVN6QHDX4veoRun38O0UkG7Nzh1iYfjSV8EaMtO+SQeGM=
