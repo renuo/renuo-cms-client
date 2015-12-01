@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var sourcemaps = require('gulp-sourcemaps');
@@ -21,8 +23,12 @@ var run_if = function (env, truthy, falsy) {
   return gutil.env.type === env ? truthy : falsy;
 };
 
+gulp.task('test', ['tscompile-specs'], function (done) {
+  gulp.start('test-raw');
+  return done();
+});
 
-gulp.task('test', function (done) {
+gulp.task('test-raw', function (done) {
   new karma.Server({
     configFile: __dirname + '/karma.conf.coffee',
     singleRun: true
@@ -35,32 +41,37 @@ gulp.task('tslint', function () {
     .pipe(tslint.report('prose'));
 });
 
-gulp.task('clean', function (callback) {
+gulp.task('clean-all', function (callback) {
   return del('.tmp/*', callback);
 });
 
-gulp.task('copyhtml', function () {
+gulp.task('copyhtml', ['clean-html'], function () {
   return gulp.src('demo/**/*.html')
     .pipe(gulp.dest('.tmp'))
     .pipe(connect.reload());
 });
 
-gulp.task('serve', ['clean', 'copyhtml', 'tslint', 'tscompile', 'tscompile-specs', 'watch'], function (callback) {
+gulp.task('clean-html', function (callback) {
+  return del('.tmp/*.html', callback);
+});
+
+gulp.task('serve', ['copyhtml', 'tslint', 'tscompile', 'tscompile-specs'], function (callback) {
   connect.server({
     root: ['.tmp', './bower_components'],
     livereload: true,
     host: 'renuo-cms-client.dev'
   });
   open('http://renuo-cms-client.dev:8080');
-  callback();
+  gulp.start('watch');
+  return callback();
 });
 
-gulp.task('tdd', ['clean', 'copyhtml', 'tslint', 'tscompile', 'tscompile-specs', 'watch'], function (callback) {
-  callback();
+gulp.task('tdd', ['copyhtml', 'tslint', 'tscompile', 'tscompile-specs'], function (done) {
+  gulp.start('watch');
+  return done();
 });
 
-
-gulp.task('ts-single-compile', function () {
+gulp.task('ts-single-compile', ['clean-js-main'], function () {
   return gulp.src('src/app/main.ts')
     .pipe(sourcemaps.init())
     .pipe(ts(tsProject))
@@ -71,7 +82,11 @@ gulp.task('ts-single-compile', function () {
     .pipe(connect.reload());
 });
 
-gulp.task('ts-specs-compile', function () {
+gulp.task('clean-js-main', function (callback) {
+  return del(['.tmp/all.js', '.tmp/all.js.map'], callback);
+});
+
+gulp.task('ts-specs-compile', ['clean-js-specs'], function () {
   return gulp.src('src/app/**/*.spec.ts')
     .pipe(sourcemaps.init())
     .pipe(ts(tsSpecsProject))
@@ -82,12 +97,16 @@ gulp.task('ts-specs-compile', function () {
     .pipe(connect.reload());
 });
 
-gulp.task('watch', function () {
-  gulp.watch('src/**/*.ts', ['tslint', 'ts-single-compile', 'ts-specs-compile']);
-  gulp.watch('.tmp/specs.js', ['test']);
+gulp.task('clean-js-specs', function (callback) {
+  return del(['.tmp/specs.js', '.tmp/specs.js.map'], callback);
+});
+
+gulp.task('watch', function (done) {
+  gulp.watch('src/**/*.ts', ['test']);
   gulp.watch('demo/**/*.html', ['copyhtml']);
+  return done();
 });
 
 gulp.task('tscompile', ['tslint', 'ts-single-compile']);
 gulp.task('tscompile-specs', ['tslint', 'ts-specs-compile']);
-gulp.task('default', ['tslint', 'tscompile', 'tscompile-specs', 'test']);
+gulp.task('default', ['tslint', 'tscompile', 'test']);
