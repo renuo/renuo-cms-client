@@ -11,8 +11,6 @@ cache:
   bundler: true
   directories:
   - node_modules
-compiler:
-- g++
 env:
   global:
   - CXX=g++-4.8
