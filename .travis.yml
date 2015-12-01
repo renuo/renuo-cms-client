@@ -1,6 +1,5 @@
 language: node_js
 before_script:
-  - npm install -g bower tsd tslint karma gulp jshint
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - npm install
@@ -9,6 +8,7 @@ before_script:
   - tsd reinstall --save --overwrite
 before_install:
   - export CHROME_BIN=chromium-browser
+  - npm install -g bower tsd tslint karma gulp jshint
 cache:
   bundler: true
   directories:
