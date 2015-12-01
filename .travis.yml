@@ -4,7 +4,6 @@ before_script:
 - sh -e /etc/init.d/xvfb start
 - npm install
 - echo {\"token\":\"$TSDRC_TOKEN\"} > .tsdrc
-- cat .tsdrc
 - tsd reinstall --save --overwrite
 before_install:
 - export CHROME_BIN=chromium-browser
@@ -22,8 +21,7 @@ env:
   - MULTIPLE_BROWSERS="1"
   - CXX=g++-4.8
   global:
-  - secure: B7zX8d8TBwKhW1wJLWSLsl5r20A0UViHhJDdrnMR4I25/ix2mrT1JCXBzHWlDn3nLZE6NuFoW7/J82qGiTrcs7Jvmrpnn0Ar6kbX+xCXsNDlDaYfg/odDY/Xy4ltGpMhMWjig7JAW5PrzABh9KAHjZQELESDH3dmtHhgkroWIyE=
-  - secure: hyQmAitKOH4sdPSpHfggYg5sX8WADQRJ1Flxy4U7ukv4VU727UWJVjIRBcjpeucTDhaOGi4/0dQq3bHaAHS6mkatwP0ZoQ6XPnay1HPAaU1q+AtEMUSnT+1s4RH7zPWVN6QHDX4veoRun38O0UkG7Nzh1iYfjSV8EaMtO+SQeGM=
+    secure: G8NSqBVJVX4mLrsWKDZh9eUMhlQrs/9z+9gAu8YC7mQ8ed0BlY4idrNI5vaD/+LsKSxEqhYO7U08Tn3KrtSo1sr7sSI47F1g/F8VCMXQW2eC89BiZh+9Td1qETvsW/jTFpF5QaQJBf5d6WBlpVp98KQOlLvUIL+Kyl08hhRmk/k=
 apt:
   sources:
   - ubuntu-toolchain-r-test
