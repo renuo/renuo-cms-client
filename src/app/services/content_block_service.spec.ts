@@ -17,6 +17,6 @@ describe('ContentBlockService', function () {
       expect(block.createdAt).toEqual(new Date(2015, 11, 30));
       expect(block.updatedAt).toEqual(new Date(2015, 12, 3));
     });
-    expect(ajaxService.fetchContentBlock).toHaveBeenCalledWith('api-key', 'my-path');
+    expect(ajaxService.fetchContentBlock).toHaveBeenCalledWith(new ContentBlock('', 'my-path', 'api-key'));
   });
 });

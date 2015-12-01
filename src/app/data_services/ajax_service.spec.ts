@@ -1,6 +1,7 @@
 ///<reference path="../../../typings/jasmine/jasmine.d.ts"/>
 ///<reference path="ajax_service.ts"/>
 ///<reference path="../mocks/ajax_service_mock_data.ts"/>
+///<reference path="../models/content_block.ts"/>
 
 describe('AjaxService', function () {
   function ajax_response(response:Object) {
@@ -20,13 +21,13 @@ describe('AjaxService', function () {
         expect(request.dataType).toBe('json');
         return ajax_response(newContentBlock);
       });
-      service.fetchContentBlock('api-keyx', 'my-path').then(() => {
+      service.fetchContentBlock(new ContentBlock('', 'my-path', 'api-keyx')).then(() => {
       });
     });
 
     it('fetches a new content block', function () {
       spyOn(jQuery, 'ajax').and.returnValue(ajax_response(newContentBlock));
-      service.fetchContentBlock('api-key', 'my-path').then((result) => {
+      service.fetchContentBlock(new ContentBlock('', 'my-path', 'api-keyx')).then((result) => {
         expect(result.content_block.api_key).toBe('api-key');
         expect(result.content_block.content_path).toBe('my-path');
         expect(result.content_block.content).toBe('');
@@ -37,7 +38,7 @@ describe('AjaxService', function () {
 
     it('fetches an existing content block', function () {
       spyOn(jQuery, 'ajax').and.returnValue(ajax_response(existingContentBlock));
-      service.fetchContentBlock('api-key', 'my-path').then((result) => {
+      service.fetchContentBlock(new ContentBlock('', 'my-path', 'api-keyx')).then((result) => {
         expect(result.content_block.api_key).toBe('api-key');
         expect(result.content_block.content_path).toBe('my-path');
         expect(result.content_block.content).toBe('some content');
