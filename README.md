@@ -8,14 +8,20 @@
 git clone git@github.com:renuo/renuo-cms-client.git
 cd renuo-cms-client
 bin/setup
+bin/check
 ```
 
 ## Summary
 
 ```
-grunt test
-# Compile and minify all your code
-grunt serve
+# run tests and linting
+bin/check
+# local development
+gulp tdd
+# manual testing in the browser
+# also compiles everything into .tmp/all.js, which will be used in local testing
+# .tmp/all.js should be minified for a release
+gulp serve
 ```
 
 ## Important URLs
@@ -31,22 +37,21 @@ Include the JavaScript file and the CSS file in your documents HEAD after you've
 ```
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="path/to/renuo_cms_client.min.js"></script>
-<link rel="stylesheet" type="text/css" href="path/to/renuo_cms_client.min.css"/>
 ```
 
 Insert an empty <div> element with the data attribute block containing the content blocks id:
 
 ```
-<div data-block="1"></div>
+<div data-content-path="some/path/to/some/content" data-api-key="aValidApiKey"></div>
 ```
 
-Lastly you have to initialize the cms client script by calling at the end of your page:
+If you want to be able to edit the content block (only the admin should have this!):
 
 ```
-<script>
-  renuoCmsClient = new window.renuoCmsClient
-</script>
+<div data-content-path="some/path/to/some/content" data-api-key="aValidApiKey" data-private-api-key="AdminONLY"></div>
 ```
+
+The library will automagically initialize and manage the content blocks.
 
 ## Contribute
 
@@ -95,17 +100,21 @@ tsd reinstall --save --overwrite
 This will test the app with PhantomJS:
 
 ```
-grunt test
+gulp test
 ```
 
-To lint your code run:
+To test the code in additional browsers (Chrome and Firefox):
 
 ```
-grunt lint
+MULTIPLE_BROWSERS=1 gulp test
 ```
+
+## Renuo CMS API
+
+See https://git.renuo.ch/renuo/renuo-cms-api (TODO: open source on GH).
 
 ## Contact
 
-For more information on the renuo-cms-client please check out
+For more information on the renuo-cms-client, please check out
 [https://github.com/renuo/renuo-cms-client](https://github.com/renuo/renuo-cms-client)
 or contact [Renuo GmbH](info@renuo.ch).
