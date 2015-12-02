@@ -4,4 +4,5 @@
 
 const service = new DataService(new AjaxService('http://renuo-cms-api.dev:3000'));
 const content = service.loadContent(new ContentBlock('', 'some-path', 'my-path'));
-content.then((x) => console.log(x));
+let c = console;
+content.then((x) => c.log(x));
