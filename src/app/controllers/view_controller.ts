@@ -3,12 +3,9 @@
 ///<reference path="edit_controller.ts"/>
 
 class ViewController {
-  private editController:EditController;
-
   constructor(private finder:ContentBlockFinder, private converter:DomContentBlockConverter,
               private dataService:DataService, private drawer:ContentBlockDrawer,
-              private editorLoader:EditorLoader, private editorPreparer:EditorPreparer) {
-    this.editController = new EditController(this.editorLoader, this.editorPreparer);
+              private editController:EditController) {
   }
 
   init():void {
@@ -22,5 +19,6 @@ class ViewController {
 
   private handleElement(domContentBlock:DomContentBlock):void {
     this.drawer.draw(domContentBlock);
+    if (domContentBlock.isEditable()) this.editController.prepareEdit(domContentBlock);
   }
 }

@@ -9,20 +9,25 @@ describe('ViewController', function () {
     //new DataService(new AjaxService('//renuo-cms-api.dev:3000')),
     const elements:HTMLElement[] = [
       jQuery('<div data-content-path="my-path" data-api-key="my-key"></div>')[0],
-      jQuery('<div data-content-path="other-path" data-api-key="my-key"></div>')[0]
+      jQuery('<div data-content-path="editable-path" data-api-key="my-key" data-private-api-key="PK"></div>')[0]
     ];
 
     const finder = new ContentBlockFinder();
     const converter = new DomContentBlockConverter();
     const dataService = new DataService(null);
     const drawer = new ContentBlockDrawer();
-    const controller = new ViewController(finder, converter, dataService, drawer, null, null);
+    const editController = new EditController(null, null);
+    const controller = new ViewController(finder, converter, dataService, drawer, editController);
 
     const domContent1:DomContentBlock = converter.convert(elements[0]);
     const domContent2:DomContentBlock = converter.convert(elements[1]);
 
     spyOn(finder, 'find').and.returnValue(elements);
     spyOn(converter, 'convert').and.callThrough();
+    const editControllerSpy = spyOn(editController, 'prepareEdit');
+    editControllerSpy.and.callFake((dom:DomContentBlock) => {
+      expect(dom.contentBlock.contentPath).toBe('editable-path');
+    });
     const newContentBlocks:ContentBlock[] = [];
     spyOn(dataService, 'loadContent').and.callFake((cb:ContentBlock) => {
       const d = new Date(2015, 11, 21);
@@ -42,5 +47,7 @@ describe('ViewController', function () {
     expect(dataService.loadContent).toHaveBeenCalledWith(domContent1.contentBlock);
     expect(dataService.loadContent).toHaveBeenCalledWith(domContent2.contentBlock);
     expect(drawer.draw).toHaveBeenCalled();
+    expect(editController.prepareEdit).toHaveBeenCalled();
+    expect(editControllerSpy.calls.count()).toBe(1);
   });
 });
