@@ -1,6 +1,6 @@
 ///<reference path="../../../typings/jasmine/jasmine.d.ts"/>
 ///<reference path="content_block_service.ts"/>
-///<reference path="../models/content_block.ts"/>
+///<reference path="../data/models/content_block.ts"/>
 ///<reference path="../mocks/ajax_service_mock_data.ts"/>
 
 describe('ContentBlockService', function () {

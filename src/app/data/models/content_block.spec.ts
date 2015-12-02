@@ -1,4 +1,4 @@
-///<reference path="../../../typings/jasmine/jasmine.d.ts"/>
+///<reference path="../../../../typings/jasmine/jasmine.d.ts"/>
 ///<reference path="content_block.ts"/>
 
 describe('ContentBlock', function () {

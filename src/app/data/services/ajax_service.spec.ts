@@ -1,6 +1,6 @@
-///<reference path="../../../typings/jasmine/jasmine.d.ts"/>
+///<reference path="../../../../typings/jasmine/jasmine.d.ts"/>
 ///<reference path="ajax_service.ts"/>
-///<reference path="../mocks/ajax_service_mock_data.ts"/>
+///<reference path="../../mocks/ajax_service_mock_data.ts"/>
 ///<reference path="../models/content_block.ts"/>
 
 describe('AjaxService', function () {
