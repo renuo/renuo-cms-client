@@ -1,6 +1,5 @@
 ///<reference path="../../../../typings/jasmine/jasmine.d.ts"/>
 ///<reference path="content_block_finder.ts"/>
-///<reference path="../../util/array_util.ts"/>
 
 describe('ContentBlockFinder', function () {
   const finder = new ContentBlockFinder();
