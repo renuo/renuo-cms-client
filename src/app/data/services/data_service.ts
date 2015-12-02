@@ -1,7 +1,7 @@
-///<reference path="../data/models/content_block.ts"/>
-///<reference path="../data/services/ajax_service.ts"/>
+///<reference path="../models/content_block.ts"/>
+///<reference path="ajax_service.ts"/>
 
-class ContentBlockService {
+class DataService {
   constructor(private ajaxService:AjaxService) {
   }
 
