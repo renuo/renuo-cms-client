@@ -2,15 +2,20 @@
 ///<reference path="data/services/ajax_service.ts"/>
 ///<reference path="data/services/data_service.ts"/>
 ///<reference path="views/editors/ckeditor/ckeditor_loader.ts"/>
+///<reference path="views/services/content_block_finder.ts"/>
+///<reference path="views/services/dom_content_block_converter.ts"/>
+///<reference path="views/drawers/content_block_drawer.ts"/>
+///<reference path="controllers/views_controller.ts"/>
 
 (function () {
   const initContentBlocks = function () {
-    const service = new DataService(new AjaxService('//renuo-cms-api.dev:3000'));
-    const content = service.loadContent(new ContentBlock('', 'some-path', 'my-path'));
-    let c = console;
-    content.then((x) => c.log(x));
-    const loader = new CkeditorLoader();
-    loader.loadEditor().then(() => c.log(CKEDITOR.version));
+    const controller = new ViewController(
+      new ContentBlockFinder(),
+      new DomContentBlockConverter(),
+      new DataService(new AjaxService('//renuo-cms-api.dev:3000')),
+      new ContentBlockDrawer()
+    );
+    controller.init();
   };
   jQuery(initContentBlocks);
   jQuery(document).on('renuo-cms-reload', initContentBlocks);

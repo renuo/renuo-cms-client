@@ -7,8 +7,40 @@
   <script src="all.js"></script>
 </head>
 <body>
-nufweaawefasd
-awfe
+
+<section>
+  <article>
+    <h1>We cannot be edited</h1>
+
+    <div data-content-path="some/path/to/some/content" data-api-key="aValidApiKey"></div>
+    <hr/>
+    <div data-content-path="some/other-path/to/some/nonexisting-content" data-api-key="aValidApiKey"></div>
+  </article>
+
+  <article>
+    <h1>We can be edited</h1>
+
+    <div data-content-path="content/blub" data-api-key="aValidApiKey" data-private-api-key="AdminONLY"></div>
+    <hr/>
+    <div data-content-path="content/bla" data-api-key="aValidApiKey" data-private-api-key="AdminONLY"></div>
+    <hr/>
+    <div data-content-path="even-more-content" data-api-key="aValidApiKey" data-private-api-key="AdminONLY"></div>
+  </article>
+
+  <article>
+    <h1>I have the same path of the second editable article :)</h1>
+
+    <div data-content-path="content/bla" data-api-key="aValidApiKey"></div>
+    <hr/>
+  </article>
+
+  <article>
+    <h1>I have a different api key!</h1>
+
+    <div data-content-path="content/blub" data-api-key="anotherPublicKey"></div>
+    <hr/>
+  </article>
+</section>
 
 </body>
 </html>
