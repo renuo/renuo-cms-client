@@ -16,11 +16,21 @@ describe('EditController', function () {
 
     spyOn(preparer, 'prepare');
     const loaderSpy = spyOn(loader, 'loadEditor');
+    const deferred = jQuery.Deferred();
+    loaderSpy.and.returnValue(deferred.promise());
+
     controller.prepareEdit(dom);
-    expect(preparer.prepare).toHaveBeenCalledWith(dom);
+
     expect(loader.loadEditor).toHaveBeenCalled();
+    expect(preparer.prepare).not.toHaveBeenCalled();
+
+    deferred.resolve();
+
+    expect(preparer.prepare).toHaveBeenCalledWith(dom);
     expect(loaderSpy.calls.count()).toBe(1);
+
     controller.prepareEdit(dom);
+
     expect(loaderSpy.calls.count()).toBe(1);
   });
 });
