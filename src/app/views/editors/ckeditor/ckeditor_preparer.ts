@@ -2,6 +2,6 @@
 class CkeditorPreparer implements EditorPreparer {
 
   prepare(dom:DomContentBlock):void {
-
+    //CKEDITOR.inline('editor1');
   }
 }

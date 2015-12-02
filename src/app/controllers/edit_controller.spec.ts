@@ -3,6 +3,7 @@
 ///<reference path="../views/models/dom_content_block.ts"/>
 ///<reference path="edit_controller.ts"/>
 ///<reference path="../views/editors/ckeditor/ckeditor_preparer.ts"/>
+///<reference path="../views/editors/ckeditor/ckeditor_loader.ts"/>
 
 describe('EditController', function () {
   it('edits an element', function () {
@@ -10,10 +11,16 @@ describe('EditController', function () {
     const element = $('<div>')[0];
     const dom = new DomContentBlock(element, block, 'private-key');
     const preparer:EditorPreparer = new CkeditorPreparer();
-    const controller = new EditController(preparer);
+    const loader = new CkeditorLoader();
+    const controller = new EditController(loader, preparer);
 
     spyOn(preparer, 'prepare');
+    const loaderSpy = spyOn(loader, 'loadEditor');
     controller.prepareEdit(dom);
     expect(preparer.prepare).toHaveBeenCalledWith(dom);
+    expect(loader.loadEditor).toHaveBeenCalled();
+    expect(loaderSpy.calls.count()).toBe(1);
+    controller.prepareEdit(dom);
+    expect(loaderSpy.calls.count()).toBe(1);
   });
 });
