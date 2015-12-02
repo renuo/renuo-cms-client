@@ -1,5 +1,6 @@
 ///<reference path="../../../../../typings/jasmine/jasmine.d.ts"/>
 ///<reference path="ckeditor_preparer.ts"/>
+///<reference path="../../../../../typings/ckeditor/ckeditor.d.ts"/>
 
 describe('CkeditorPreparer', function () {
   it('prepares a content for editing', function () {
@@ -7,8 +8,10 @@ describe('CkeditorPreparer', function () {
     const element = $('<div>')[0];
     const dom = new DomContentBlock(element, block, 'private-key');
 
-    const preparer = new CkeditorPreparer();
+    const spy = jasmine.createSpy('ckeditor');
+    const fakeCkeditor = {inline: spy};
+    const preparer = new CkeditorPreparer(fakeCkeditor);
     preparer.prepare(dom);
-    // TODO: add real test
+    expect(fakeCkeditor.inline).toHaveBeenCalledWith(dom);
   });
 });
