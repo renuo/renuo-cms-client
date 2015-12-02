@@ -6,8 +6,9 @@ describe('DomContentBlock', function () {
   it('constructs a dom content block', function () {
     const block = new ContentBlock('content', 'path', 'api-key');
     const element = $('<div>')[0];
-    const dom = new DomContentBlock(element, block);
+    const dom = new DomContentBlock(element, block, 'private-key');
     expect(dom.element).toBe(element);
     expect(dom.contentBlock).toBe(block);
+    expect(dom.privateApiKey).toBe('private-key');
   });
 });
