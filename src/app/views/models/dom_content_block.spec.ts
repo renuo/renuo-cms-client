@@ -10,5 +10,13 @@ describe('DomContentBlock', function () {
     expect(dom.element).toBe(element);
     expect(dom.contentBlock).toBe(block);
     expect(dom.privateApiKey).toBe('private-key');
+    expect(dom.isEditable()).toBe(true);
+  });
+
+  it('tells when it is not editable', function () {
+    const block = new ContentBlock('content', 'path', 'api-key');
+    const element = $('<div>')[0];
+    const dom = new DomContentBlock(element, block, null);
+    expect(dom.isEditable()).toBe(false);
   });
 });
