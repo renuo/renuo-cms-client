@@ -6,6 +6,7 @@
 ///<reference path="views/services/dom_content_block_converter.ts"/>
 ///<reference path="views/drawers/content_block_drawer.ts"/>
 ///<reference path="controllers/view_controller.ts"/>
+///<reference path="views/editors/ckeditor/ckeditor_preparer.ts"/>
 
 (function () {
   const initContentBlocks = function () {
@@ -13,7 +14,9 @@
       new ContentBlockFinder(),
       new DomContentBlockConverter(),
       new DataService(new AjaxService('//renuo-cms-api.dev:3000')),
-      new ContentBlockDrawer()
+      new ContentBlockDrawer(),
+      new CkeditorLoader(),
+      new CkeditorPreparer()
     );
     controller.init();
   };

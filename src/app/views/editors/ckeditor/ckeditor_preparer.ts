@@ -2,7 +2,7 @@
 ///<reference path="../../../../../typings/ckeditor/ckeditor.d.ts"/>
 
 class CkeditorPreparer implements EditorPreparer {
-  constructor(private ckeditor:any) {
+  constructor(private ckeditor?:any) {
     if (this.ckeditor === null) this.ckeditor = CKEDITOR;
   }
 

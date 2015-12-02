@@ -3,8 +3,12 @@
 ///<reference path="edit_controller.ts"/>
 
 class ViewController {
+  private editController:EditController;
+
   constructor(private finder:ContentBlockFinder, private converter:DomContentBlockConverter,
-              private dataService:DataService, private drawer:ContentBlockDrawer) {
+              private dataService:DataService, private drawer:ContentBlockDrawer,
+              private editorLoader:EditorLoader, private editorPreparer:EditorPreparer) {
+    this.editController = new EditController(this.editorLoader, this.editorPreparer);
   }
 
   init():void {

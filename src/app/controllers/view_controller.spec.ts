@@ -16,7 +16,7 @@ describe('ViewController', function () {
     const converter = new DomContentBlockConverter();
     const dataService = new DataService(null);
     const drawer = new ContentBlockDrawer();
-    const controller = new ViewController(finder, converter, dataService, drawer);
+    const controller = new ViewController(finder, converter, dataService, drawer, null, null);
 
     const domContent1:DomContentBlock = converter.convert(elements[0]);
     const domContent2:DomContentBlock = converter.convert(elements[1]);
