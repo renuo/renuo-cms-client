@@ -10,7 +10,7 @@ describe('DataService', function () {
       () => jQuery.Deferred().resolve(AjaxServiceMockData.existingContentBlock()).promise());
 
     const service = new DataService(ajaxService);
-    service.loadContent('api-key', 'my-path').then(function (block:ContentBlock) {
+    service.loadContent(new ContentBlock('', 'my-path', 'api-key')).then(function (block:ContentBlock) {
       expect(block.content).toBe('some content');
       expect(block.contentPath).toBe('my-path');
       expect(block.apiKey).toBe('api-key');

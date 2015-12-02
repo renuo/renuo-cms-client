@@ -1,14 +1,13 @@
 ///<reference path="../models/content_block.ts"/>
 ///<reference path="ajax_service.ts"/>
+///<reference path="data_converter.ts"/>
 
 class DataService {
   constructor(private ajaxService:AjaxService) {
   }
 
-  loadContent(apiKey:string, contentPath:string):JQueryPromise<ContentBlock> {
-    return this.ajaxService.fetchContentBlock(new ContentBlock('', contentPath, apiKey)).then(function (raw) {
-      const b = raw.content_block;
-      return new ContentBlock(b.content, b.content_path, b.api_key, b.created_at, b.updated_at);
-    });
+  loadContent(contentBlock:ContentBlock):JQueryPromise<ContentBlock> {
+    return this.ajaxService.fetchContentBlock(contentBlock).then((raw) =>
+      new DataConverter().convertJson(raw));
   }
 }

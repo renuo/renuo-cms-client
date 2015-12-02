@@ -3,5 +3,5 @@
 ///<reference path="data/services/data_service.ts"/>
 
 const service = new DataService(new AjaxService('http://renuo-cms-api.dev:3000'));
-const content = service.loadContent('some-path', 'my-path');
+const content = service.loadContent(new ContentBlock('', 'some-path', 'my-path'));
 content.then((x) => console.log(x));
