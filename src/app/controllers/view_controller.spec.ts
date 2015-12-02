@@ -1,10 +1,10 @@
 ///<reference path="../../../typings/jasmine/jasmine.d.ts"/>
-///<reference path="views_controller.ts"/>
+///<reference path="view_controller.ts"/>
 ///<reference path="../views/services/content_block_finder.ts"/>
 ///<reference path="../data/models/content_block.ts"/>
 ///<reference path="../views/models/dom_content_block.ts"/>
 
-describe('ViewsController', function () {
+describe('ViewController', function () {
   it('initializes the contents', function () {
     //new DataService(new AjaxService('//renuo-cms-api.dev:3000')),
     const elements:HTMLElement[] = [

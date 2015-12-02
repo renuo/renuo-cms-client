@@ -5,7 +5,7 @@
 ///<reference path="views/services/content_block_finder.ts"/>
 ///<reference path="views/services/dom_content_block_converter.ts"/>
 ///<reference path="views/drawers/content_block_drawer.ts"/>
-///<reference path="controllers/views_controller.ts"/>
+///<reference path="controllers/view_controller.ts"/>
 
 (function () {
   const initContentBlocks = function () {
