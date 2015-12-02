@@ -7,6 +7,7 @@
     "jquery": "latest",
     "jasmine": "~2.2.1",
     "jasmine-expect": "~1.22.3",
+    "jasmine-ajax": "latest",
     "jasmine-jquery": "~2.1.0",
     "jquery-mockjax": "~1.6.2",
     "Faker": "~2.1.5"
@@ -23,7 +24,8 @@
     "Nicolas Eckhart <nicolas.eckhart@renuo.ch> (https://www.renuo.ch)",
     "Lukas Elmer <lukas.elmer@renuo.ch> (https://www.renuo.ch)",
     "Diego Steiner <diego.steiner@renuo.ch> (https://www.renuo.ch)",
-    "Cyril Kyburz <cyril.kyburz@renuo.ch> (https://www.renuo.ch)"
+    "Cyril Kyburz <cyril.kyburz@renuo.ch> (https://www.renuo.ch)",
+    "Josua Schmid <josua.schmid@renuo.ch> (https://www.renuo.ch)"
   ],
   "homepage": "https://www.renuo.ch",
   "ignore": [

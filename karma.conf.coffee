@@ -19,7 +19,8 @@ module.exports = (config) ->
 
     # list of files / patterns to load in the browser
     files: [
-      'bower_components/jquery/dist/jquery.js',
+      'bower_components/jquery/dist/jquery.js'
+      'bower_components/jasmine-ajax/lib/mock-ajax.js'
       '.tmp/specs.js'
     ]
 
