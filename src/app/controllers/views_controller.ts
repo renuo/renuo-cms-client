@@ -7,10 +7,10 @@ class ViewController {
 
   init():void {
     const elements = this.finder.find();
-    const contentBlocks = elements.map((el) => this.converter.convert(el));
-    contentBlocks.map((el) => {
-      this.dataService.loadContent(el.contentBlock).then((contentBlock) => {
-        this.drawer.draw(new DomContentBlock(el.element, contentBlock, el.privateApiKey));
+    const domContentBlocks = elements.map((el) => this.converter.convert(el));
+    domContentBlocks.map((dom) => {
+      this.dataService.loadContent(dom.contentBlock).then((contentBlock) => {
+        this.drawer.draw(this.converter.createNewBlock(dom, contentBlock));
       });
     });
   }

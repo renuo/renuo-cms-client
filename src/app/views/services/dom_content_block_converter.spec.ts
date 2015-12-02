@@ -36,4 +36,20 @@ describe('DomContentBlockConverter', function () {
 
     expect(domContentBlock.privateApiKey).toBe(null);
   });
+
+  it('creates a new dom content block for a new content block', function () {
+    const service = new DataConverter();
+
+    const str = '<div data-content-path="my-path" data-api-key="my-key" data-private-api-key="test"></div>';
+    const domContentBlock:DomContentBlock = converter.convert(jQuery(str)[0]);
+
+    const newBlock:ContentBlock = domContentBlock.contentBlock;
+    const existingBlock:ContentBlock = new ContentBlock('new content!', newBlock.contentPath, newBlock.apiKey,
+      newBlock.createdAt, newBlock.updatedAt);
+
+    const domExistingContentBlock:DomContentBlock = converter.createNewBlock(domContentBlock, existingBlock);
+    expect(domExistingContentBlock.contentBlock).toBe(existingBlock);
+    expect(domExistingContentBlock.element).toBe(domContentBlock.element);
+    expect(domExistingContentBlock.privateApiKey).toBe(domContentBlock.privateApiKey);
+  });
 });

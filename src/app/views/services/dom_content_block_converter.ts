@@ -16,4 +16,8 @@ class DomContentBlockConverter {
     const attr = element.attributes.getNamedItem(`data-${attributeName}`);
     return attr === null ? null : attr.value;
   };
+
+  createNewBlock(domContentBlock:DomContentBlock, existingBlock:ContentBlock):DomContentBlock {
+    return new DomContentBlock(domContentBlock.element, existingBlock, domContentBlock.privateApiKey);
+  }
 }
