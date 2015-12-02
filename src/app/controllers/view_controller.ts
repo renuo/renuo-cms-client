@@ -1,5 +1,6 @@
 ///<reference path="../views/services/content_block_finder.ts"/>
 ///<reference path="../views/drawers/content_block_drawer.ts"/>
+///<reference path="edit_controller.ts"/>
 
 class ViewController {
   constructor(private finder:ContentBlockFinder, private converter:DomContentBlockConverter,

@@ -1,7 +1,10 @@
+///<reference path="../views/editors/editor_loader.ts"/>
+///<reference path="../views/editors/editor_preparer.ts"/>
+
 class EditController {
   private editorLoadingCallback:JQueryPromise<any> = null;
 
-  constructor(private loader:CkeditorLoader, private preparer:EditorPreparer) {
+  constructor(private loader:EditorLoader, private preparer:EditorPreparer) {
   }
 
   prepareEdit(dom:DomContentBlock):void {
