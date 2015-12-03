@@ -12,6 +12,6 @@ describe('CkeditorPreparer', function () {
     const fakeCkeditor = {inline: spy};
     const preparer = new CkeditorPreparer(fakeCkeditor);
     preparer.prepare(dom);
-    expect(fakeCkeditor.inline).toHaveBeenCalledWith(dom);
+    expect(fakeCkeditor.inline).toHaveBeenCalledWith(dom.element);
   });
 });
