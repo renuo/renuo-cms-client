@@ -9,7 +9,12 @@ describe('CkeditorPreparer', function () {
     const dom = new DomContentBlock(element, block, 'private-key');
 
     const spy = jasmine.createSpy('ckeditor');
-    const fakeCkeditor = {inline: spy};
+    const fakeCkeditor = {
+      inline: spy.and.returnValue({
+        on: function () {
+        }
+      })
+    };
     const preparer = new CkeditorPreparer(fakeCkeditor);
     preparer.prepare(dom);
     expect(fakeCkeditor.inline).toHaveBeenCalledWith(dom.element);
