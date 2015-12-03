@@ -58,8 +58,8 @@ describe('AjaxService', function () {
         const parsed = JSON.parse(request.data);
         expect(parsed.content_block.content).toBe('content');
         expect(parsed.content_block.content_path).toBe('path');
-        expect(parsed.content_block.api_key).toBe('my-api-key');
-        expect(parsed.content_block.api_host).toBeFalsy();
+        expect(parsed.content_block.api_key).toBeUndefined();
+        expect(parsed.content_block.api_host).toBeUndefined();
         expect(parsed.private_api_key).toBe('pk');
         return ajax_response(newContentBlock);
       });
