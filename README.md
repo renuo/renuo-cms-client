@@ -55,7 +55,7 @@ The library will automagically initialize and manage the content blocks. If you 
 can use the following trigger:
 
 ```js
-jQuery(document).on('renuo-cms-reload'
+jQuery(document).trigger('renuo-cms-reload');
 ```
 
 
