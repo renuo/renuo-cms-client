@@ -5,18 +5,19 @@
 
 describe('DataService', function () {
   it('loads a content block', function () {
-    const ajaxService = new AjaxService('');
+    const ajaxService = new AjaxService();
     spyOn(ajaxService, 'fetchContentBlock').and.callFake(
       () => jQuery.Deferred().resolve(AjaxServiceMockData.existingContentBlock()).promise());
 
     const service = new DataService(ajaxService);
-    service.loadContent(new ContentBlock('', 'my-path', 'api-key')).then(function (block:ContentBlock) {
+    service.loadContent(new ContentBlock('', 'my-path', 'api-key', 'host')).then(function (block:ContentBlock) {
       expect(block.content).toBe('some content');
       expect(block.contentPath).toBe('my-path');
       expect(block.apiKey).toBe('api-key');
+      expect(block.apiHost).toBe('host');
       expect(block.createdAt).toEqual(new Date(2015, 11, 30));
       expect(block.updatedAt).toEqual(new Date(2015, 12, 3));
     });
-    expect(ajaxService.fetchContentBlock).toHaveBeenCalledWith(new ContentBlock('', 'my-path', 'api-key'));
+    expect(ajaxService.fetchContentBlock).toHaveBeenCalledWith(new ContentBlock('', 'my-path', 'api-key', 'host'));
   });
 });

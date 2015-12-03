@@ -6,14 +6,14 @@ describe('ContentBlockDrawer', function () {
 
   it('draws simple text', function () {
     const element = jQuery('<div>')[0];
-    const dom = new DomContentBlock(element, new ContentBlock('content', 'my-path', 'api-key'), null);
+    const dom = new DomContentBlock(element, new ContentBlock('content', 'my-path', 'api-key', 'host'), null);
     drawer.draw(dom);
     expect(element.innerHTML).toBe('content');
   });
 
   it('draws more complex html', function () {
     const element = jQuery('<div>')[0];
-    const dom = new DomContentBlock(element, new ContentBlock('<h1>Title</h1>', 'my-path', 'api-key'), null);
+    const dom = new DomContentBlock(element, new ContentBlock('<h1>Title</h1>', 'my-path', 'api-key', 'host'), null);
     drawer.draw(dom);
     expect(element.innerHTML).toBe('<h1>Title</h1>');
   });

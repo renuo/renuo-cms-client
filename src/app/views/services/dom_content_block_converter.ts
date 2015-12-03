@@ -3,8 +3,9 @@ class DomContentBlockConverter {
   convert(element:HTMLElement):DomContentBlock {
     const contentPath = this.valueOf(element, 'content-path');
     const apiKey = this.valueOf(element, 'api-key');
+    const apiHost = this.valueOf(element, 'api-host');
     const privateApiKey = this.extractPrivateApiKey(element);
-    return new DomContentBlock(element, new ContentBlock(null, contentPath, apiKey), privateApiKey);
+    return new DomContentBlock(element, new ContentBlock(null, contentPath, apiKey, apiHost), privateApiKey);
   }
 
   private extractPrivateApiKey(element:HTMLElement):string {

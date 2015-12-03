@@ -7,7 +7,7 @@
 
 describe('EditController', function () {
   it('edits an element', function () {
-    const block = new ContentBlock('content', 'path', 'api-key');
+    const block = new ContentBlock('content', 'path', 'api-key', 'host');
     const element = $('<div>')[0];
     const dom = new DomContentBlock(element, block, 'private-key');
     const preparer:EditorPreparer = new CkeditorPreparer();

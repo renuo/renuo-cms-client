@@ -8,8 +8,7 @@ describe('AjaxService', function () {
     return jQuery.Deferred().resolve(response).promise();
   }
 
-  const host = 'http://renuo-cms-client.dev';
-  const service = new AjaxService(host);
+  const service = new AjaxService();
   const newContentBlock = AjaxServiceMockData.newContentBlock();
   const existingContentBlock = AjaxServiceMockData.existingContentBlock();
 
@@ -21,14 +20,15 @@ describe('AjaxService', function () {
         expect(request.dataType).toBe('json');
         return ajax_response(newContentBlock);
       });
-      service.fetchContentBlock(new ContentBlock('', 'my-path', 'api-keyx')).then(() => {
+      service.fetchContentBlock(new ContentBlock('', 'my-path', 'api-keyx', 'http://renuo-cms-client.dev')).then(() => {
       });
     });
 
     it('fetches a new content block', function () {
       spyOn(jQuery, 'ajax').and.returnValue(ajax_response(newContentBlock));
-      service.fetchContentBlock(new ContentBlock('', 'my-path', 'api-keyx')).then((result) => {
+      service.fetchContentBlock(new ContentBlock('', 'my-path', 'api-keyx', 'host')).then((result) => {
         expect(result.content_block.api_key).toBe('api-key');
+        expect(result.content_block.api_host).toBeUndefined();
         expect(result.content_block.content_path).toBe('my-path');
         expect(result.content_block.content).toBe('');
         expect(result.content_block.created_at).toBeFalsy();
@@ -38,8 +38,9 @@ describe('AjaxService', function () {
 
     it('fetches an existing content block', function () {
       spyOn(jQuery, 'ajax').and.returnValue(ajax_response(existingContentBlock));
-      service.fetchContentBlock(new ContentBlock('', 'my-path', 'api-keyx')).then((result) => {
+      service.fetchContentBlock(new ContentBlock('', 'my-path', 'api-keyx', 'my-h')).then((result) => {
         expect(result.content_block.api_key).toBe('api-key');
+        expect(result.content_block.api_host).toBeUndefined();
         expect(result.content_block.content_path).toBe('my-path');
         expect(result.content_block.content).toBe('some content');
         expect(result.content_block.created_at).toBe(existingContentBlock.content_block.created_at);
@@ -51,17 +52,18 @@ describe('AjaxService', function () {
   describe('#storeContentBlock', function () {
     it('stores a content block on the server', function () {
       spyOn(jQuery, 'ajax').and.callFake(function (request:any) {
-        expect(request.url).toBe('http://renuo-cms-client.dev/v1/my-api-key/content_blocks');
+        expect(request.url).toBe('//host.com/v1/my-api-key/content_blocks');
         expect(request.type).toBe('POST');
         expect(request.dataType).toBe('json');
         const parsed = JSON.parse(request.data);
         expect(parsed.content_block.content).toBe('content');
         expect(parsed.content_block.content_path).toBe('path');
         expect(parsed.content_block.api_key).toBe('my-api-key');
+        expect(parsed.content_block.api_host).toBeFalsy();
         expect(parsed.private_api_key).toBe('pk');
         return ajax_response(newContentBlock);
       });
-      service.storeContentBlock(new ContentBlock('content', 'path', 'my-api-key'), 'pk').then(() => {
+      service.storeContentBlock(new ContentBlock('content', 'path', 'my-api-key', '//host.com'), 'pk').then(() => {
       });
     });
   });

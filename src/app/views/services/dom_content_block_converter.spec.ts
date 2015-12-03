@@ -18,7 +18,7 @@ describe('DomContentBlockConverter', function () {
   });
 
   it('converts a dom element to a dom content block', function () {
-    const str = '<div data-content-path="my-path" data-api-key="my-key" data-private-api-key="PK"></div>';
+    const str = '<div data-content-path="my-path" data-api-host="host" data-api-key="my-key" data-private-api-key="PK"></div>';
     const element:HTMLElement = jQuery(str)[0];
     const domContentBlock:DomContentBlock = converter.convert(element);
     const cb = domContentBlock.contentBlock;
@@ -28,10 +28,11 @@ describe('DomContentBlockConverter', function () {
     expect(cb.content).toBe(null);
     expect(cb.contentPath).toBe('my-path');
     expect(cb.apiKey).toBe('my-key');
+    expect(cb.apiHost).toBe('host');
   });
 
   it('sets the private api key to null if private api key is empty', function () {
-    const str = '<div data-content-path="my-path" data-api-key="my-key" data-private-api-key=""></div>';
+    const str = '<div data-content-path="my-path" data-api-host="host" data-api-key="my-key" data-private-api-key=""></div>';
     const domContentBlock:DomContentBlock = converter.convert(jQuery(str)[0]);
 
     expect(domContentBlock.privateApiKey).toBe(null);
@@ -40,12 +41,12 @@ describe('DomContentBlockConverter', function () {
   it('creates a new dom content block for a new content block', function () {
     const service = new DataConverter();
 
-    const str = '<div data-content-path="my-path" data-api-key="my-key" data-private-api-key="test"></div>';
+    const str = '<div data-content-path="my-path" data-api-host="host" data-api-key="my-key" data-private-api-key="test"></div>';
     const domContentBlock:DomContentBlock = converter.convert(jQuery(str)[0]);
 
     const newBlock:ContentBlock = domContentBlock.contentBlock;
     const existingBlock:ContentBlock = new ContentBlock('new content!', newBlock.contentPath, newBlock.apiKey,
-      newBlock.createdAt, newBlock.updatedAt);
+      newBlock.apiHost, newBlock.createdAt, newBlock.updatedAt);
 
     const domExistingContentBlock:DomContentBlock = converter.createNewBlock(domContentBlock, existingBlock);
     expect(domExistingContentBlock.contentBlock).toBe(existingBlock);

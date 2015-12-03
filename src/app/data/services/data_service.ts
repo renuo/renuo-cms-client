@@ -8,6 +8,6 @@ class DataService {
 
   loadContent(contentBlock:ContentBlock):JQueryPromise<ContentBlock> {
     return this.ajaxService.fetchContentBlock(contentBlock).then((raw) =>
-      new DataConverter().convertJson(raw));
+      new DataConverter().convertJson(contentBlock, raw));
   }
 }

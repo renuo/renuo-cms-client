@@ -14,7 +14,7 @@
     const controller = new ViewController(
       new ContentBlockFinder(),
       new DomContentBlockConverter(),
-      new DataService(new AjaxService('//renuo-cms-api.dev:3000')),
+      new DataService(new AjaxService()),
       new ContentBlockDrawer(),
       new EditController(
         new CkeditorLoader(),

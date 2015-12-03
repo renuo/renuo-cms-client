@@ -8,8 +8,8 @@ describe('ViewController', function () {
   it('initializes the contents', function () {
     //new DataService(new AjaxService('//renuo-cms-api.dev:3000')),
     const elements:HTMLElement[] = [
-      jQuery('<div data-content-path="my-path" data-api-key="my-key"></div>')[0],
-      jQuery('<div data-content-path="editable-path" data-api-key="my-key" data-private-api-key="PK"></div>')[0]
+      jQuery('<div data-content-path="my-path" data-api-host="host" data-api-key="my-key"></div>')[0],
+      jQuery('<div data-content-path="editable-path" data-api-host="host" data-api-key="my-key" data-private-api-key="PK"></div>')[0]
     ];
 
     const finder = new ContentBlockFinder();
@@ -31,7 +31,7 @@ describe('ViewController', function () {
     const newContentBlocks:ContentBlock[] = [];
     spyOn(dataService, 'loadContent').and.callFake((cb:ContentBlock) => {
       const d = new Date(2015, 11, 21);
-      const filledCb = new ContentBlock(`new content ${cb.contentPath}`, cb.contentPath, cb.apiKey, d, d);
+      const filledCb = new ContentBlock(`new content ${cb.contentPath}`, cb.contentPath, cb.apiKey, cb.apiHost, d, d);
       newContentBlocks.push(filledCb);
       return jQuery.Deferred().resolve(filledCb).promise();
     });

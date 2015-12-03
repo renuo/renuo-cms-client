@@ -1,14 +1,14 @@
 class AjaxService {
-  constructor(private host:string) {
+  constructor() {
   }
 
   fetchContentBlock(contentBlock:ContentBlock):JQueryPromise<any> {
-    return jQuery.getJSON(`${this.host}/v1/${contentBlock.apiKey}/content_blocks/${contentBlock.contentPath}`);
+    return jQuery.getJSON(`${contentBlock.apiHost}/v1/${contentBlock.apiKey}/content_blocks/${contentBlock.contentPath}`);
   }
 
   storeContentBlock(contentBlock:ContentBlock, privateApiKey:string):JQueryPromise<any> {
     return jQuery.ajax({
-      url: `${this.host}/v1/${contentBlock.apiKey}/content_blocks`,
+      url: `${contentBlock.apiHost}/v1/${contentBlock.apiKey}/content_blocks`,
       contentType: 'application/json',
       dataType: 'json',
       type: 'POST',
