@@ -126,4 +126,4 @@ See https://git.renuo.ch/renuo/renuo-cms-api (TODO: open source on GH).
 
 For more information on the renuo-cms-client, please check out
 [https://github.com/renuo/renuo-cms-client](https://github.com/renuo/renuo-cms-client)
-or contact [Renuo GmbH](info@renuo.ch).
+or contact [Renuo GmbH](mailto:info@renuo.ch).
