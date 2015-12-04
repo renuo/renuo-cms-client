@@ -1,4 +1,5 @@
 ///<reference path="../models/dom_content_block.ts"/>
+
 class DomContentBlockConverter {
   convert(element:HTMLElement):DomContentBlock {
     const contentPath = this.valueOf(element, 'content-path');

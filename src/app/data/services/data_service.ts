@@ -10,4 +10,9 @@ class DataService {
     return this.ajaxService.fetchContentBlock(contentBlock).then((raw) =>
       new DataConverter().convertJson(contentBlock, raw));
   }
+
+  storeContent(contentBlock:ContentBlock, privateApiKey:string):JQueryPromise<ContentBlock> {
+    // TODO: implement this
+    return null;
+  }
 }

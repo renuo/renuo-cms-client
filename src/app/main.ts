@@ -11,12 +11,14 @@
 
 (function () {
   const initContentBlocks = function () {
+    const dataService = new DataService(new AjaxService());
     const controller = new ViewController(
       new ContentBlockFinder(),
       new DomContentBlockConverter(),
-      new DataService(new AjaxService()),
+      dataService,
       new ContentBlockDrawer(),
       new EditController(
+        dataService,
         new CkeditorLoader(),
         new CkeditorPreparer()
       )
