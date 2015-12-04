@@ -5,7 +5,7 @@ class CkeditorPreparer implements EditorPreparer {
   constructor(private ckeditor:any = null) {
   }
 
-  prepare(dom:DomContentBlock):void {
+  prepare(dom:DomContentBlock, editCallback:EditContentBlockCallback):void {
     if (this.ckeditor === null) this.ckeditor = CKEDITOR;
 
     jQuery(dom.element).attr('contenteditable', 'true');
@@ -13,9 +13,8 @@ class CkeditorPreparer implements EditorPreparer {
     this.ckeditor.inline(dom.element).on('blur', function (event:CKEDITOR.eventInfo) {
       if (event.editor.checkDirty()) {
         const newContent = event.editor.getData();
-        // TODO: save the data
-        // content changed to: newContent
         event.editor.resetDirty();
+        editCallback(dom, newContent);
       }
     });
   }
