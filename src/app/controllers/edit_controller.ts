@@ -18,6 +18,8 @@ class EditController {
   editContent(dom:DomContentBlock, newContent:string) {
     const cb = dom.contentBlock;
     const newContentBlock = new ContentBlock(newContent, cb.contentPath, cb.apiKey, cb.apiHost);
-    this.dataService.storeContent(newContentBlock, dom.privateApiKey);
+    return this.dataService.storeContent(newContentBlock, dom.privateApiKey)
+      .then(() => this.preparer.notifySave(dom, true))
+      .fail(() => this.preparer.notifySave(dom, false));
   }
 }

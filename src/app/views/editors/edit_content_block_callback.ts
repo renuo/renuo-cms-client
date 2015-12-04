@@ -1,5 +1,5 @@
 ///<reference path="../models/dom_content_block.ts"/>
 
 interface EditContentBlockCallback {
-  (domContentBlock:DomContentBlock, newContent:string):void;
+  (domContentBlock:DomContentBlock, newContent:string):JQueryPromise<any>;
 }

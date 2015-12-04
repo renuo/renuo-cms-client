@@ -11,7 +11,7 @@ class DataService {
       new DataConverter().convertJson(contentBlock, raw));
   }
 
-  storeContent(contentBlock:ContentBlock, privateApiKey:string):JQueryPromise<ContentBlock> {
+  storeContent(contentBlock:ContentBlock, privateApiKey:string):JQueryPromise<any> {
     // TODO: implement this
     return null;
   }

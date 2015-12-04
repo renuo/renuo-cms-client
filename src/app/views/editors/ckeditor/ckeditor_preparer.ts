@@ -18,4 +18,8 @@ class CkeditorPreparer implements EditorPreparer {
       }
     });
   }
+
+  notifySave(dom:DomContentBlock, success:boolean):void {
+    // TODO: implement this
+  }
 }

@@ -35,12 +35,29 @@ describe('EditController', function () {
     expect(loaderSpy.calls.count()).toBe(1);
   });
 
-  it('edits a dom element', function () {
-    const spy = spyOn(dataService, 'storeContent');
-    spy.and.callFake(() => true);
+  it('edits a dom element successfully', function () {
+    const deferred = jQuery.Deferred();
+    spyOn(preparer, 'notifySave');
+    const dataServiceSpy = spyOn(dataService, 'storeContent');
+    dataServiceSpy.and.returnValue(deferred);
     controller.editContent(dom, 'this is new content');
     const newContentBlock = new ContentBlock('this is new content', block.contentPath, block.apiKey, block.apiHost);
-    expect(spy).toHaveBeenCalledWith(newContentBlock, 'private-key');
+    expect(dataServiceSpy).toHaveBeenCalledWith(newContentBlock, 'private-key');
+    expect(preparer.notifySave).not.toHaveBeenCalled();
+    deferred.resolve('');
+    expect(preparer.notifySave).toHaveBeenCalledWith(dom, true);
   });
 
+  it('edits a dom element unsuccessfully', function () {
+    const deferred = jQuery.Deferred();
+    spyOn(preparer, 'notifySave');
+    const dataServiceSpy = spyOn(dataService, 'storeContent');
+    dataServiceSpy.and.returnValue(deferred);
+    controller.editContent(dom, 'this is new content');
+    const newContentBlock = new ContentBlock('this is new content', block.contentPath, block.apiKey, block.apiHost);
+    expect(dataServiceSpy).toHaveBeenCalledWith(newContentBlock, 'private-key');
+    expect(preparer.notifySave).not.toHaveBeenCalled();
+    deferred.reject();
+    expect(preparer.notifySave).toHaveBeenCalledWith(dom, false);
+  });
 });
