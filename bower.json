@@ -1,5 +1,6 @@
 {
   "name": "renuo-cms-client",
+  "version": "0.0.1",
   "description": "Renuo CMS Client",
   "main": "dist/renuo-cms-client.min.js",
   "authors": [
