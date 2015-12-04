@@ -27,7 +27,7 @@ describe('EditController', function () {
 
     deferred.resolve();
 
-    expect(preparer.prepare).toHaveBeenCalledWith(dom, controller.editContent);
+    expect(preparer.prepare).toHaveBeenCalledWith(dom, jasmine.any(Function));
     expect(loaderSpy.calls.count()).toBe(1);
 
     controller.prepareEdit(dom);

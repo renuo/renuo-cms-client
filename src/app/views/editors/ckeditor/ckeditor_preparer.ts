@@ -3,6 +3,12 @@
 
 class CkeditorPreparer implements EditorPreparer {
   constructor(private ckeditor:any = null) {
+    jQuery('<style type="text/css">' +
+      '@keyframes renuo-cms-flash-success {0% { background: default; } 50% { background: #d7eed7; } 100% { background: default; }}' +
+      '@keyframes renuo-cms-flash-error {0% { background: default; } 50% { background: #f5d1d0; } 100% { background: default; }}' +
+      '.renuo-cms-edit-success{animation-name: renuo-cms-flash-success; animation-duration: 1.5s;}' +
+      '.renuo-cms-edit-error{animation-name: renuo-cms-flash-error; animation-duration: 1.5s;}' +
+      '</style>').appendTo('head');
   }
 
   prepare(dom:DomContentBlock, editCallback:EditContentBlockCallback):void {
@@ -20,6 +26,8 @@ class CkeditorPreparer implements EditorPreparer {
   }
 
   notifySave(dom:DomContentBlock, success:boolean):void {
-    // TODO: implement this
+    const cssClass = success ? 'success' : 'error';
+    jQuery(dom.element).addClass(`renuo-cms-edit-${cssClass}`).delay(2000).queue(()=>
+      jQuery(dom.element).removeClass(`renuo-cms-edit-${cssClass}`).dequeue());
   }
 }
