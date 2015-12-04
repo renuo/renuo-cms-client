@@ -19,9 +19,11 @@ bin/check
 # local development
 gulp tdd
 # manual testing in the browser
-# also compiles everything into .tmp/all.js, which will be used in local testing
-# .tmp/all.js should be minified for a release
+# also compiles everything into .tmp/renuo-cms-client.js, which will be used in local testing
+# .tmp/renuo-cms-client.js should be minified for a release
 gulp serve
+# generates dist/renuo-cms-client.js
+gulp dist
 ```
 
 ## Important URLs

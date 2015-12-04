@@ -11,6 +11,7 @@ var connect = require('gulp-connect');
 var uglify = require('gulp-uglify');
 var karma = require('karma');
 var open = require('open');
+var rename = require('gulp-rename');
 
 var tsProject = ts.createProject('tsconfig.json');
 var tsSpecsProject = ts.createProject('tsconfig_specs.json');
@@ -43,6 +44,7 @@ gulp.task('tslint', function () {
 
 gulp.task('clean-all', function (callback) {
   return del('.tmp/*', callback);
+  return del('dist/*', callback);
 });
 
 gulp.task('copyhtml', ['clean-html'], function () {
@@ -83,7 +85,7 @@ gulp.task('ts-single-compile', ['clean-js-main'], function () {
 });
 
 gulp.task('clean-js-main', function (callback) {
-  return del(['.tmp/all.js', '.tmp/all.js.map'], callback);
+  return del(['.tmp/renuo-cms-client.js', '.tmp/renuo-cms-client.js.map'], callback);
 });
 
 gulp.task('ts-specs-compile', ['clean-js-specs'], function () {
@@ -105,6 +107,22 @@ gulp.task('watch', function (done) {
   gulp.watch('src/**/*.ts', ['test', 'tscompile']);
   gulp.watch('demo/**/*.html', ['copyhtml']);
   return done();
+});
+
+gulp.task('clean-js-dist', function (callback) {
+  return del(['dist/renuo-cms-client.js', 'dist/renuo-cms-client.js.map'], callback);
+});
+
+gulp.task('dist', ['ts-single-compile'], function (done) {
+  return gulp.src('.tmp/renuo-cms-client.js')
+    .pipe(uglify({
+      wrap: true,
+      screwIE8: true
+    }))
+    .pipe(rename({
+      extname: '.min.js'
+    }))
+    .pipe(gulp.dest('dist'), done);
 });
 
 gulp.task('tscompile', ['tslint', 'ts-single-compile']);
