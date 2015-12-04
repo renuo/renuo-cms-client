@@ -1,6 +1,6 @@
 ///<reference path="../../../../../typings/jasmine/jasmine.d.ts"/>
-///<reference path="ckeditor_preparer.ts"/>
 ///<reference path="../../../../../typings/ckeditor/ckeditor.d.ts"/>
+///<reference path="ckeditor_preparer.ts"/>
 ///<reference path="../edit_content_block_callback.ts"/>
 
 describe('CkeditorPreparer', function () {
@@ -35,7 +35,7 @@ describe('CkeditorPreparer', function () {
     });
 
     it('prepares a content for editing', function () {
-      expect(fakeCkeditor.inline).toHaveBeenCalledWith(dom.element);
+      expect(fakeCkeditor.inline).toHaveBeenCalledWith(dom.element, jasmine.any(Object));
       expect(onStub).toHaveBeenCalledWith('blur', jasmine.any(Function));
       expect(calledEventName).toBe('blur');
       expect(calledListenerFunction).toEqual(jasmine.any(Function));
