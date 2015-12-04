@@ -12,7 +12,6 @@ class DataService {
   }
 
   storeContent(contentBlock:ContentBlock, privateApiKey:string):JQueryPromise<any> {
-    // TODO: implement this
-    return null;
+    return this.ajaxService.storeContentBlock(contentBlock, privateApiKey);
   }
 }
