@@ -27,7 +27,12 @@ describe('CkeditorPreparer', function () {
   const preparer = new CkeditorPreparer(fakeCkeditor);
   const callback:EditContentBlockCallback = jasmine.createSpy('callback');
 
-  preparer.prepare(dom, callback);
+
+  it('sets the contenteditable on the element', function () {
+    expect(jQuery(element).attr('contenteditable')).toBeFalsy();
+    preparer.prepare(dom, callback);
+    expect(jQuery(element).attr('contenteditable')).toBe('true');
+  });
 
   it('prepares a content for editing', function () {
     expect(fakeCkeditor.inline).toHaveBeenCalledWith(dom.element);
