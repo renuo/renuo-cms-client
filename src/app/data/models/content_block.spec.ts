@@ -20,4 +20,14 @@ describe('ContentBlock', function () {
     expect(block.createdAt).toEqual(new Date(2015, 10, 20));
     expect(block.updatedAt).toEqual(new Date(2015, 10, 22));
   });
+
+  it('returns if the content block is new or not', function () {
+    const existingBlock = new ContentBlock('content', 'path', 'api-key', 'my-host',
+      new Date(2015, 10, 20), new Date(2015, 10, 22));
+    expect(existingBlock.isNew()).toEqual(false);
+    const newBlock = new ContentBlock('content', 'path', 'api-key', 'my-host',
+      null, null);
+    expect(newBlock.isNew()).toEqual(true);
+  });
+
 });

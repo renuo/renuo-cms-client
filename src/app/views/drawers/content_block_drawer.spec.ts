@@ -17,4 +17,19 @@ describe('ContentBlockDrawer', function () {
     drawer.draw(dom);
     expect(element.innerHTML).toBe('<h1>Title</h1>');
   });
+
+  it('draws the default content when the content block is new', function () {
+    const element = jQuery('<div><strong>Here</strong> is some default content</div>')[0];
+    const dom = new DomContentBlock(element, new ContentBlock('', 'my-path', 'api-key', 'host'), null);
+    drawer.draw(dom);
+    expect(element.innerHTML).toBe('<strong>Here</strong> is some default content');
+  });
+
+  it('draws the empty content when the content block is not new but empty', function () {
+    const element = jQuery('<div><strong>Here</strong> is some default content</div>')[0];
+    const contentBlock = new ContentBlock('', 'my-path', 'api-key', 'host', new Date(2015, 1, 1), new Date(2015, 1, 1));
+    const dom = new DomContentBlock(element, contentBlock, null);
+    drawer.draw(dom);
+    expect(element.innerHTML).toBe('');
+  });
 });
