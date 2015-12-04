@@ -5,7 +5,7 @@
 describe('DomContentBlock', function () {
   it('constructs a dom content block', function () {
     const block = new ContentBlock('content', 'path', 'api-key', 'host');
-    const element = $('<div>')[0];
+    const element = jQuery('<div>')[0];
     const dom = new DomContentBlock(element, block, 'private-key');
     expect(dom.element).toBe(element);
     expect(dom.contentBlock).toBe(block);
@@ -15,7 +15,7 @@ describe('DomContentBlock', function () {
 
   it('tells when it is not editable', function () {
     const block = new ContentBlock('content', 'path', 'api-key', 'host');
-    const element = $('<div>')[0];
+    const element = jQuery('<div>')[0];
     const dom = new DomContentBlock(element, block, null);
     expect(dom.isEditable()).toBe(false);
   });

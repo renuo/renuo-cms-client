@@ -5,7 +5,7 @@
 
 describe('CkeditorPreparer', function () {
   const block = new ContentBlock('content', 'path', 'api-key', 'host');
-  const element = $('<div>')[0];
+  const element = jQuery('<div>')[0];
   const dom = new DomContentBlock(element, block, 'private-key');
 
   const spy = jasmine.createSpy('ckeditor');

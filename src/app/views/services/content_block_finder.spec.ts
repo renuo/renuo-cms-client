@@ -6,8 +6,8 @@ describe('ContentBlockFinder', function () {
   let testDiv:JQuery;
 
   beforeEach(function () {
-    testDiv = $('<div></div>');
-    $('body').append(testDiv);
+    testDiv = jQuery('<div></div>');
+    jQuery('body').append(testDiv);
   });
 
   afterEach(function () {
