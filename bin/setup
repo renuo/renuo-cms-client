@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+npm install -g tsd bower gulp
+tsd reinstall --save --overwrite
+npm install
+
+grep '127.0.0.1 renuo-cms-client.dev' /etc/hosts || echo '127.0.0.1 renuo-cms-client.dev' | sudo tee -a /etc/hosts
+ln -s ../../bin/check .git/hooks/pre-commit
+

@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "noImplicitAny": true,
+    "sourceMap": false,
+    "outFile": "renuo-cms-client.js",
+    "inlineSourceMap": true
+  }
+}
+

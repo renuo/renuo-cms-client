@@ -1,0 +1,14 @@
+grep -r 'console.log' src
+RC=$?
+if [ $RC -eq 0 ]; then
+  echo '--'
+  echo 'console.log detected in app, please remove before committing'
+  exit 1
+fi
+
+gulp test
+RC=$?
+if [ ! $RC -eq 0 ]; then
+  echo 'test issues detected, commit aborted!'
+  exit 1
+fi

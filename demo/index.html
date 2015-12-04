@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Renuo CMS Client Example</title>
+  <script src="/jquery/dist/jquery.js"></script>
+  <script src="renuo-cms-client.js"></script>
+</head>
+<body>
+
+<section>
+  <article>
+    <h1>We cannot be edited</h1>
+
+    <div data-content-path="some/path/to/some/content" data-api-host="//renuo-cms-api.dev:3000" data-api-key="aValidApiKey"></div>
+    <hr/>
+    <div data-content-path="some/other-path/to/some/nonexisting-content" data-api-host="//renuo-cms-api.dev:3000" data-api-key="aValidApiKey"></div>
+  </article>
+
+  <article>
+    <h1>We can be edited</h1>
+
+    <div data-content-path="content/blub" data-api-host="//renuo-cms-api.dev:3000" data-api-key="aValidApiKey" data-private-api-key="AdminONLY"></div>
+    <hr/>
+    <div data-content-path="content/bla" data-api-host="//renuo-cms-api.dev:3000" data-api-key="aValidApiKey" data-private-api-key="AdminONLY"></div>
+    <hr/>
+    <div data-content-path="even-more-content" data-api-host="//renuo-cms-api.dev:3000" data-api-key="aValidApiKey" data-private-api-key="AdminONLY"></div>
+  </article>
+
+  <article>
+    <h1>I have the same path of the second editable article :)</h1>
+
+    <div data-content-path="content/bla" data-api-host="//renuo-cms-api.dev:3000" data-api-key="aValidApiKey"></div>
+    <hr/>
+  </article>
+
+  <article>
+    <h1>I have a different api key!</h1>
+
+    <div data-content-path="content/blub" data-api-host="//renuo-cms-api.dev:3000" data-api-key="anotherPublicKey"></div>
+    <hr/>
+  </article>
+</section>
+
+</body>
+</html>

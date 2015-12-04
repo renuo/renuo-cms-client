@@ -1,28 +1,32 @@
 {
   "name": "renuo-cms-client",
-  "version": "0.0.0",
-  "description": "Client for the Renuo CMS",
-  "main": "dist/renuo-cms-client.js",
-  "moduleType": [
-    "node"
-  ],
-  "keywords": [
-    "CMS",
-    "Renuo",
-    "Client"
-  ],
+  "version": "0.0.1",
+  "description": "Renuo CMS Client",
+  "main": "dist/renuo-cms-client.min.js",
   "authors": [
-    "Nicolas Eckhart <nicolas.eckhart@renuo.ch> (https://www.renuo.ch)",
-    "Lukas Elmer <lukas.elmer@renuo.ch> (https://www.renuo.ch)",
+    "Cyril Kyburz <cyril.kyburz@renuo.ch> (https://www.renuo.ch)",
     "Diego Steiner <diego.steiner@renuo.ch> (https://www.renuo.ch)",
-    "Cyril Kyburz <cyril.kyburz@renuo.ch> (https://www.renuo.ch)"
+    "Josua Schmid <josua.schmid@renuo.ch> (https://www.renuo.ch)",
+    "Lukas Elmer <lukas.elmer@renuo.ch> (https://www.renuo.ch)",
+    "Nicolas Eckhart <nicolas.eckhart@renuo.ch> (https://www.renuo.ch)"
   ],
-  "homepage": "https://www.renuo.ch",
+  "license": "MIT",
+  "keywords": [
+    "renuo",
+    "cms",
+    "client"
+  ],
+  "homepage": "https://github.com/renuo/renuo-cms-client",
+  "moduleType": [],
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "devDependencies": {
+    "jquery": "~2.1.4",
+    "jasmine-ajax": "~3.2.0"
+  }
 }
