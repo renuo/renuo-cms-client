@@ -1,9 +1,24 @@
 {
   "name": "renuo-cms-client",
   "version": "0.0.1",
-  "repository": "https://github.com/renuo/renuo-cms-client",
+  "keywords": [
+    "renuo",
+    "cms",
+    "client"
+  ],
   "license": "MIT",
   "dependencies": {},
+  "main": "dist/renuo-cms-client.min.js",
+  "homepage": "https://github.com/renuo/renuo-cms-client",
+  "repository": "renuo/renuo-cms-client",
+  "files": "dist",
+  "contributors": [
+    "Cyril Kyburz <cyril.kyburz@renuo.ch> (https://www.renuo.ch)",
+    "Diego Steiner <diego.steiner@renuo.ch> (https://www.renuo.ch)",
+    "Josua Schmid <josua.schmid@renuo.ch> (https://www.renuo.ch)",
+    "Lukas Elmer <lukas.elmer@renuo.ch> (https://www.renuo.ch)",
+    "Nicolas Eckhart <nicolas.eckhart@renuo.ch> (https://www.renuo.ch)"
+  ],
   "devDependencies": {
     "babel-preset-es2015": "^6.3.13",
     "bower": "^1.6.8",
