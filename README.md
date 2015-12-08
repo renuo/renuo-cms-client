@@ -47,7 +47,7 @@ Prerequisites
 git clone git@github.com:renuo/renuo-cms-client.git
 cd renuo-cms-client
 nvm install
-bin/setup
+source bin/setup
 bin/check
 ```
 
@@ -76,17 +76,6 @@ MULTIPLE_BROWSERS=1 gulp test
 
 * [https://github.com/renuo/renuo-cms-client](https://github.com/renuo/renuo-cms-client)
 * [https://git.renuo.ch/renuo/renuo-cms-api](https://git.renuo.ch/renuo/renuo-cms-api)
-
-```sh
-npm install -g tsd bower
-```
-
-Then install the dependencies:
-
-```sh
-tsd reinstall --save --overwrite
-npm install
-```
 
 ### Dependencies / Type Definitions
 

@@ -14,7 +14,6 @@ describe('ContentBlockFinder', function () {
     testDiv.remove();
   });
 
-
   it('finds a single content block', function () {
     testDiv.append('<div data-content-path="my-path" data-api-key="my-key"></div>');
     const elements:HTMLElement[] = finder.find();

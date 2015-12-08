@@ -1,7 +1,4 @@
 class AjaxService {
-  constructor() {
-  }
-
   fetchContentBlock(contentBlock:ContentBlock):JQueryPromise<any> {
     return jQuery.getJSON(`${contentBlock.apiHost}/v1/${contentBlock.apiKey}/content_blocks/${contentBlock.contentPath}`);
   }

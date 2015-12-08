@@ -25,9 +25,7 @@ describe('ContentBlock', function () {
     const existingBlock = new ContentBlock('content', 'path', 'api-key', 'my-host',
       new Date(2015, 10, 20), new Date(2015, 10, 22));
     expect(existingBlock.isNew()).toEqual(false);
-    const newBlock = new ContentBlock('content', 'path', 'api-key', 'my-host',
-      null, null);
+    const newBlock = new ContentBlock('content', 'path', 'api-key', 'my-host', null, null);
     expect(newBlock.isNew()).toEqual(true);
   });
-
 });
