@@ -9,9 +9,8 @@ class EditController {
   }
 
   prepareEdit(dom:DomContentBlock):void {
-    if (this.editorLoadingCallback === null) {
-      this.editorLoadingCallback = this.loader.loadEditor();
-    }
+    if (this.editorLoadingCallback === null) this.editorLoadingCallback = this.loader.loadEditor();
+
     this.editorLoadingCallback.done(() =>
       this.preparer.prepare(dom, (dom:DomContentBlock, newContent:string) => this.editContent(dom, newContent)));
   }

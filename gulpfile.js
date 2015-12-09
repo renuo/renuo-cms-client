@@ -1,7 +1,6 @@
 'use strict';
 
 var gulp = require('gulp');
-var gutil = require('gulp-util');
 var sourcemaps = require('gulp-sourcemaps');
 var ts = require('gulp-typescript');
 var babel = require('gulp-babel');
@@ -16,13 +15,7 @@ var rename = require('gulp-rename');
 var tsProject = ts.createProject('tsconfig.json');
 var tsSpecsProject = ts.createProject('tsconfig_specs.json');
 
-// TODO: setup uglyfier
 // TODO: setup protractor
-
-var run_if = function (env, truthy, falsy) {
-  if (!falsy) falsy = gutil.noop();
-  return gutil.env.type === env ? truthy : falsy;
-};
 
 gulp.task('test', ['tscompile-specs'], function (done) {
   gulp.start('test-raw');
@@ -79,7 +72,6 @@ gulp.task('ts-single-compile', ['clean-js-main'], function () {
     .pipe(ts(tsProject))
     .pipe(babel({presets: ['es2015']}))
     .pipe(sourcemaps.write('.'))
-    .pipe(run_if('production', uglify()))
     .pipe(gulp.dest('.tmp'))
     .pipe(connect.reload());
 });
@@ -94,7 +86,6 @@ gulp.task('ts-specs-compile', ['clean-js-specs'], function () {
     .pipe(ts(tsSpecsProject))
     .pipe(babel({presets: ['es2015']}))
     .pipe(sourcemaps.write('.'))
-    .pipe(run_if('production', uglify()))
     .pipe(gulp.dest('.tmp'))
     .pipe(connect.reload());
 });

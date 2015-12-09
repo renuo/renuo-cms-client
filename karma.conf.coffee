@@ -1,3 +1,5 @@
+'use strict'
+
 browsers = ['PhantomJS']
 
 if process.env.TRAVIS

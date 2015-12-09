@@ -15,19 +15,54 @@ class CkeditorPreparer implements EditorPreparer {
     if (this.ckeditor === null) this.ckeditor = CKEDITOR;
 
     jQuery(dom.element).attr('contenteditable', 'true');
-    // TODO: ACF: http://sdk.ckeditor.com/samples/acf.html
-    this.ckeditor.inline(dom.element).on('blur', function (event:CKEDITOR.eventInfo) {
-      if (event.editor.checkDirty()) {
-        const newContent = event.editor.getData();
-        event.editor.resetDirty();
-        editCallback(dom, newContent);
-      }
-    });
+    this.initCkeditor(dom, editCallback);
   }
 
   notifySave(dom:DomContentBlock, success:boolean):void {
     const cssClass = success ? 'success' : 'error';
-    jQuery(dom.element).addClass(`renuo-cms-edit-${cssClass}`).delay(2000).queue(()=>
+    jQuery(dom.element).addClass(`renuo-cms-edit-${cssClass}`).delay(2000).queue(() =>
       jQuery(dom.element).removeClass(`renuo-cms-edit-${cssClass}`).dequeue());
   }
+
+  private initCkeditor(dom:DomContentBlock, editCallback:EditContentBlockCallback) {
+    this.ckeditor.inline(dom.element, this.ckeditorConfig()).on('blur', (event:CKEDITOR.eventInfo) => {
+      this.checkForUpdate(event, editCallback, dom);
+    });
+  };
+
+  private checkForUpdate(event:CKEDITOR.eventInfo, editCallback:EditContentBlockCallback, dom:DomContentBlock) {
+    if (event.editor.checkDirty()) {
+      const newContent = event.editor.getData();
+      event.editor.resetDirty();
+      editCallback(dom, newContent);
+    }
+  };
+
+  // this method would return a CKEDITOR.config, but it is not defined correctly
+  private ckeditorConfig():any {
+    // TODO: ACF: http://sdk.ckeditor.com/samples/acf.html
+    /*allowedContent: { 'b i li ul ol table thead tbody tr': true, 'h1 h2 h3 h4 p th td': {  styles: 'text-align,text-decoration' },
+     a: {attributes: '!href,target'} img: { attributes: '!src,alt', styles: 'width,height', classes: 'left,right' } },*/
+    // TODO: enable images
+    return {
+      toolbarGroups: [
+        {name: 'styles', groups: ['styles']},
+        {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
+        {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
+        {name: 'links', groups: ['links']},
+        {name: 'insert', groups: ['insert']},
+        {name: 'clipboard', groups: ['clipboard', 'undo']},
+        {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
+      ],
+      removePlugins: 'bidi,font,forms,flash,horizontalrule,iframe',
+      removeButtons: 'Source,Save,NewPage,Preview,Templates,Print,SelectAll,Form,Checkbox,Radio,TextField,Textarea,' +
+      'Select,Button,ImageButton,HiddenField,Outdent,Indent,Blockquote,CreateDiv,BidiLtr,BidiRtl,Language,Anchor,' +
+      'WidgetbootstrapAlert,WidgetbootstrapThreeCol,WidgetbootstrapTwoCol,WidgetbootstrapRightCol,WidgetbootstrapLeftCol,' +
+      'Flash,Image,Btgrid,Glyphicons,SpecialChar,Smiley,PageBreak,Iframe,Styles,Font,FontSize,TextColor,BGColor,' +
+      'Maximize,ShowBlocks,About',
+      format_tags: 'p;h1;h2;h3;h4;pre;address'
+    }
+      ;
+  }
 }
+

@@ -4,4 +4,8 @@ class ContentBlock {
   constructor(public content:string, public contentPath:string, public apiKey:string, public apiHost:string,
               public createdAt:Date = null, public updatedAt:Date = null) {
   }
+
+  isNew():boolean {
+    return !this.createdAt;
+  }
 }
