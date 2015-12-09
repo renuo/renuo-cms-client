@@ -42,9 +42,15 @@ File.write('package.json', "#{JSON.pretty_generate(json)}\n")
 
 `git add package.json`
 `git commit -m 'release #{new_version}'`
-`GIT_MERGE_AUTOEDIT=no git flow release finish #{new_version} -m '#{new_version}'`
-`git push origin master:master`
+`git checkout master`
+`git merge release/#{new_version}`
 `git checkout develop`
-`git push origin develop:develop --tags`
+`git merge release/#{new_version}`
+`git checkout master`
+`git branch -D release/#{new_version}`
+`git tag #{new_version}`
+`git push origin master:master --tags`
+`git checkout develop`
+`git push origin develop:develop`
 `npm release`
 
