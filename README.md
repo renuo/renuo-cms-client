@@ -111,6 +111,13 @@ To test the code in additional browsers (Chrome and Firefox):
 MULTIPLE_BROWSERS=1 gulp test
 ```
 
+## Release
+
+```sh
+bundle install
+bundle exec ruby release.rb
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at [https://github.com/renuo/renuo-cms-client]. This project is intended to
