@@ -12,7 +12,6 @@
   "main": "dist/renuo-cms-client.min.js",
   "homepage": "https://github.com/renuo/renuo-cms-client",
   "repository": "renuo/renuo-cms-client",
-  "files": "dist",
   "contributors": [
     "Cyril Kyburz <cyril.kyburz@renuo.ch> (https://www.renuo.ch)",
     "Diego Steiner <diego.steiner@renuo.ch> (https://www.renuo.ch)",

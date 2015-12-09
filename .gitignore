@@ -17,4 +17,4 @@ typings
 .tscache
 test
 .tmp
-dist
+/dist
