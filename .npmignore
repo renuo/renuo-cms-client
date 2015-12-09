@@ -4,7 +4,6 @@ release.rb
 .travis.yml
 Gemfile
 Gemfile.lock
-bower.json
 .jshintignore
 .jshintrc
 /.editorconfig
