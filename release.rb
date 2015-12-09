@@ -52,5 +52,5 @@ File.write('package.json', "#{JSON.pretty_generate(json)}\n")
 `git push origin master:master --tags`
 `git checkout develop`
 `git push origin develop:develop`
-`npm release`
+`npm publish`
 
