@@ -128,4 +128,4 @@ the [Contributor Covenant](contributor-covenant.org) code of conduct.
 
 For more information on the renuo-cms-client, please check out
 [https://github.com/renuo/renuo-cms-client](https://github.com/renuo/renuo-cms-client)
-or contact [info@renuo.ch](mailto:info@renuo.ch).
+or contact [cms@renuo.ch](mailto:cms@renuo.ch).
