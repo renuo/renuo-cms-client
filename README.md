@@ -8,7 +8,7 @@ Include the JavaScript file and the CSS file in your documents HEAD after you've
  
 ```html
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="path/to/renuo_cms_client.min.js"></script>
+<script src="https://cdn.jsdelivr.net/renuo-cms-client/latest/renuo-cms-client.min.js"></script>
 ```
 
 Insert an empty <div> element with the data attribute block containing the content blocks id:
