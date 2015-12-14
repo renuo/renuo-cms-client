@@ -31,6 +31,9 @@ describe('CkeditorPreparer', function () {
     it('sets the contenteditable on the element', function () {
       expect(jQuery(element).attr('contenteditable')).toBeFalsy();
       preparer.prepare(dom, callback);
+      expect(spy.calls.count()).toBe(1);
+      preparer.prepare(dom, callback);
+      expect(spy.calls.count()).toBe(1);
       expect(jQuery(element).attr('contenteditable')).toBe('true');
     });
 

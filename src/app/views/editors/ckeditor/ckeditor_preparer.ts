@@ -14,6 +14,8 @@ class CkeditorPreparer implements EditorPreparer {
   prepare(dom:DomContentBlock, editCallback:EditContentBlockCallback):void {
     if (this.ckeditor === null) this.ckeditor = CKEDITOR;
 
+    if (jQuery(dom.element).attr('contenteditable') === 'true') return;
+
     jQuery(dom.element).attr('contenteditable', 'true');
     this.initCkeditor(dom, editCallback);
   }
@@ -61,8 +63,7 @@ class CkeditorPreparer implements EditorPreparer {
       'Flash,Image,Btgrid,Glyphicons,SpecialChar,Smiley,PageBreak,Iframe,Styles,Font,FontSize,TextColor,BGColor,' +
       'Maximize,ShowBlocks,About',
       format_tags: 'p;h1;h2;h3;h4;pre;address'
-    }
-      ;
+    };
   }
 }
 

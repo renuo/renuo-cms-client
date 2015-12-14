@@ -64,10 +64,27 @@
         <p>This is some default content. It is the default when the API doesn't have a content block for it yet.</p>
       </div>
     </article>
+
+    <article>
+      <h1>I can be edited after 2 seconds</h1>
+
+      <div data-content-path="i-am-late" data-api-host="//renuo-cms-api.dev:3000" data-api-key="aValidApiKey">
+        Nananananananana
+      </div>
+
+      <hr/>
+    </article>
   </section>
 </div>
 </body>
 <script src="/jquery/dist/jquery.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script src="renuo-cms-client.js"></script>
+<script>
+  setTimeout(function(){
+    var div = jQuery('[data-content-path=i-am-late]').eq(0);
+    div.attr('data-private-api-key', 'AdminONLY');
+    jQuery(document).trigger('renuo-cms-reload');
+  }, 2000);
+</script>
 </html>
