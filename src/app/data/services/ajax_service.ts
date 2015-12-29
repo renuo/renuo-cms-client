@@ -1,12 +1,8 @@
 class AjaxService {
   private static MAX_CACHE_TTL:number = 60 * 2; // 2 minutes
 
-  fetchContentBlocks(apiKey:string, apiHost:string):JQueryPromise<any> {
+  fetchContentBlocks(apiKey:string, apiHost:string):JQueryPromise<any[]> {
     return jQuery.getJSON(`${apiHost}/v1/${apiKey}/content_blocks?_=${this.cacheTime()}`);
-  }
-
-  fetchContentBlock(contentBlock:ContentBlock):JQueryPromise<any> {
-    return jQuery.getJSON(`${contentBlock.apiHost}/v1/${contentBlock.apiKey}/content_blocks/${contentBlock.contentPath}`);
   }
 
   storeContentBlock(contentBlock:ContentBlock, privateApiKey:string):JQueryPromise<any> {
@@ -31,6 +27,6 @@ class AjaxService {
   }
 
   protected currentTime():number {
-    return Date.now();
+    return Date.now() / 1000;
   }
 }

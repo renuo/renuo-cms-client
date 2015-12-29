@@ -7,8 +7,9 @@ class DataService {
   }
 
   loadContent(contentBlock:ContentBlock):JQueryPromise<ContentBlock> {
-    return this.ajaxService.fetchContentBlock(contentBlock).then((raw) =>
-      new DataConverter().convertJson(contentBlock, raw));
+    const dataConverter = new DataConverter();
+    return this.ajaxService.fetchContentBlocks(contentBlock.apiKey, contentBlock.apiHost).then((raw) =>
+      dataConverter.convertJsonFromArray(contentBlock, raw));
   }
 
   storeContent(contentBlock:ContentBlock, privateApiKey:string):JQueryPromise<any> {

@@ -13,43 +13,6 @@ describe('AjaxService', function () {
   const existingContentBlock1 = AjaxServiceMockData.existingContentBlock1();
   const existingContentBlock2 = AjaxServiceMockData.existingContentBlock2();
 
-  describe('#fetchContentBlock', function () {
-    it('fetches a content block with the right request method', function () {
-      spyOn(jQuery, 'ajax').and.callFake(function (request:any) {
-        expect(request.url).toBe('http://renuo-cms-client.dev/v1/api-keyx/content_blocks/my-path');
-        expect(request.type).toBe('get');
-        expect(request.dataType).toBe('json');
-        return ajax_response(newContentBlock);
-      });
-      service.fetchContentBlock(new ContentBlock('', 'my-path', 'api-keyx', 'http://renuo-cms-client.dev')).then(() => {
-      });
-    });
-
-    it('fetches a new content block', function () {
-      spyOn(jQuery, 'ajax').and.returnValue(ajax_response(newContentBlock));
-      service.fetchContentBlock(new ContentBlock('', 'my-path', 'api-keyx', 'host')).then((result) => {
-        expect(result.content_block.api_key).toBe('api-key');
-        expect(result.content_block.api_host).toBeUndefined();
-        expect(result.content_block.content_path).toBe('my-path');
-        expect(result.content_block.content).toBe('');
-        expect(result.content_block.created_at).toBeFalsy();
-        expect(result.content_block.updated_at).toBeFalsy();
-      });
-    });
-
-    it('fetches an existing content block', function () {
-      spyOn(jQuery, 'ajax').and.returnValue(ajax_response(existingContentBlock1));
-      service.fetchContentBlock(new ContentBlock('', 'my-path', 'api-keyx', 'my-h')).then((result) => {
-        expect(result.content_block.api_key).toBe('api-key');
-        expect(result.content_block.api_host).toBeUndefined();
-        expect(result.content_block.content_path).toBe('my-path');
-        expect(result.content_block.content).toBe('some content');
-        expect(result.content_block.created_at).toBe(existingContentBlock1.content_block.created_at);
-        expect(result.content_block.updated_at).toBe(existingContentBlock1.content_block.updated_at);
-      });
-    });
-  });
-
   describe('#fetchContentBlocks', function () {
     it('fetches all content blocks with the right request method', function () {
       spyOn(service, 'currentTime').and.returnValue(742);
@@ -65,30 +28,30 @@ describe('AjaxService', function () {
 
     it('calculates the cache time correctly', function () {
       const spy = spyOn(service, 'currentTime');
-      spy.and.returnValue(742);
+      spy.and.returnValue(742.214);
       expect(service.cacheTime()).toBe(720);
-      spy.and.returnValue(720);
+      spy.and.returnValue(720.0);
       expect(service.cacheTime()).toBe(720);
-      spy.and.returnValue(719);
+      spy.and.returnValue(719.999);
       expect(service.cacheTime()).toBe(600);
     });
 
     it('fetches all existing content blocks', function () {
       spyOn(jQuery, 'ajax').and.returnValue(ajax_response([existingContentBlock1, existingContentBlock2]));
       service.fetchContentBlocks('api-keyx', 'my-h').then((result) => {
-        expect(result[0].content_block.api_key).toBe('api-key');
-        expect(result[0].content_block.api_host).toBeUndefined();
-        expect(result[0].content_block.content_path).toBe('my-path');
-        expect(result[0].content_block.content).toBe('some content');
-        expect(result[0].content_block.created_at).toBe(existingContentBlock1.content_block.created_at);
-        expect(result[0].content_block.updated_at).toBe(existingContentBlock1.content_block.updated_at);
+        expect(result[0].api_key).toBe('api-key');
+        expect(result[0].api_host).toBeUndefined();
+        expect(result[0].content_path).toBe('my-path');
+        expect(result[0].content).toBe('some content');
+        expect(result[0].created_at).toBe(existingContentBlock1.created_at);
+        expect(result[0].updated_at).toBe(existingContentBlock1.updated_at);
 
-        expect(result[1].content_block.api_key).toBe('api-key');
-        expect(result[1].content_block.api_host).toBeUndefined();
-        expect(result[1].content_block.content_path).toBe('my-path2');
-        expect(result[1].content_block.content).toBe('some different content');
-        expect(result[1].content_block.created_at).toBe(existingContentBlock2.content_block.created_at);
-        expect(result[1].content_block.updated_at).toBe(existingContentBlock2.content_block.updated_at);
+        expect(result[1].api_key).toBe('api-key');
+        expect(result[1].api_host).toBeUndefined();
+        expect(result[1].content_path).toBe('my-path2');
+        expect(result[1].content).toBe('some different content');
+        expect(result[1].created_at).toBe(existingContentBlock2.created_at);
+        expect(result[1].updated_at).toBe(existingContentBlock2.updated_at);
       });
     });
   });
