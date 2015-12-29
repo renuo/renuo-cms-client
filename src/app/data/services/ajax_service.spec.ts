@@ -52,7 +52,7 @@ describe('AjaxService', function () {
   describe('#storeContentBlock', function () {
     it('stores a content block on the server', function () {
       spyOn(jQuery, 'ajax').and.callFake(function (request:any) {
-        expect(request.url).toBe('//host.com/v1/my-api-key/content_blocks');
+        expect(request.url).toBe('//host.com/v1/my-api-key/content_blocks?_method=put');
         expect(request.type).toBe('POST');
         expect(request.dataType).toBe('json');
         const parsed = JSON.parse(request.data);

@@ -5,7 +5,7 @@ class AjaxService {
 
   storeContentBlock(contentBlock:ContentBlock, privateApiKey:string):JQueryPromise<any> {
     return jQuery.ajax({
-      url: `${contentBlock.apiHost}/v1/${contentBlock.apiKey}/content_blocks`,
+      url: `${contentBlock.apiHost}/v1/${contentBlock.apiKey}/content_blocks?_method=put`,
       contentType: 'application/json',
       dataType: 'json',
       type: 'POST',
