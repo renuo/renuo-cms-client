@@ -1,7 +1,9 @@
+///<reference path="../models/ajax_content_blocks.ts"/>
+
 class AjaxService {
   private static MAX_CACHE_TTL:number = 60 * 2; // 2 minutes
 
-  fetchContentBlocks(apiKey:string, apiHost:string):JQueryPromise<any[]> {
+  fetchContentBlocks(apiKey:string, apiHost:string):JQueryPromise<AjaxContentBlocks> {
     return jQuery.getJSON(`${apiHost}/v1/${apiKey}/content_blocks?_=${this.cacheTime()}`);
   }
 

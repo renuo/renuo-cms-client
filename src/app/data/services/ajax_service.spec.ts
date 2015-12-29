@@ -37,21 +37,23 @@ describe('AjaxService', function () {
     });
 
     it('fetches all existing content blocks', function () {
-      spyOn(jQuery, 'ajax').and.returnValue(ajax_response([existingContentBlock1, existingContentBlock2]));
-      service.fetchContentBlocks('api-keyx', 'my-h').then((result) => {
-        expect(result[0].api_key).toBe('api-key');
-        expect(result[0].api_host).toBeUndefined();
-        expect(result[0].content_path).toBe('my-path');
-        expect(result[0].content).toBe('some content');
-        expect(result[0].created_at).toBe(existingContentBlock1.created_at);
-        expect(result[0].updated_at).toBe(existingContentBlock1.updated_at);
+      spyOn(jQuery, 'ajax').and.returnValue(ajax_response({
+        content_blocks: [existingContentBlock1, existingContentBlock2]
+      }));
+      service.fetchContentBlocks('api-keyx', 'my-h').then((result:AjaxContentBlocks) => {
+        expect(result.content_blocks[0].api_key).toBe('api-key');
+        expect(result.content_blocks[0].hasOwnProperty('api_host')).toBeFalsy();
+        expect(result.content_blocks[0].content_path).toBe('my-path');
+        expect(result.content_blocks[0].content).toBe('some content');
+        expect(result.content_blocks[0].created_at).toBe(existingContentBlock1.created_at);
+        expect(result.content_blocks[0].updated_at).toBe(existingContentBlock1.updated_at);
 
-        expect(result[1].api_key).toBe('api-key');
-        expect(result[1].api_host).toBeUndefined();
-        expect(result[1].content_path).toBe('my-path2');
-        expect(result[1].content).toBe('some different content');
-        expect(result[1].created_at).toBe(existingContentBlock2.created_at);
-        expect(result[1].updated_at).toBe(existingContentBlock2.updated_at);
+        expect(result.content_blocks[1].api_key).toBe('api-key');
+        expect(result.content_blocks[1].hasOwnProperty('api_host')).toBeFalsy();
+        expect(result.content_blocks[1].content_path).toBe('my-path2');
+        expect(result.content_blocks[1].content).toBe('some different content');
+        expect(result.content_blocks[1].created_at).toBe(existingContentBlock2.created_at);
+        expect(result.content_blocks[1].updated_at).toBe(existingContentBlock2.updated_at);
       });
     });
   });

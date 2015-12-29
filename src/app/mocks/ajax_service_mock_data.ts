@@ -1,15 +1,17 @@
+///<reference path="../data/models/ajax_content_block.ts"/>
+
 class AjaxServiceMockData {
-  public static newContentBlock() {
+  public static newContentBlock():AjaxContentBlock {
     return {
       api_key: 'api-key',
       content_path: 'my-path',
       content: '',
-      created_at: 0,
-      updated_at: 0
+      created_at: new Date(0),
+      updated_at: new Date(0)
     };
   }
 
-  public static existingContentBlock1() {
+  public static existingContentBlock1():AjaxContentBlock {
     return {
       api_key: 'api-key',
       content_path: 'my-path',
@@ -19,7 +21,7 @@ class AjaxServiceMockData {
     };
   }
 
-  public static existingContentBlock2() {
+  public static existingContentBlock2():AjaxContentBlock {
     return {
       api_key: 'api-key',
       content_path: 'my-path2',
