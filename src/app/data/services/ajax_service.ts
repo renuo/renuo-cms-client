@@ -21,7 +21,8 @@ class AjaxService {
           content_path: contentBlock.contentPath
         },
         private_api_key: privateApiKey
-      })
+      }),
+      headers: {'X-HTTP-Method-Override': 'PUT'}
     });
   }
 
