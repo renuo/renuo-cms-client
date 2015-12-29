@@ -9,7 +9,7 @@ describe('DataService', function () {
   it('loads a content block', function () {
     const ajaxService = new AjaxService();
     spyOn(ajaxService, 'fetchContentBlock').and.callFake(
-      () => jQuery.Deferred().resolve(AjaxServiceMockData.existingContentBlock()).promise());
+      () => jQuery.Deferred().resolve(AjaxServiceMockData.existingContentBlock1()).promise());
 
     const service = new DataService(ajaxService);
     service.loadContent(contentBlock).then(function (block:ContentBlock) {
@@ -26,7 +26,7 @@ describe('DataService', function () {
   it('stores a content block', function () {
     const ajaxService = new AjaxService();
     spyOn(ajaxService, 'storeContentBlock').and.callFake(
-      () => jQuery.Deferred().resolve(AjaxServiceMockData.existingContentBlock()).promise());
+      () => jQuery.Deferred().resolve(AjaxServiceMockData.existingContentBlock1()).promise());
 
     const service = new DataService(ajaxService);
     service.storeContent(contentBlock, 'pk');

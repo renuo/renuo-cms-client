@@ -5,7 +5,7 @@
 describe('DataConverter', function () {
   it('loads a content block', function () {
     const service = new DataConverter();
-    const rawData = AjaxServiceMockData.existingContentBlock();
+    const rawData = AjaxServiceMockData.existingContentBlock1();
     const contentBlock = new ContentBlock('-', '-', '-', '//some.host', null, null);
     const block:ContentBlock = service.convertJson(contentBlock, rawData);
 

@@ -11,12 +11,24 @@ class AjaxServiceMockData {
     };
   }
 
-  public static existingContentBlock() {
+  public static existingContentBlock1() {
     return {
       content_block: {
         api_key: 'api-key',
         content_path: 'my-path',
         content: 'some content',
+        created_at: new Date(2015, 11, 30),
+        updated_at: new Date(2015, 12, 3)
+      }
+    };
+  }
+
+  public static existingContentBlock2() {
+    return {
+      content_block: {
+        api_key: 'api-key',
+        content_path: 'my-path2',
+        content: 'some different content',
         created_at: new Date(2015, 11, 30),
         updated_at: new Date(2015, 12, 3)
       }
