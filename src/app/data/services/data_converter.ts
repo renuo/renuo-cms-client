@@ -16,7 +16,7 @@ class DataConverter {
   convertJsonObjectToHash(rawJsonObject:AjaxContentBlocks):AjaxContentBlocksHash {
     const hash:AjaxContentBlocksHash = {};
 
-    return rawJsonObject.content_blocks.reduce(function (map, jsonContentBlock) {
+    return rawJsonObject.content_blocks.reduce((map, jsonContentBlock) => {
       map[jsonContentBlock.content_path] = jsonContentBlock;
       return map;
     }, hash);
