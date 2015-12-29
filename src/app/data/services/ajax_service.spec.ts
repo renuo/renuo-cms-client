@@ -52,7 +52,7 @@ describe('AjaxService', function () {
   describe('#storeContentBlock', function () {
     it('stores a content block on the server', function () {
       spyOn(jQuery, 'ajax').and.callFake(function (request:any) {
-        expect(request.url).toBe('//host.com/v1/my-api-key/content_blocks?_method=put');
+        expect(request.url).toBe('//host.com/v1/my-api-key/content_blocks');
         expect(request.type).toBe('POST');
         expect(request.dataType).toBe('json');
         const parsed = JSON.parse(request.data);
@@ -61,6 +61,7 @@ describe('AjaxService', function () {
         expect(parsed.content_block.api_key).toBeUndefined();
         expect(parsed.content_block.api_host).toBeUndefined();
         expect(parsed.private_api_key).toBe('pk');
+        expect(request.headers).toEqual({'X-HTTP-Method-Override': 'PUT'});
         return ajax_response(newContentBlock);
       });
       service.storeContentBlock(new ContentBlock('content', 'path', 'my-api-key', '//host.com'), 'pk').then(() => {

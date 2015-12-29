@@ -5,7 +5,7 @@ class AjaxService {
 
   storeContentBlock(contentBlock:ContentBlock, privateApiKey:string):JQueryPromise<any> {
     return jQuery.ajax({
-      url: `${contentBlock.apiHost}/v1/${contentBlock.apiKey}/content_blocks?_method=put`,
+      url: `${contentBlock.apiHost}/v1/${contentBlock.apiKey}/content_blocks`,
       contentType: 'application/json',
       dataType: 'json',
       type: 'POST',
@@ -15,7 +15,8 @@ class AjaxService {
           content_path: contentBlock.contentPath
         },
         private_api_key: privateApiKey
-      })
+      }),
+      headers: {'X-HTTP-Method-Override': 'PUT'}
     });
   }
 }
