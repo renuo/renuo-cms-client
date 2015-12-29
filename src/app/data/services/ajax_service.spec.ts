@@ -61,6 +61,7 @@ describe('AjaxService', function () {
         expect(parsed.content_block.api_key).toBeUndefined();
         expect(parsed.content_block.api_host).toBeUndefined();
         expect(parsed.private_api_key).toBe('pk');
+        expect(request.headers).toEqual({'X-HTTP-Method-Override': 'PUT'});
         return ajax_response(newContentBlock);
       });
       service.storeContentBlock(new ContentBlock('content', 'path', 'my-api-key', '//host.com'), 'pk').then(() => {
