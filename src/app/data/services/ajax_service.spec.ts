@@ -52,14 +52,25 @@ describe('AjaxService', function () {
 
   describe('#fetchContentBlocks', function () {
     it('fetches all content blocks with the right request method', function () {
+      spyOn(service, 'currentTime').and.returnValue(742);
       spyOn(jQuery, 'ajax').and.callFake(function (request:any) {
-        expect(request.url).toBe('http://renuo-cms-client.dev/v1/api-keyx/content_blocks');
+        expect(request.url).toBe('http://renuo-cms-client.dev/v1/api-keyx/content_blocks?_=720');
         expect(request.type).toBe('get');
         expect(request.dataType).toBe('json');
         return ajax_response([existingContentBlock1, existingContentBlock2]);
       });
       service.fetchContentBlocks('api-keyx', 'http://renuo-cms-client.dev').then(() => {
       });
+    });
+
+    it('calculates the cache time correctly', function () {
+      const spy = spyOn(service, 'currentTime');
+      spy.and.returnValue(742);
+      expect(service.cacheTime()).toBe(720);
+      spy.and.returnValue(720);
+      expect(service.cacheTime()).toBe(720);
+      spy.and.returnValue(719);
+      expect(service.cacheTime()).toBe(600);
     });
 
     it('fetches all existing content blocks', function () {
