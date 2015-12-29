@@ -11,7 +11,8 @@ describe('DataService', function () {
     const blocks = {
       content_blocks: [AjaxServiceMockData.existingContentBlock1(), AjaxServiceMockData.existingContentBlock2()]
     };
-    spyOn(ajaxService, 'fetchContentBlocks').and.callFake(
+    const spy = spyOn(ajaxService, 'fetchContentBlocks');
+    spy.and.callFake(
       () => jQuery.Deferred().resolve(blocks).promise());
 
     const service = new DataService(ajaxService);
@@ -24,6 +25,9 @@ describe('DataService', function () {
       expect(block.updatedAt).toEqual(new Date(2015, 12, 3));
     });
     expect(ajaxService.fetchContentBlocks).toHaveBeenCalledWith(contentBlock.apiKey, contentBlock.apiHost);
+    expect(spy.calls.count()).toBe(1);
+    service.loadContent(contentBlock);
+    expect(spy.calls.count()).toBe(1);
   });
 
   it('stores a content block', function () {
