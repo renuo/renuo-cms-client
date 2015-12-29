@@ -22,7 +22,7 @@ describe('DataConverter', function () {
   });
 
   it('extracts the correct content block', function () {
-    const blocks:{[id: string]: AjaxContentBlock} = {'my-path': rawData1, 'my-path2': rawData2};
+    const blocks:AjaxContentBlocksHash = {'my-path': rawData1, 'my-path2': rawData2};
     const block1:ContentBlock = service.extractObjectFromHash(contentBlock1, blocks);
     expect(block1.content).toEqual('some content');
     const block2:ContentBlock = service.extractObjectFromHash(contentBlock2, blocks);
@@ -32,7 +32,7 @@ describe('DataConverter', function () {
   });
 
   it('converts the content blocks to hashes', function () {
-    const blocks = {content_blocks: [rawData1, rawData2]};
+    const blocks:AjaxContentBlocks = {content_blocks: [rawData1, rawData2]};
     const hash = service.convertJsonObjectToHash(blocks);
     expect(hash).toEqual({'my-path': rawData1, 'my-path2': rawData2});
   });

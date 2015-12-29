@@ -3,21 +3,20 @@
 ///<reference path="../models/ajax_content_block.ts"/>
 
 class DataConverter {
-  convertJson(originalContentBlock:ContentBlock, cb:any):ContentBlock {
+  convertJson(originalContentBlock:ContentBlock, cb:AjaxContentBlock):ContentBlock {
     return new ContentBlock(cb.content, cb.content_path, cb.api_key, originalContentBlock.apiHost,
       cb.created_at, cb.updated_at);
   }
 
-  extractObjectFromHash(originalContentBlock:ContentBlock, rawAjaxArray:{[id: string]: AjaxContentBlock}):ContentBlock {
+  extractObjectFromHash(originalContentBlock:ContentBlock, rawAjaxArray:AjaxContentBlocksHash):ContentBlock {
     const rawData = rawAjaxArray[originalContentBlock.contentPath];
     return rawData ? this.convertJson(originalContentBlock, rawData) : originalContentBlock;
   }
 
-  convertJsonObjectToHash(rawJsonObject:AjaxContentBlocks):{[id: string]: AjaxContentBlock} {
-    const hash:{[id: string]: AjaxContentBlock} = {};
-    const rawJsonArray = rawJsonObject.content_blocks;
+  convertJsonObjectToHash(rawJsonObject:AjaxContentBlocks):AjaxContentBlocksHash {
+    const hash:AjaxContentBlocksHash = {};
 
-    return rawJsonArray.reduce(function (map, jsonContentBlock) {
+    return rawJsonObject.content_blocks.reduce(function (map, jsonContentBlock) {
       map[jsonContentBlock.content_path] = jsonContentBlock;
       return map;
     }, hash);

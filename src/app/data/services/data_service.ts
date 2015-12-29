@@ -1,9 +1,10 @@
 ///<reference path="../models/content_block.ts"/>
 ///<reference path="ajax_service.ts"/>
 ///<reference path="data_converter.ts"/>
+///<reference path="../models/ajax_content_blocks_hash.ts"/>
 
 class DataService {
-  private dataCache:{[id: string]: JQueryPromise<{[id: string]: AjaxContentBlock}>} = {};
+  private dataCache:{[cacheKey: string]: JQueryPromise<AjaxContentBlocksHash>} = {};
   private dataConverter = new DataConverter();
 
   constructor(private ajaxService:AjaxService) {
@@ -21,7 +22,7 @@ class DataService {
     return this.ajaxService.storeContentBlock(contentBlock, privateApiKey);
   }
 
-  private loadAllContents(contentBlock:ContentBlock):JQueryPromise<{[id: string]: AjaxContentBlock}> {
+  private loadAllContents(contentBlock:ContentBlock):JQueryPromise<AjaxContentBlocksHash> {
     return this.ajaxService.fetchContentBlocks(contentBlock.apiKey, contentBlock.apiHost).then(raw =>
       this.dataConverter.convertJsonObjectToHash(raw));
   };
