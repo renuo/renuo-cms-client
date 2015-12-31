@@ -61,6 +61,15 @@ gulp.task('serve', ['copyhtml', 'tslint', 'tscompile', 'tscompile-specs'], funct
   return callback();
 });
 
+gulp.task('travis-serve', ['copyhtml', 'tslint', 'tscompile', 'tscompile-specs'], function (callback) {
+  connect.server({
+    root: ['.tmp', './bower_components'],
+    livereload: false,
+    host: 'localhost'
+  });
+  return callback();
+});
+
 gulp.task('tdd', ['copyhtml', 'tslint', 'tscompile', 'tscompile-specs'], function (done) {
   gulp.start('watch');
   return done();

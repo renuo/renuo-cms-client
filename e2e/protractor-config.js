@@ -1,6 +1,7 @@
 exports.config = {
+  framework: 'jasmine2',
   capabilities: {
     'browserName': 'firefox'
   },
-  specs: ['todo-spec.js']
+  specs: ['cms-api.spec.js']
 };
