@@ -11,8 +11,8 @@ class ViewController {
   init():void {
     const domContentBlocks = this.finder.find().map((el) => this.converter.convert(el));
 
-    domContentBlocks.forEach((dom) =>
-      this.dataService.loadContent(dom.contentBlock).then((contentBlock) =>
+    domContentBlocks.forEach((dom:DomContentBlock) =>
+      this.dataService.loadContent(dom.contentBlock, !dom.isEditable()).then((contentBlock) =>
         this.handleElement(this.converter.createNewBlock(dom, contentBlock))
       ));
   }

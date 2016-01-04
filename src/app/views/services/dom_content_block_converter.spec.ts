@@ -13,7 +13,7 @@ describe('DomContentBlockConverter', function () {
     const cb = domContentBlock.contentBlock;
 
     expect(domContentBlock.element).toBe(element);
-    expect(cb.content).toBe(null);
+    expect(cb.content).toBe('');
     expect(cb.contentPath).toBe('my-path');
     expect(cb.apiKey).toBe('my-key');
   });
@@ -27,7 +27,7 @@ describe('DomContentBlockConverter', function () {
 
     expect(domContentBlock.privateApiKey).toBe('PK');
     expect(domContentBlock.element).toBe(element);
-    expect(cb.content).toBe(null);
+    expect(cb.content).toBe('');
     expect(cb.contentPath).toBe('my-path');
     expect(cb.apiKey).toBe('my-key');
     expect(cb.apiHost).toBe('host');

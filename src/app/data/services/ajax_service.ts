@@ -1,6 +1,10 @@
+///<reference path="../models/ajax_content_blocks.ts"/>
+
 class AjaxService {
-  fetchContentBlock(contentBlock:ContentBlock):JQueryPromise<any> {
-    return jQuery.getJSON(`${contentBlock.apiHost}/v1/${contentBlock.apiKey}/content_blocks/${contentBlock.contentPath}`);
+  private static MAX_CACHE_TTL:number = 60 * 2; // 2 minutes
+
+  fetchContentBlocks(apiKey:string, apiHost:string, enableHttpCaching:boolean):JQueryPromise<AjaxContentBlocks> {
+    return jQuery.getJSON(`${apiHost}/v1/${apiKey}/content_blocks?_=${this.cacheTime(enableHttpCaching)}`);
   }
 
   storeContentBlock(contentBlock:ContentBlock, privateApiKey:string):JQueryPromise<any> {
@@ -18,5 +22,15 @@ class AjaxService {
       }),
       headers: {'X-HTTP-Method-Override': 'PUT'}
     });
+  }
+
+  cacheTime(enableHttpCaching:boolean):number {
+    if (!enableHttpCaching) return Math.round(this.currentTime());
+
+    return Math.floor(this.currentTime() / AjaxService.MAX_CACHE_TTL) * AjaxService.MAX_CACHE_TTL;
+  }
+
+  protected currentTime():number {
+    return Date.now() / 1000;
   }
 }

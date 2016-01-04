@@ -10,41 +10,72 @@ describe('AjaxService', function () {
 
   const service = new AjaxService();
   const newContentBlock = AjaxServiceMockData.newContentBlock();
-  const existingContentBlock = AjaxServiceMockData.existingContentBlock();
+  const existingContentBlock1 = AjaxServiceMockData.existingContentBlock1();
+  const existingContentBlock2 = AjaxServiceMockData.existingContentBlock2();
 
-  describe('#fetchContentBlock', function () {
-    it('fetches a content block with the right request method', function () {
+  describe('#fetchContentBlocks', function () {
+    it('fetches all content blocks with the right request method', function () {
+      spyOn(service, 'currentTime').and.returnValue(742.244);
       spyOn(jQuery, 'ajax').and.callFake(function (request:any) {
-        expect(request.url).toBe('http://renuo-cms-client.dev/v1/api-keyx/content_blocks/my-path');
         expect(request.type).toBe('get');
         expect(request.dataType).toBe('json');
-        return ajax_response(newContentBlock);
+        return ajax_response([existingContentBlock1, existingContentBlock2]);
       });
-      service.fetchContentBlock(new ContentBlock('', 'my-path', 'api-keyx', 'http://renuo-cms-client.dev')).then(() => {
-      });
+      service.fetchContentBlocks('a-api-key', 'http://renuo-cms-client.dev', true).then(() => null);
     });
 
-    it('fetches a new content block', function () {
-      spyOn(jQuery, 'ajax').and.returnValue(ajax_response(newContentBlock));
-      service.fetchContentBlock(new ContentBlock('', 'my-path', 'api-keyx', 'host')).then((result) => {
-        expect(result.content_block.api_key).toBe('api-key');
-        expect(result.content_block.api_host).toBeUndefined();
-        expect(result.content_block.content_path).toBe('my-path');
-        expect(result.content_block.content).toBe('');
-        expect(result.content_block.created_at).toBeFalsy();
-        expect(result.content_block.updated_at).toBeFalsy();
+    it('fetches sets the correct url with caching', function () {
+      spyOn(service, 'currentTime').and.returnValue(742.244);
+      spyOn(jQuery, 'ajax').and.callFake(function (request:any) {
+        expect(request.url).toBe('http://renuo-cms-client.dev/v1/a-api-key/content_blocks?_=720');
+        return ajax_response([]);
       });
+      service.fetchContentBlocks('a-api-key', 'http://renuo-cms-client.dev', true).then(() => null);
     });
 
-    it('fetches an existing content block', function () {
-      spyOn(jQuery, 'ajax').and.returnValue(ajax_response(existingContentBlock));
-      service.fetchContentBlock(new ContentBlock('', 'my-path', 'api-keyx', 'my-h')).then((result) => {
-        expect(result.content_block.api_key).toBe('api-key');
-        expect(result.content_block.api_host).toBeUndefined();
-        expect(result.content_block.content_path).toBe('my-path');
-        expect(result.content_block.content).toBe('some content');
-        expect(result.content_block.created_at).toBe(existingContentBlock.content_block.created_at);
-        expect(result.content_block.updated_at).toBe(existingContentBlock.content_block.updated_at);
+    it('fetches sets the correct url without caching', function () {
+      spyOn(service, 'currentTime').and.returnValue(742.244);
+      spyOn(jQuery, 'ajax').and.callFake(function (request:any) {
+        expect(request.url).toBe('http://renuo-cms-client.dev/v1/a-api-key/content_blocks?_=742');
+        return ajax_response([]);
+      });
+      service.fetchContentBlocks('a-api-key', 'http://renuo-cms-client.dev', false).then(() => null);
+    });
+
+    it('calculates the cache time correctly with caching', function () {
+      const spy = spyOn(service, 'currentTime');
+      spy.and.returnValue(742.214);
+      expect(service.cacheTime(true)).toBe(720);
+      spy.and.returnValue(720.0);
+      expect(service.cacheTime(true)).toBe(720);
+      spy.and.returnValue(719.999);
+      expect(service.cacheTime(true)).toBe(600);
+    });
+
+    it('calculates the cache time correctly without caching', function () {
+      const spy = spyOn(service, 'currentTime');
+      spy.and.returnValue(742.214);
+      expect(service.cacheTime(false)).toBe(742);
+    });
+
+    it('fetches all existing content blocks', function () {
+      spyOn(jQuery, 'ajax').and.returnValue(ajax_response({
+        content_blocks: [existingContentBlock1, existingContentBlock2]
+      }));
+      service.fetchContentBlocks('a-api-key', 'my-h', true).then((result:AjaxContentBlocks) => {
+        expect(result.content_blocks[0].api_key).toBe('api-key');
+        expect(result.content_blocks[0].hasOwnProperty('api_host')).toBeFalsy();
+        expect(result.content_blocks[0].content_path).toBe('my-path');
+        expect(result.content_blocks[0].content).toBe('some content');
+        expect(result.content_blocks[0].created_at).toBe(existingContentBlock1.created_at);
+        expect(result.content_blocks[0].updated_at).toBe(existingContentBlock1.updated_at);
+
+        expect(result.content_blocks[1].api_key).toBe('api-key');
+        expect(result.content_blocks[1].hasOwnProperty('api_host')).toBeFalsy();
+        expect(result.content_blocks[1].content_path).toBe('my-path2');
+        expect(result.content_blocks[1].content).toBe('some different content');
+        expect(result.content_blocks[1].created_at).toBe(existingContentBlock2.created_at);
+        expect(result.content_blocks[1].updated_at).toBe(existingContentBlock2.updated_at);
       });
     });
   });
