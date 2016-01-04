@@ -43,8 +43,8 @@ describe('ViewController', function () {
     expect(finder.find).toHaveBeenCalled();
     expect(converter.convert).toHaveBeenCalledWith(elements[0]);
     expect(converter.convert).toHaveBeenCalledWith(elements[1]);
-    expect(dataService.loadContent).toHaveBeenCalledWith(domContent1.contentBlock);
-    expect(dataService.loadContent).toHaveBeenCalledWith(domContent2.contentBlock);
+    expect(dataService.loadContent).toHaveBeenCalledWith(domContent1.contentBlock, true);
+    expect(dataService.loadContent).toHaveBeenCalledWith(domContent2.contentBlock, true);
     expect(drawer.draw).toHaveBeenCalled();
     expect(editController.prepareEdit).toHaveBeenCalled();
     expect(editControllerSpy.calls.count()).toBe(1);

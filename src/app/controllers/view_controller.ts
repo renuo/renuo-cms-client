@@ -12,7 +12,7 @@ class ViewController {
     const domContentBlocks = this.finder.find().map((el) => this.converter.convert(el));
 
     domContentBlocks.forEach((dom) =>
-      this.dataService.loadContent(dom.contentBlock).then((contentBlock) =>
+      this.dataService.loadContent(dom.contentBlock, true).then((contentBlock) =>
         this.handleElement(this.converter.createNewBlock(dom, contentBlock))
       ));
   }

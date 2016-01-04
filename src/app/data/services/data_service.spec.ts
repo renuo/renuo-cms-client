@@ -6,28 +6,40 @@
 describe('DataService', function () {
   const contentBlock = new ContentBlock('', 'my-path', 'api-key', 'host');
 
-  it('loads a content block', function () {
+  describe('The content block loader', function () {
     const ajaxService = new AjaxService();
     const blocks = {
       content_blocks: [AjaxServiceMockData.existingContentBlock1(), AjaxServiceMockData.existingContentBlock2()]
     };
-    const spy = spyOn(ajaxService, 'fetchContentBlocks');
-    spy.and.callFake(
-      () => jQuery.Deferred().resolve(blocks).promise());
 
-    const service = new DataService(ajaxService);
-    service.loadContent(contentBlock).then(function (block:ContentBlock) {
-      expect(block.content).toBe('some content');
-      expect(block.contentPath).toBe('my-path');
-      expect(block.apiKey).toBe('api-key');
-      expect(block.apiHost).toBe('host');
-      expect(block.createdAt).toEqual(new Date(2015, 11, 30));
-      expect(block.updatedAt).toEqual(new Date(2015, 12, 3));
+    it('loads a content block', function () {
+      const spy = spyOn(ajaxService, 'fetchContentBlocks');
+      spy.and.callFake(() => jQuery.Deferred().resolve(blocks).promise());
+
+      const service = new DataService(ajaxService);
+      service.loadContent(contentBlock, true).then((block:ContentBlock) => {
+        expect(block.content).toBe('some content');
+        expect(block.contentPath).toBe('my-path');
+        expect(block.apiKey).toBe('api-key');
+        expect(block.apiHost).toBe('host');
+        expect(block.createdAt).toEqual(new Date(2015, 11, 30));
+        expect(block.updatedAt).toEqual(new Date(2015, 12, 3));
+      });
+      expect(ajaxService.fetchContentBlocks).toHaveBeenCalledWith(contentBlock.apiKey, contentBlock.apiHost, true);
+      expect(spy.calls.count()).toBe(1);
+      service.loadContent(contentBlock, true);
+      expect(spy.calls.count()).toBe(1);
     });
-    expect(ajaxService.fetchContentBlocks).toHaveBeenCalledWith(contentBlock.apiKey, contentBlock.apiHost, true);
-    expect(spy.calls.count()).toBe(1);
-    service.loadContent(contentBlock);
-    expect(spy.calls.count()).toBe(1);
+
+    it('loads a content block without caching', function () {
+      const spy = spyOn(ajaxService, 'fetchContentBlocks');
+      spy.and.callFake(() => jQuery.Deferred().resolve(blocks).promise());
+
+      const service = new DataService(ajaxService);
+      service.loadContent(contentBlock, false).then((block:ContentBlock) => null);
+      expect(ajaxService.fetchContentBlocks).toHaveBeenCalledWith(contentBlock.apiKey, contentBlock.apiHost, false);
+      expect(spy.calls.count()).toBe(1);
+    });
   });
 
   it('stores a content block', function () {
