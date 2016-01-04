@@ -11,11 +11,15 @@ class DataService {
   }
 
   loadContent(contentBlock:ContentBlock, enableHttpCaching:boolean):JQueryPromise<ContentBlock> {
-    const cacheKey = [contentBlock.apiHost, contentBlock.apiKey].join('|');
+    const cacheKey = this.cacheKey(contentBlock, enableHttpCaching);
 
     if (!this.dataCache[cacheKey]) this.dataCache[cacheKey] = this.loadAllContents(contentBlock, enableHttpCaching);
 
     return this.dataCache[cacheKey].then((hash) => this.dataConverter.extractObjectFromHash(contentBlock, hash));
+  }
+
+  cacheKey(contentBlock:ContentBlock, enableHttpCaching:boolean) {
+    return [contentBlock.apiHost, contentBlock.apiKey, enableHttpCaching].join('|');
   }
 
   storeContent(contentBlock:ContentBlock, privateApiKey:string):JQueryPromise<any> {

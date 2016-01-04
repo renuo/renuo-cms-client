@@ -51,4 +51,10 @@ describe('DataService', function () {
     service.storeContent(contentBlock, 'pk');
     expect(ajaxService.storeContentBlock).toHaveBeenCalledWith(contentBlock, 'pk');
   });
+
+  it('calculates the cache key correctly', function () {
+    const dataService = new DataService(null);
+    expect(dataService.cacheKey(contentBlock, false)).toEqual('host|api-key|false');
+    expect(dataService.cacheKey(contentBlock, true)).toEqual('host|api-key|true');
+  });
 });
