@@ -23,7 +23,7 @@ class DataService {
   }
 
   private loadAllContents(contentBlock:ContentBlock):JQueryPromise<AjaxContentBlocksHash> {
-    return this.ajaxService.fetchContentBlocks(contentBlock.apiKey, contentBlock.apiHost).then(raw =>
+    return this.ajaxService.fetchContentBlocks(contentBlock.apiKey, contentBlock.apiHost, true).then(raw =>
       this.dataConverter.convertJsonObjectToHash(raw));
   };
 }

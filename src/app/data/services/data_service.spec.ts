@@ -24,7 +24,7 @@ describe('DataService', function () {
       expect(block.createdAt).toEqual(new Date(2015, 11, 30));
       expect(block.updatedAt).toEqual(new Date(2015, 12, 3));
     });
-    expect(ajaxService.fetchContentBlocks).toHaveBeenCalledWith(contentBlock.apiKey, contentBlock.apiHost);
+    expect(ajaxService.fetchContentBlocks).toHaveBeenCalledWith(contentBlock.apiKey, contentBlock.apiHost, true);
     expect(spy.calls.count()).toBe(1);
     service.loadContent(contentBlock);
     expect(spy.calls.count()).toBe(1);
