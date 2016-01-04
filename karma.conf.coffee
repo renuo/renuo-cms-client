@@ -6,6 +6,8 @@ if process.env.TRAVIS
   browsers.push('ChromeTravisCi', 'Firefox')
 else if process.env.MULTIPLE_BROWSERS
   browsers.push('Chrome', 'Firefox')
+else if process.env.CHROME_ONLY
+  browsers[0] = 'Chrome'
 
 module.exports = (config) ->
   config.set
@@ -23,6 +25,7 @@ module.exports = (config) ->
     files: [
       'bower_components/jquery/dist/jquery.js'
       'bower_components/jasmine-ajax/lib/mock-ajax.js'
+      {pattern: '.tmp/specs.js.map', included: false, served: true, watched: false, nocache: true}
       '.tmp/specs.js'
     ]
 
@@ -36,13 +39,14 @@ module.exports = (config) ->
     # preprocess matching files before serving them to the browser
     # available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      '**/*.js': ['sourcemap']
     }
 
 
     # test results reporter to use
     # possible values: 'dots', 'progress'
     # available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress']
+    reporters: ['dots']
 
 
     # web server port
@@ -60,7 +64,7 @@ module.exports = (config) ->
     # - config.LOG_WARN
     # - config.LOG_INFO
     # - config.LOG_DEBUG
-    logLevel: config.LOG_INFO
+    logLevel: config.LOG_WARN
 
 
     # enable / disable watching file and executing tests whenever any file changes

@@ -71,7 +71,7 @@ gulp.task('ts-single-compile', ['clean-js-main'], function () {
     .pipe(sourcemaps.init())
     .pipe(ts(tsProject))
     .pipe(babel({presets: ['es2015']}))
-    .pipe(sourcemaps.write('.'))
+    .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: 'src'}))
     .pipe(gulp.dest('.tmp'))
     .pipe(connect.reload());
 });
@@ -85,7 +85,7 @@ gulp.task('ts-specs-compile', ['clean-js-specs'], function () {
     .pipe(sourcemaps.init())
     .pipe(ts(tsSpecsProject))
     .pipe(babel({presets: ['es2015']}))
-    .pipe(sourcemaps.write('.'))
+    .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: 'src'}))
     .pipe(gulp.dest('.tmp'))
     .pipe(connect.reload());
 });
