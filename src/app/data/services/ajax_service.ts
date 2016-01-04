@@ -25,7 +25,7 @@ class AjaxService {
   }
 
   cacheTime(enableHttpCaching:boolean):number {
-    if (!enableHttpCaching) return this.currentTime();
+    if (!enableHttpCaching) return Math.round(this.currentTime());
 
     return Math.floor(this.currentTime() / AjaxService.MAX_CACHE_TTL) * AjaxService.MAX_CACHE_TTL;
   }

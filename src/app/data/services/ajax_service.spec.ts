@@ -36,7 +36,7 @@ describe('AjaxService', function () {
     it('fetches sets the correct url without caching', function () {
       spyOn(service, 'currentTime').and.returnValue(742.244);
       spyOn(jQuery, 'ajax').and.callFake(function (request:any) {
-        expect(request.url).toBe('http://renuo-cms-client.dev/v1/api-keyx/content_blocks?_=742.244');
+        expect(request.url).toBe('http://renuo-cms-client.dev/v1/api-keyx/content_blocks?_=742');
         return ajax_response([]);
       });
       service.fetchContentBlocks('api-keyx', 'http://renuo-cms-client.dev', false).then(() => null);
@@ -55,7 +55,7 @@ describe('AjaxService', function () {
     it('calculates the cache time correctly without caching', function () {
       const spy = spyOn(service, 'currentTime');
       spy.and.returnValue(742.214);
-      expect(service.cacheTime(false)).toBe(742.214);
+      expect(service.cacheTime(false)).toBe(742);
     });
 
     it('fetches all existing content blocks', function () {
