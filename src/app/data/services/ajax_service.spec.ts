@@ -21,25 +21,25 @@ describe('AjaxService', function () {
         expect(request.dataType).toBe('json');
         return ajax_response([existingContentBlock1, existingContentBlock2]);
       });
-      service.fetchContentBlocks('api-keyx', 'http://renuo-cms-client.dev', true).then(() => null);
+      service.fetchContentBlocks('a-api-key', 'http://renuo-cms-client.dev', true).then(() => null);
     });
 
     it('fetches sets the correct url with caching', function () {
       spyOn(service, 'currentTime').and.returnValue(742.244);
       spyOn(jQuery, 'ajax').and.callFake(function (request:any) {
-        expect(request.url).toBe('http://renuo-cms-client.dev/v1/api-keyx/content_blocks?_=720');
+        expect(request.url).toBe('http://renuo-cms-client.dev/v1/a-api-key/content_blocks?_=720');
         return ajax_response([]);
       });
-      service.fetchContentBlocks('api-keyx', 'http://renuo-cms-client.dev', true).then(() => null);
+      service.fetchContentBlocks('a-api-key', 'http://renuo-cms-client.dev', true).then(() => null);
     });
 
     it('fetches sets the correct url without caching', function () {
       spyOn(service, 'currentTime').and.returnValue(742.244);
       spyOn(jQuery, 'ajax').and.callFake(function (request:any) {
-        expect(request.url).toBe('http://renuo-cms-client.dev/v1/api-keyx/content_blocks?_=742');
+        expect(request.url).toBe('http://renuo-cms-client.dev/v1/a-api-key/content_blocks?_=742');
         return ajax_response([]);
       });
-      service.fetchContentBlocks('api-keyx', 'http://renuo-cms-client.dev', false).then(() => null);
+      service.fetchContentBlocks('a-api-key', 'http://renuo-cms-client.dev', false).then(() => null);
     });
 
     it('calculates the cache time correctly with caching', function () {
@@ -62,7 +62,7 @@ describe('AjaxService', function () {
       spyOn(jQuery, 'ajax').and.returnValue(ajax_response({
         content_blocks: [existingContentBlock1, existingContentBlock2]
       }));
-      service.fetchContentBlocks('api-keyx', 'my-h', true).then((result:AjaxContentBlocks) => {
+      service.fetchContentBlocks('a-api-key', 'my-h', true).then((result:AjaxContentBlocks) => {
         expect(result.content_blocks[0].api_key).toBe('api-key');
         expect(result.content_blocks[0].hasOwnProperty('api_host')).toBeFalsy();
         expect(result.content_blocks[0].content_path).toBe('my-path');
