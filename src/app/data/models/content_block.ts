@@ -9,4 +9,9 @@ class ContentBlock {
   isNew():boolean {
     return !this.createdAt;
   }
+
+  shouldUseParagraphs():boolean {
+    if(this.defaultContent.indexOf('<p>') >= 0) return true;
+    return this.defaultContent === '';
+  }
 }

@@ -39,4 +39,10 @@ describe('ContentBlock', function () {
     const existingBlock3 = new ContentBlock('content', 'path', 'api-key', 'my-host', createdAt, updatedAt, '');
     expect(existingBlock3.defaultContent).toEqual('');
   });
+
+  it('knows if the content should be rendered as paragraph or not', function(){
+    expect(new ContentBlock('', '', '', '', createdAt, updatedAt, '').shouldUseParagraphs()).toEqual(true);
+    expect(new ContentBlock('', '', '', '', createdAt, updatedAt, 'some text').shouldUseParagraphs()).toEqual(false);
+    expect(new ContentBlock('', '', '', '', createdAt, updatedAt, '<p>yay</p>').shouldUseParagraphs()).toEqual(true);
+  });
 });
