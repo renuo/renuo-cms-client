@@ -62,7 +62,7 @@ class CkeditorPreparer implements EditorPreparer {
       'WidgetbootstrapAlert,WidgetbootstrapThreeCol,WidgetbootstrapTwoCol,WidgetbootstrapRightCol,WidgetbootstrapLeftCol,' +
       'Flash,Image,Btgrid,Glyphicons,SpecialChar,Smiley,PageBreak,Iframe,Styles,Font,FontSize,TextColor,BGColor,' +
       'Maximize,ShowBlocks,About',
-      format_tags: 'p;h1;h2;h3;h4;pre;address'
+      format_tags: 'p;h1;h2;h3;h4;h5;h6;pre;address'
     }, this.enterMethod(block));
   }
 
