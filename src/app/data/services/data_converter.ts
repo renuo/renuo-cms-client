@@ -5,7 +5,7 @@
 class DataConverter {
   convertJson(originalContentBlock:ContentBlock, cb:AjaxContentBlock):ContentBlock {
     return new ContentBlock(cb.content, cb.content_path, cb.api_key, originalContentBlock.apiHost,
-      cb.created_at, cb.updated_at);
+      cb.created_at, cb.updated_at, originalContentBlock.defaultContent);
   }
 
   extractObjectFromHash(originalContentBlock:ContentBlock, rawAjaxArray:AjaxContentBlocksHash):ContentBlock {
