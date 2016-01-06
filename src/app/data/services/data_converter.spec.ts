@@ -6,9 +6,9 @@ describe('DataConverter', function () {
   const service = new DataConverter();
   const rawData1 = AjaxServiceMockData.existingContentBlock1();
   const rawData2 = AjaxServiceMockData.existingContentBlock2();
-  const contentBlock1 = new ContentBlock('-1', 'my-path', '-', '//some.host', null, null);
-  const contentBlock2 = new ContentBlock('-2', 'my-path2', '-', '//some.host', null, null);
-  const nonExistingContentBlock = new ContentBlock('-3', 'you-shall-not-pass', '-', '//some.host', null, null);
+  const contentBlock1 = new ContentBlock('1', 'my-path', '-', '//some.host', null, null, '-1');
+  const contentBlock2 = new ContentBlock('2', 'my-path2', '-', '//some.host', null, null, '-2');
+  const nonExistingContentBlock = new ContentBlock('3', 'you-shall-not-pass', '-', '//some.host', null, null, '-3');
 
   it('loads a content block', function () {
     const block:ContentBlock = service.convertJson(contentBlock1, rawData1);

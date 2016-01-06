@@ -32,12 +32,10 @@ describe('ContentBlock', function () {
   });
 
   it('sets the default content correctly', function () {
-    const existingBlock1 = new ContentBlock('content', 'path', 'api-key', 'my-host', createdAt, updatedAt);
-    expect(existingBlock1.defaultContent).toEqual('content');
     const existingBlock2 = new ContentBlock('content', 'path', 'api-key', 'my-host', createdAt, updatedAt, 'default');
     expect(existingBlock2.defaultContent).toEqual('default');
-    const existingBlock3 = new ContentBlock('content', 'path', 'api-key', 'my-host', createdAt, updatedAt, '');
-    expect(existingBlock3.defaultContent).toEqual('');
+    const existingBlock3 = new ContentBlock('content', 'path', 'api-key', 'my-host');
+    expect(existingBlock3.defaultContent).toEqual(null);
   });
 
   it('knows if the content should be rendered as paragraph or not', function(){

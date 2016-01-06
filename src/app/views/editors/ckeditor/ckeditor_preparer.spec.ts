@@ -4,8 +4,8 @@
 ///<reference path="../edit_content_block_callback.ts"/>
 
 describe('CkeditorPreparer', function () {
-  const blockWithParagraphs = new ContentBlock('<p>content</p>', 'path', 'api-key', 'host');
-  const blockWithoutParagraphs = new ContentBlock('content', 'path', 'api-key', 'host');
+  const blockWithParagraphs = new ContentBlock('<p>content</p>', 'path', 'api-key', 'host', null, null, '');
+  const blockWithoutParagraphs = new ContentBlock('content', 'path', 'api-key', 'host', null, null, 'no paragraphs');
   const element = jQuery('<div>')[0];
   const dom = new DomContentBlock(element, blockWithParagraphs, 'private-key');
 
