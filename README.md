@@ -2,33 +2,9 @@
 
 [![Build Status](https://travis-ci.org/renuo/renuo-cms-client.svg?branch=develop)](https://travis-ci.org/renuo/renuo-cms-client) [![Build Status](https://travis-ci.org/renuo/renuo-cms-client.svg?branch=master)](https://travis-ci.org/renuo/renuo-cms-client)
 
-## Usage
+## Usage, Architecture and Documentation
 
-Include the JavaScript file and the CSS file in your documents HEAD after you've include jQuery:
- 
-```html
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/renuo-cms-client/latest/renuo-cms-client.min.js"></script>
-```
-
-Insert an empty <div> element with the data attribute block containing the content blocks id:
-
-```html
-<div data-content-path="some/path/to/some/content" data-api-host="//renuo-cms-api.dev:3000" data-api-key="aValidApiKey"></div>
-```
-
-If you want to be able to edit the content block (only the admin should have this!):
-
-```html
-<div data-content-path="some/path/to/some/content" data-api-host="//renuo-cms-api.dev:3000" data-api-key="aValidApiKey" data-private-api-key="AdminONLY"></div>
-```
-
-The library will automagically initialize and manage the content blocks. If you want to reload the content blocks, you
-can use the following trigger:
-
-```js
-jQuery(document).trigger('renuo-cms-reload');
-```
+See https://renuo.gitbooks.io/renuo-cms-doc/content/
 
 ### Renuo CMS API
 

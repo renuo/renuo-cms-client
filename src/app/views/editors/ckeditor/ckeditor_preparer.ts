@@ -46,6 +46,10 @@ class CkeditorPreparer implements EditorPreparer {
     /*allowedContent: { 'b i li ul ol table thead tbody tr': true, 'h1 h2 h3 h4 p th td': {  styles: 'text-align,text-decoration' },
      a: {attributes: '!href,target'} img: { attributes: '!src,alt', styles: 'width,height', classes: 'left,right' } },*/
     // TODO: enable images
+    /*
+     enterMode : CKEDITOR.ENTER_BR,
+     shiftEnterMode: CKEDITOR.ENTER_P
+     */
     return {
       toolbarGroups: [
         {name: 'styles', groups: ['styles']},
