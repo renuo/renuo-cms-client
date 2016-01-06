@@ -6,7 +6,9 @@ class DomContentBlockConverter {
     const apiKey = this.valueOf(element, 'api-key');
     const apiHost = this.valueOf(element, 'api-host');
     const privateApiKey = this.extractPrivateApiKey(element);
-    return new DomContentBlock(element, new ContentBlock('', contentPath, apiKey, apiHost), privateApiKey);
+    const defaultContent = this.extractDefaultContent(element);
+    const contentBlock = new ContentBlock('', contentPath, apiKey, apiHost, null, null, defaultContent);
+    return new DomContentBlock(element, contentBlock, privateApiKey);
   }
 
   private extractPrivateApiKey(element:HTMLElement):string {
@@ -21,5 +23,9 @@ class DomContentBlockConverter {
 
   createNewBlock(domContentBlock:DomContentBlock, existingBlock:ContentBlock):DomContentBlock {
     return new DomContentBlock(domContentBlock.element, existingBlock, domContentBlock.privateApiKey);
+  }
+
+  private extractDefaultContent(element:HTMLElement):string {
+    return element.innerHTML;
   }
 }
