@@ -7,8 +7,7 @@
     "client"
   ],
   "license": "MIT",
-  "dependencies": {
-  },
+  "dependencies": {},
   "main": "dist/renuo-cms-client.min.js",
   "homepage": "https://github.com/renuo/renuo-cms-client",
   "repository": "renuo/renuo-cms-client",
@@ -34,7 +33,7 @@
     "gulp-tslint": "^4.2.2",
     "gulp-typescript": "^2.10.0",
     "gulp-uglify": "^1.5.1",
-    "karma": "^0.13.16",
+    "karma": "^0.13.19",
     "karma-chrome-launcher": "^0.2.2",
     "karma-firefox-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.6",
