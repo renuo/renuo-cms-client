@@ -55,4 +55,12 @@ describe('DomContentBlockConverter', function () {
     expect(domExistingContentBlock.element).toBe(domContentBlock.element);
     expect(domExistingContentBlock.privateApiKey).toBe(domContentBlock.privateApiKey);
   });
+
+  it('sets the default content', function () {
+    const str1 = '<div data-content-path="p" data-api-host="h" data-api-key="k" data-private-api-key=""></div>';
+    expect(converter.convert(jQuery(str1)[0]).contentBlock.defaultContent).toBe('');
+
+    const str2 = '<div data-content-path="p" data-api-host="h" data-api-key="k" data-private-api-key="">test</div>';
+    expect(converter.convert(jQuery(str2)[0]).contentBlock.defaultContent).toBe('test');
+  });
 });

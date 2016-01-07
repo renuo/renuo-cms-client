@@ -6,7 +6,8 @@
 ///<reference path="../views/editors/ckeditor/ckeditor_loader.ts"/>
 
 describe('EditController', function () {
-  const block = new ContentBlock('content', 'path', 'api-key', 'host');
+  const block = new ContentBlock('content', 'path', 'api-key', 'host', new Date(2015, 10, 1), new Date(2015, 10, 1),
+    'default');
   const element = jQuery('<div>')[0];
   const dom = new DomContentBlock(element, block, 'private-key');
   const preparer:EditorPreparer = new CkeditorPreparer();
@@ -41,7 +42,8 @@ describe('EditController', function () {
     const dataServiceSpy = spyOn(dataService, 'storeContent');
     dataServiceSpy.and.returnValue(deferred);
     controller.editContent(dom, 'this is new content');
-    const newContentBlock = new ContentBlock('this is new content', block.contentPath, block.apiKey, block.apiHost);
+    const newContentBlock = new ContentBlock('this is new content', block.contentPath, block.apiKey, block.apiHost,
+      block.createdAt, block.updatedAt, block.defaultContent);
     expect(dataServiceSpy).toHaveBeenCalledWith(newContentBlock, 'private-key');
     expect(preparer.notifySave).not.toHaveBeenCalled();
     deferred.resolve('');
@@ -54,7 +56,8 @@ describe('EditController', function () {
     const dataServiceSpy = spyOn(dataService, 'storeContent');
     dataServiceSpy.and.returnValue(deferred);
     controller.editContent(dom, 'this is new content');
-    const newContentBlock = new ContentBlock('this is new content', block.contentPath, block.apiKey, block.apiHost);
+    const newContentBlock = new ContentBlock('this is new content', block.contentPath, block.apiKey, block.apiHost,
+      block.createdAt, block.updatedAt, block.defaultContent);
     expect(dataServiceSpy).toHaveBeenCalledWith(newContentBlock, 'private-key');
     expect(preparer.notifySave).not.toHaveBeenCalled();
     deferred.reject();

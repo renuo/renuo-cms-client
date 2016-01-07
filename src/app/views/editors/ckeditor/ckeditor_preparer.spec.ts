@@ -4,9 +4,10 @@
 ///<reference path="../edit_content_block_callback.ts"/>
 
 describe('CkeditorPreparer', function () {
-  const block = new ContentBlock('content', 'path', 'api-key', 'host');
+  const blockWithParagraphs = new ContentBlock('<p>content</p>', 'path', 'api-key', 'host', null, null, '');
+  const blockWithoutParagraphs = new ContentBlock('content', 'path', 'api-key', 'host', null, null, 'no paragraphs');
   const element = jQuery('<div>')[0];
-  const dom = new DomContentBlock(element, block, 'private-key');
+  const dom = new DomContentBlock(element, blockWithParagraphs, 'private-key');
 
   const spy = jasmine.createSpy('ckeditor');
   let calledEventName:string;
@@ -28,6 +29,14 @@ describe('CkeditorPreparer', function () {
   const callback:EditContentBlockCallback = jasmine.createSpy('callback');
 
   describe('#prepare', function () {
+    it('sets the correct enter method', function () {
+      expect(preparer.enterMethod(blockWithParagraphs)).toEqual({});
+      expect(preparer.enterMethod(blockWithoutParagraphs)).toEqual({
+        enterMode: CKEDITOR.ENTER_BR,
+        shiftEnterMode: CKEDITOR.ENTER_P
+      });
+    });
+
     it('sets the contenteditable on the element', function () {
       expect(jQuery(element).attr('contenteditable')).toBeFalsy();
       preparer.prepare(dom, callback);

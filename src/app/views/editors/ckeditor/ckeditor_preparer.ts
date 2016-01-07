@@ -27,7 +27,7 @@ class CkeditorPreparer implements EditorPreparer {
   }
 
   private initCkeditor(dom:DomContentBlock, editCallback:EditContentBlockCallback) {
-    this.ckeditor.inline(dom.element, this.ckeditorConfig()).on('blur', (event:CKEDITOR.eventInfo) => {
+    this.ckeditor.inline(dom.element, this.ckeditorConfig(dom.contentBlock)).on('blur', (event:CKEDITOR.eventInfo) => {
       this.checkForUpdate(event, editCallback, dom);
     });
   };
@@ -41,12 +41,12 @@ class CkeditorPreparer implements EditorPreparer {
   };
 
   // this method would return a CKEDITOR.config, but it is not defined correctly
-  private ckeditorConfig():any {
+  private ckeditorConfig(block:ContentBlock):any {
     // TODO: ACF: http://sdk.ckeditor.com/samples/acf.html
     /*allowedContent: { 'b i li ul ol table thead tbody tr': true, 'h1 h2 h3 h4 p th td': {  styles: 'text-align,text-decoration' },
      a: {attributes: '!href,target'} img: { attributes: '!src,alt', styles: 'width,height', classes: 'left,right' } },*/
     // TODO: enable images
-    return {
+    return jQuery.extend({
       toolbarGroups: [
         {name: 'styles', groups: ['styles']},
         {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
@@ -63,7 +63,15 @@ class CkeditorPreparer implements EditorPreparer {
       'Flash,Image,Btgrid,Glyphicons,SpecialChar,Smiley,PageBreak,Iframe,Styles,Font,FontSize,TextColor,BGColor,' +
       'Maximize,ShowBlocks,About',
       format_tags: 'p;h1;h2;h3;h4;h5;h6;pre;address'
+    }, this.enterMethod(block));
+  }
+
+  enterMethod(block:ContentBlock):Object {
+    if (block.shouldUseParagraphs()) return {};
+
+    return {
+      enterMode: CKEDITOR.ENTER_BR,
+      shiftEnterMode: CKEDITOR.ENTER_P
     };
   }
 }
-

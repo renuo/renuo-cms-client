@@ -6,9 +6,9 @@ describe('DataConverter', function () {
   const service = new DataConverter();
   const rawData1 = AjaxServiceMockData.existingContentBlock1();
   const rawData2 = AjaxServiceMockData.existingContentBlock2();
-  const contentBlock1 = new ContentBlock('-', 'my-path', '-', '//some.host', null, null);
-  const contentBlock2 = new ContentBlock('-', 'my-path2', '-', '//some.host', null, null);
-  const nonExistingContentBlock = new ContentBlock('-', 'you-shall-not-pass', '-', '//some.host', null, null);
+  const contentBlock1 = new ContentBlock('1', 'my-path', '-', '//some.host', null, null, '-1');
+  const contentBlock2 = new ContentBlock('2', 'my-path2', '-', '//some.host', null, null, '-2');
+  const nonExistingContentBlock = new ContentBlock('3', 'you-shall-not-pass', '-', '//some.host', null, null, '-3');
 
   it('loads a content block', function () {
     const block:ContentBlock = service.convertJson(contentBlock1, rawData1);
@@ -19,16 +19,20 @@ describe('DataConverter', function () {
     expect(block.apiHost).toBe('//some.host');
     expect(block.createdAt).toEqual(new Date(2015, 11, 30));
     expect(block.updatedAt).toEqual(new Date(2015, 12, 3));
+    expect(block.defaultContent).toEqual('-1');
   });
 
   it('extracts the correct content block', function () {
     const blocks:AjaxContentBlocksHash = {'my-path': rawData1, 'my-path2': rawData2};
     const block1:ContentBlock = service.extractObjectFromHash(contentBlock1, blocks);
     expect(block1.content).toEqual('some content');
+    expect(block1.defaultContent).toEqual('-1');
     const block2:ContentBlock = service.extractObjectFromHash(contentBlock2, blocks);
     expect(block2.content).toEqual('some different content');
+    expect(block2.defaultContent).toEqual('-2');
     const block3:ContentBlock = service.extractObjectFromHash(nonExistingContentBlock, blocks);
     expect(block3).toBe(nonExistingContentBlock);
+    expect(block3.defaultContent).toEqual('-3');
   });
 
   it('converts the content blocks to hashes', function () {
