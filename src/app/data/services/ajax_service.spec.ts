@@ -12,6 +12,7 @@ describe('AjaxService', function () {
   const newContentBlock = AjaxServiceMockData.newContentBlock();
   const existingContentBlock1 = AjaxServiceMockData.existingContentBlock1();
   const existingContentBlock2 = AjaxServiceMockData.existingContentBlock2();
+  const fakeRenuoUploadCredentials = AjaxServiceMockData.existingRenuoUploadCredentials();
 
   describe('#fetchContentBlocks', function () {
     it('fetches all content blocks with the right request method', function () {
@@ -96,6 +97,21 @@ describe('AjaxService', function () {
         return ajax_response(newContentBlock);
       });
       service.storeContentBlock(new ContentBlock('content', 'path', 'my-api-key', '//host.com'), 'pk').then(() => {
+      });
+    });
+  });
+
+  describe('#getRenuoUploadCredentials', function () {
+    it('gets the renuo upload credentials from the server', function () {
+      spyOn(jQuery, 'ajax').and.callFake(function (request:any) {
+        expect(request.url).toBe('//host.com/v1/my-api-key/renuo_upload_credentials?private_api_key=pk');
+        expect(request.type).toBe('get');
+        expect(request.dataType).toBe('json');
+        return ajax_response(fakeRenuoUploadCredentials);
+      });
+      service.getRenuoUploadCredentials(new ContentBlock('content', 'path', 'my-api-key', '//host.com'), 'pk').then((parsed) => {
+        expect(parsed.renuo_upload_credentials.api_key).toBe('uploadKey');
+        expect(parsed.renuo_upload_credentials.signing_url).toBe('http://some.thing');
       });
     });
   });
