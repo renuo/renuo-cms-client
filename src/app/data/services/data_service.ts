@@ -30,4 +30,12 @@ class DataService {
     return this.ajaxService.fetchContentBlocks(contentBlock.apiKey, contentBlock.apiHost, enableHttpCaching).then(raw =>
       this.dataConverter.convertJsonObjectToHash(raw));
   };
+
+  loadReadonlyContent(contentBlock:ContentBlock):JQueryPromise<ContentBlock> {
+    return this.loadContent(contentBlock, true);
+  }
+
+  loadEditableContent(contentBlock:ContentBlock):JQueryPromise<ContentBlock> {
+    return this.loadContent(contentBlock, false);
+  }
 }

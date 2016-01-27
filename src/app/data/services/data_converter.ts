@@ -1,6 +1,8 @@
 ///<reference path="../models/content_block.ts"/>
 ///<reference path="../models/ajax_content_blocks.ts"/>
 ///<reference path="../models/ajax_content_block.ts"/>
+///<reference path="../models/renuo_upload_credentials.ts"/>
+///<reference path="../models/ajax_renuo_upload_credentials.ts"/>
 
 class DataConverter {
   convertJson(originalContentBlock:ContentBlock, cb:AjaxContentBlock):ContentBlock {
@@ -20,5 +22,10 @@ class DataConverter {
       map[jsonContentBlock.content_path] = jsonContentBlock;
       return map;
     }, hash);
+  }
+
+  convertJsonObjectToCredentials(credentials:AjaxRenuoUploadCredentials):RenuoUploadCredentials {
+    const cred = credentials.renuo_upload_credentials;
+    return new RenuoUploadCredentials(cred.api_key, cred.signing_url);
   }
 }

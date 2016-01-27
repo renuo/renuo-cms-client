@@ -11,14 +11,25 @@ class ViewController {
   init():void {
     const domContentBlocks = this.finder.find().map((el) => this.converter.convert(el));
 
-    domContentBlocks.forEach((dom:DomContentBlock) =>
-      this.dataService.loadContent(dom.contentBlock, !dom.isEditable()).then((contentBlock) =>
-        this.handleElement(this.converter.createNewBlock(dom, contentBlock))
-      ));
+    domContentBlocks.forEach((dom:DomContentBlock) => {
+      if (dom.isEditable()) {
+        return this.dataService.loadEditableContent(dom.contentBlock).then((contentBlock) =>
+          this.handleEditableElement(this.converter.createNewBlock(dom, contentBlock))
+        );
+      } else {
+        return this.dataService.loadReadonlyContent(dom.contentBlock).then((contentBlock) =>
+          this.handleReadonlyElement(this.converter.createNewBlock(dom, contentBlock))
+        );
+      }
+    });
   }
 
-  private handleElement(domContentBlock:DomContentBlock):void {
+  private handleReadonlyElement(domContentBlock:DomContentBlock) {
     this.drawer.draw(domContentBlock);
-    if (domContentBlock.isEditable()) this.editController.prepareEdit(domContentBlock);
-  }
+  };
+
+  private handleEditableElement(domContentBlock:DomContentBlock) {
+    this.drawer.draw(domContentBlock);
+    this.editController.prepareEdit(domContentBlock);
+  };
 }
