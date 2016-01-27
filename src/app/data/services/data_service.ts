@@ -7,6 +7,7 @@
 
 class DataService {
   private dataCache:{[cacheKey: string]: JQueryPromise<AjaxContentBlocksHash>} = {};
+  private renuoUploadCredentials:{[cacheKey: string]: JQueryPromise<RenuoUploadCredentials>} = {};
   private dataConverter = new DataConverter();
 
   constructor(private ajaxService:AjaxService) {
@@ -41,9 +42,14 @@ class DataService {
 
   private loadRenuoUploadCredentials(contentBlock:ContentBlock,
                                      privateApiKey:string):JQueryPromise<RenuoUploadCredentials> {
-    return this.ajaxService.getRenuoUploadCredentials(contentBlock, privateApiKey).then(
-      (credentials:AjaxRenuoUploadCredentials) =>
-        this.dataConverter.convertJsonObjectToCredentials(credentials));
+    const cacheKey = this.cacheKey(contentBlock, false);
+
+    if (!this.renuoUploadCredentials[cacheKey]) this.renuoUploadCredentials[cacheKey] =
+      this.ajaxService.getRenuoUploadCredentials(contentBlock, privateApiKey).then(
+        (credentials:AjaxRenuoUploadCredentials) =>
+          this.dataConverter.convertJsonObjectToCredentials(credentials));
+
+    return this.renuoUploadCredentials[cacheKey];
   };
 
   private loadContent(contentBlock:ContentBlock, enableHttpCaching:boolean):JQueryPromise<ContentBlock> {

@@ -37,7 +37,6 @@ describe('DataService', function () {
       contentBlocksSpy.and.callFake(() => jQuery.Deferred().resolve(blocks).promise());
 
       const renuoUploadCredentialsSpy = spyOn(ajaxService, 'getRenuoUploadCredentials');
-      // const credentials = new RenuoUploadCredentials('upload-api-key', 'signing-url');
       const credentials:AjaxRenuoUploadCredentials = {
         renuo_upload_credentials: {
           api_key: 'upload-api-key',
@@ -59,6 +58,10 @@ describe('DataService', function () {
       });
       expect(ajaxService.fetchContentBlocks).toHaveBeenCalledWith(contentBlock.apiKey, contentBlock.apiHost, false);
       expect(contentBlocksSpy.calls.count()).toBe(1);
+      expect(renuoUploadCredentialsSpy.calls.count()).toBe(1);
+      service.loadEditableContent(contentBlock, 'pk').then((block:EditableContentBlock) => {
+      });
+      expect(renuoUploadCredentialsSpy.calls.count()).toBe(1);
     });
   });
 
