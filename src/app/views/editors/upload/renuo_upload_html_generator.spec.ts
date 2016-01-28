@@ -24,4 +24,11 @@ describe('RenuoUploadHtmlGenerator', function () {
     expect(element('//something.com/some.zip', 'zip')).not.toEqual(jasmine.any(HTMLImageElement));
     //expect(element('//something.com/some.jpeg', 'jpeg')).toEqual(jasmine.any(HTMLImageElement));
   });
+
+  it('converts everything but an image upload event to a link', function () {
+    expect(element('//something.com/some.pdf', 'pdf')).toEqual(jasmine.any(HTMLAnchorElement));
+    expect(element('//something.com/some.png', 'xlsx')).toEqual(jasmine.any(HTMLAnchorElement));
+    expect(element('//something.com/some.gif', 'docx')).toEqual(jasmine.any(HTMLAnchorElement));
+    expect(element('//something.com/some.gif', 'zip')).toEqual(jasmine.any(HTMLAnchorElement));
+  });
 });

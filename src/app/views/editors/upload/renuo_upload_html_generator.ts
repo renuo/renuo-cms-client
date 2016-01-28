@@ -2,10 +2,9 @@ class RenuoUploadHtmlGenerator {
   constructor(private event:RenuoUploadEvent) {
   }
 
-  generateElement():HTMLImageElement|HTMLLinkElement {
-    // if (this.event.extension === 'jpg') return this.imageElement();
+  generateElement():HTMLImageElement|HTMLAnchorElement {
     if (this.isImage()) return this.imageElement();
-    return null;
+    return  this.anchorElement();
   }
 
   private isImage() {
@@ -14,7 +13,15 @@ class RenuoUploadHtmlGenerator {
   };
 
   private imageElement():HTMLImageElement {
-    const element = new Image();
+    const element = document.createElement('img');
+    element.setAttribute('src', this.event.publicUrl);
+    return element;
+  }
+
+  private anchorElement():HTMLAnchorElement {
+    const element = document.createElement('a');
+    element.setAttribute('src', this.event.publicUrl);
+    element.innerHTML = 'Link to File';
     return element;
   }
 }
