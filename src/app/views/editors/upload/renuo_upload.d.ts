@@ -3,12 +3,12 @@ interface RenuoUploadCallback {
 }
 
 interface RenuoUploadEvent {
+  cleanName:string;
   extension:string;
   publicUrl:string;
   // filePath:string;
   // name:string;
   // orginalName:string;
-  // cleanName:string;
   // size:string;
 }
 
