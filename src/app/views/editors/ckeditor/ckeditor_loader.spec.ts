@@ -19,5 +19,7 @@ describe('CkeditorLoader', function () {
     const testResponse = {status: 200, responseText: 'var CKEDITOR={"version":"yay-a-mock"};'};
     jasmine.Ajax.requests.mostRecent().respondWith(testResponse);
     expect(testFunction).toHaveBeenCalled();
+
+    jasmine.Ajax.uninstall();
   });
 });
