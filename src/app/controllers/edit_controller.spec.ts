@@ -6,12 +6,13 @@
 ///<reference path="../views/editors/ckeditor/ckeditor_loader.ts"/>
 ///<reference path="../views/helpers/script_loader.ts"/>
 ///<reference path="../views/editors/upload/upload_loader.ts"/>
+///<reference path="../data/models/renuo_upload_credentials.ts"/>
 
 describe('EditController', function () {
   const block = new ContentBlock('content', 'path', 'api-key', 'host', new Date(2015, 10, 1), new Date(2015, 10, 1),
     'default');
   const element = jQuery('<div>')[0];
-  const dom = new DomContentBlock(element, block, 'private-key');
+  const dom = new DomContentBlock(element, block, 'private-key', new RenuoUploadCredentials('', ''));
   const preparer:EditorPreparer = new CkeditorPreparer();
   const editorLoader:EditorLoader = new CkeditorLoader(new ScriptLoader());
   const uploadLoader = new UploadLoader(new ScriptLoader());

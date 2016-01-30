@@ -9,7 +9,7 @@ class EditableViewController {
 
   loadContent(dom:DomContentBlock) {
     return this.dataService.loadEditableContent(dom.contentBlock, dom.privateApiKey).then((editableContentBlock) =>
-      this.handleElement(this.converter.createNewBlock(dom, editableContentBlock.contentBlock))
+      this.handleElement(this.converter.createNewEditableBlock(dom, editableContentBlock))
     );
   };
 

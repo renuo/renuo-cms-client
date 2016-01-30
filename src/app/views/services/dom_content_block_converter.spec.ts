@@ -56,6 +56,24 @@ describe('DomContentBlockConverter', function () {
     expect(domExistingContentBlock.privateApiKey).toBe(domContentBlock.privateApiKey);
   });
 
+  it('creates a new editable dom content block for a new content block', function () {
+    const str = '<div data-content-path="my-path" data-api-host="host" ' +
+      'data-api-key="my-key" data-private-api-key="test"></div>';
+    const domContentBlock:DomContentBlock = converter.convert(jQuery(str)[0]);
+
+    const newBlock:ContentBlock = domContentBlock.contentBlock;
+    const existingBlock:ContentBlock = new ContentBlock('new content!', newBlock.contentPath, newBlock.apiKey,
+      newBlock.apiHost, newBlock.createdAt, newBlock.updatedAt);
+
+    const renuoUploadCredentials = new RenuoUploadCredentials('some', 'thing');
+    const editableCb = new EditableContentBlock(existingBlock, renuoUploadCredentials);
+    const domExistingContentBlock:DomContentBlock = converter.createNewEditableBlock(domContentBlock, editableCb);
+    expect(domExistingContentBlock.contentBlock).toBe(existingBlock);
+    expect(domExistingContentBlock.element).toBe(domContentBlock.element);
+    expect(domExistingContentBlock.privateApiKey).toBe(domContentBlock.privateApiKey);
+    expect(domExistingContentBlock.renuoUploadCredentials).toBe(renuoUploadCredentials);
+  });
+
   it('sets the default content', function () {
     const str1 = '<div data-content-path="p" data-api-host="h" data-api-key="k" data-private-api-key=""></div>';
     expect(converter.convert(jQuery(str1)[0]).contentBlock.defaultContent).toBe('');
