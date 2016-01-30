@@ -31,6 +31,12 @@ describe('ScriptLoader', function () {
     expect(spy).toHaveBeenCalledWith('//cdn.rawgit.com/renuo/renuo-upload/1.0.0/dist/renuo_upload.min.js');
   });
 
+  it('loads the custom dropzone', function () {
+    const spy = spyOn(loader, 'loadScript');
+    loader.loadCustomDropzone();
+    expect(spy).toHaveBeenCalledWith('//cdn.rawgit.com/renuo/dropzone/v4.0.4/dist/min/dropzone.min.js');
+  });
+
   it('loads the ckeditor', function () {
     const spy = spyOn(loader, 'loadScript');
     loader.loadCkeditor();

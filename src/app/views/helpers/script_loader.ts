@@ -13,4 +13,8 @@ class ScriptLoader {
   loadCkeditor():JQueryPromise<any> {
     return this.loadScript('//cdn.ckeditor.com/4.5.5/full/ckeditor.js');
   }
+
+  loadCustomDropzone():JQueryPromise<any> {
+    return this.loadScript('//cdn.rawgit.com/renuo/dropzone/v4.0.4/dist/min/dropzone.min.js');
+  }
 }

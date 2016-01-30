@@ -7,6 +7,6 @@ class UploadLoader {
   }
 
   loadUpload():JQueryPromise<any> {
-    return this.scriptLoader.loadCkeditor();
+    return jQuery.when(this.scriptLoader.loadRenuoUpload(), this.scriptLoader.loadCustomDropzone());
   }
 }
