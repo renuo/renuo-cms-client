@@ -13,6 +13,7 @@
 (function () {
   const initContentBlocks = function () {
     const dataService = new DataService(new AjaxService());
+    const scriptLoader = new ScriptLoader();
     const controller = new ViewController(
       new ContentBlockFinder(),
       new DomContentBlockConverter(),
@@ -20,7 +21,8 @@
       new ContentBlockDrawer(),
       new EditController(
         dataService,
-        new CkeditorLoader(new ScriptLoader()),
+        new CkeditorLoader(scriptLoader),
+        new UploadLoader(scriptLoader),
         new CkeditorPreparer()
       )
     );

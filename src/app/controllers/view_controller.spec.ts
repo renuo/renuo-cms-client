@@ -15,7 +15,7 @@ describe('ViewController', function () {
     const converter = new DomContentBlockConverter();
     const dataService = new DataService(null);
     const drawer = new ContentBlockDrawer();
-    const editController = new EditController(null, null, null);
+    const editController = new EditController(null, null, null, null);
     const controller = new ViewController(finder, converter, dataService, drawer, editController);
 
     const domContent1:DomContentBlock = converter.convert(elements[0]);
