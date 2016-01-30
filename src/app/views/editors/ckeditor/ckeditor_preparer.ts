@@ -1,5 +1,6 @@
 ///<reference path="../editor_preparer.ts"/>
 ///<reference path="../../../../../typings/ckeditor/ckeditor.d.ts"/>
+///<reference path="ckeditor_upload_plugin.ts"/>
 
 class CkeditorPreparer implements EditorPreparer {
   constructor(private ckeditor:any = null) {
@@ -27,9 +28,11 @@ class CkeditorPreparer implements EditorPreparer {
   }
 
   private initCkeditor(dom:DomContentBlock, editCallback:EditContentBlockCallback) {
-    this.ckeditor.inline(dom.element, this.ckeditorConfig(dom.contentBlock)).on('blur', (event:CKEDITOR.eventInfo) => {
+
+    const editor = this.ckeditor.inline(dom.element, this.ckeditorConfig(dom.contentBlock)).on('blur', (event:CKEDITOR.eventInfo) => {
       this.checkForUpdate(event, editCallback, dom);
     });
+    new CkeditorUploadPlugin().registerPlugin(editor);
   };
 
   private checkForUpdate(event:CKEDITOR.eventInfo, editCallback:EditContentBlockCallback, dom:DomContentBlock) {
