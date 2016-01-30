@@ -4,6 +4,7 @@
 ///<reference path="edit_controller.ts"/>
 ///<reference path="../views/editors/ckeditor/ckeditor_preparer.ts"/>
 ///<reference path="../views/editors/ckeditor/ckeditor_loader.ts"/>
+///<reference path="../views/helpers/script_loader.ts"/>
 
 describe('EditController', function () {
   const block = new ContentBlock('content', 'path', 'api-key', 'host', new Date(2015, 10, 1), new Date(2015, 10, 1),
@@ -11,7 +12,7 @@ describe('EditController', function () {
   const element = jQuery('<div>')[0];
   const dom = new DomContentBlock(element, block, 'private-key');
   const preparer:EditorPreparer = new CkeditorPreparer();
-  const loader = new CkeditorLoader();
+  const loader = new CkeditorLoader(new ScriptLoader());
   const dataService = new DataService(null);
   const controller = new EditController(dataService, loader, preparer);
 

@@ -4,6 +4,12 @@
 ///<reference path="../edit_content_block_callback.ts"/>
 
 describe('CkeditorPreparer', function () {
+  jasmine.Ajax.install();
+  new ScriptLoader().loadScript('/renuo-upload-mock').then(null);
+  const testResponse = {status: 200, responseText: 'var CKEDITOR={"version":"yay-a-mock"};'};
+  jasmine.Ajax.requests.mostRecent().respondWith(testResponse);
+  jasmine.Ajax.uninstall();
+
   const blockWithParagraphs = new ContentBlock('<p>content</p>', 'path', 'api-key', 'host', null, null, '');
   const blockWithoutParagraphs = new ContentBlock('content', 'path', 'api-key', 'host', null, null, 'no paragraphs');
   const element = jQuery('<div>')[0];

@@ -8,6 +8,7 @@
 ///<reference path="controllers/view_controller.ts"/>
 ///<reference path="views/editors/ckeditor/ckeditor_preparer.ts"/>
 ///<reference path="controllers/edit_controller.ts"/>
+///<reference path="views/helpers/script_loader.ts"/>
 
 (function () {
   const initContentBlocks = function () {
@@ -19,7 +20,7 @@
       new ContentBlockDrawer(),
       new EditController(
         dataService,
-        new CkeditorLoader(),
+        new CkeditorLoader(new ScriptLoader()),
         new CkeditorPreparer()
       )
     );
