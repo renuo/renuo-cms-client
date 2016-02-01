@@ -28,7 +28,7 @@ describe('ScriptLoader', function () {
   it('loads the renuo upload', function () {
     const spy = spyOn(loader, 'loadScript');
     loader.loadRenuoUpload();
-    expect(spy).toHaveBeenCalledWith('//cdn.rawgit.com/renuo/renuo-upload/1.0.0/dist/renuo_upload.min.js');
+    expect(spy).toHaveBeenCalledWith('//cdn.rawgit.com/renuo/renuo-upload/1.1.0/dist/renuo_upload.min.js');
   });
 
   it('loads the custom dropzone', function () {
