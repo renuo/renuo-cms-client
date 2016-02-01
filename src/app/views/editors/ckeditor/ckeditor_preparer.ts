@@ -47,6 +47,10 @@ class CkeditorPreparer implements EditorPreparer {
      a: {attributes: '!href,target'} img: { attributes: '!src,alt', styles: 'width,height', classes: 'left,right' } },*/
     // TODO: enable images
     return jQuery.extend({
+      allowedContent: {
+        a: {attributes: '!href,target'},
+        img: { attributes: '!src,alt', styles: 'width,height', classes: 'left,right' }
+      },
       toolbarGroups: [
         {name: 'styles', groups: ['styles']},
         {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
