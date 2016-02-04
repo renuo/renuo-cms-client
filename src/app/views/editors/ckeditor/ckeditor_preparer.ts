@@ -46,11 +46,8 @@ class CkeditorPreparer implements EditorPreparer {
     /*allowedContent: { 'b i li ul ol table thead tbody tr': true, 'h1 h2 h3 h4 p th td': {  styles: 'text-align,text-decoration' },
      a: {attributes: '!href,target'} img: { attributes: '!src,alt', styles: 'width,height', classes: 'left,right' } },*/
     // TODO: enable images
+    // TODO: add ImageButton to removeButtons list
     return {
-      allowedContent: {
-        a: {attributes: '!href,target'},
-        img: { attributes: '!src,alt', styles: 'width,height', classes: 'left,right' }
-      },
       toolbarGroups: [
         {name: 'styles', groups: ['styles']},
         {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
@@ -62,7 +59,7 @@ class CkeditorPreparer implements EditorPreparer {
       ],
       removePlugins: 'bidi,font,forms,flash,horizontalrule,iframe',
       removeButtons: 'Source,Save,NewPage,Preview,Templates,Print,SelectAll,Form,Checkbox,Radio,TextField,Textarea,' +
-      'Select,Button,ImageButton,HiddenField,Outdent,Indent,Blockquote,CreateDiv,BidiLtr,BidiRtl,Language,Anchor,' +
+      'Select,Button,HiddenField,Outdent,Indent,Blockquote,CreateDiv,BidiLtr,BidiRtl,Language,Anchor,' +
       'WidgetbootstrapAlert,WidgetbootstrapThreeCol,WidgetbootstrapTwoCol,WidgetbootstrapRightCol,WidgetbootstrapLeftCol,' +
       'Flash,Image,Btgrid,Glyphicons,SpecialChar,Smiley,PageBreak,Iframe,Styles,Font,FontSize,TextColor,BGColor,' +
       'Maximize,ShowBlocks,About',
