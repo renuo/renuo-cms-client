@@ -24,7 +24,10 @@
       )
     );
     controller.init();
+
+    jQuery(document).on('renuo-cms-reload', function () {
+      controller.init();
+    });
   };
   jQuery(initContentBlocks);
-  jQuery(document).on('renuo-cms-reload', initContentBlocks);
 })();
