@@ -7,8 +7,7 @@
     "client"
   ],
   "license": "MIT",
-  "dependencies": {
-  },
+  "dependencies": {},
   "main": "dist/renuo-cms-client.min.js",
   "homepage": "https://github.com/renuo/renuo-cms-client",
   "repository": "renuo/renuo-cms-client",
@@ -35,17 +34,18 @@
     "gulp-typescript": "^2.13.0",
     "gulp-uglify": "^1.5.3",
     "karma": "^0.13.22",
-    "socket.io": "^1.4.5",
     "karma-chrome-launcher": "^0.2.3",
     "karma-firefox-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.8",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
+    "open": "0.0.5",
     "phantomjs-prebuilt": "^2.1.7",
     "protractor": "^3.2.2",
-    "typings": "^0.7.12",
+    "socket.io": "^1.4.5",
     "tslint": "^3.7.1",
-    "typescript": "^1.8.9"
+    "typescript": "^1.8.9",
+    "typings": "^0.7.12"
   },
   "engines": {
     "node": ">=4.0.0"
