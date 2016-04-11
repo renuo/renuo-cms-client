@@ -18,4 +18,4 @@ karma.conf.coffee
 /.tmp
 /.bowerrc
 /.idea
-
+/typings.json
