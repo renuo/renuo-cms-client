@@ -61,7 +61,10 @@ Install a new dependency (e.g. jquery):
 typings install jquery --ambient --save
 ```
 
-Reinstall dependencies: also with the same command.
+Reinstall dependencies:
+```sh
+typings install
+```
 
 ### Tests
 
