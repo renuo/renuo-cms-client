@@ -58,14 +58,10 @@ MULTIPLE_BROWSERS=1 gulp test
 Install a new dependency (e.g. jquery): 
 
 ```sh
-tsd query jquery --action install --save
+typings install jquery --ambient --save
 ```
 
-Reinstall dependencies: 
-
-```
-tsd reinstall --save --overwrite
-```
+Reinstall dependencies: also with the same command.
 
 ### Tests
 
