@@ -62,6 +62,7 @@ typings install jquery --ambient --save
 ```
 
 Reinstall dependencies:
+
 ```sh
 typings install
 ```
