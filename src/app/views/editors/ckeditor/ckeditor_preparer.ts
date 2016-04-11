@@ -55,7 +55,7 @@ class CkeditorPreparer implements EditorPreparer {
         {name: 'links', groups: ['links']},
         {name: 'insert', groups: ['insert']},
         {name: 'clipboard', groups: ['clipboard', 'undo']},
-        {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
+        {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']}
       ],
       removePlugins: 'bidi,font,forms,flash,horizontalrule,iframe',
       removeButtons: 'Source,Save,NewPage,Preview,Templates,Print,SelectAll,Form,Checkbox,Radio,TextField,Textarea,' +
