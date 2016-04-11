@@ -1,4 +1,4 @@
-///<reference path="../../../../typings/jasmine/jasmine.d.ts"/>
+///<reference path="../../../../typings/browser/ambient/jasmine/index.d.ts"/>
 ///<reference path="../../data/models/content_block.ts"/>
 ///<reference path="dom_content_block.ts"/>
 

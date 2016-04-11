@@ -1,4 +1,4 @@
-///<reference path="../../../../../typings/jquery/jquery.d.ts"/>
+///<reference path="../../../../../typings/browser/ambient/jquery/index.d.ts"/>
 ///<reference path="../editor_loader.ts"/>
 
 class CkeditorLoader implements EditorLoader {

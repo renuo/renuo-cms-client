@@ -1,5 +1,5 @@
 ///<reference path="../editor_preparer.ts"/>
-///<reference path="../../../../../typings/ckeditor/ckeditor.d.ts"/>
+///<reference path="../../../../../typings/browser/ambient/ckeditor/index.d.ts"/>
 
 class CkeditorPreparer implements EditorPreparer {
   constructor(private ckeditor:any = null) {
