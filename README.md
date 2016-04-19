@@ -52,7 +52,7 @@ MULTIPLE_BROWSERS=1 gulp test
 ### Important URLs
 
 * [https://github.com/renuo/renuo-cms-client](https://github.com/renuo/renuo-cms-client)
-* [https://git.renuo.ch/renuo/renuo-cms-api](https://git.renuo.ch/renuo/renuo-cms-api)
+* [https://github.com/renuo/renuo-cms-api](https://github.com/renuo/renuo-cms-api)
 
 ### Dependencies / Type Definitions
 
