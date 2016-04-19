@@ -15,7 +15,7 @@ class LocalStorageService {
   }
 
   private isValid(key:string) {
-    return this.expiryDate[key] - Date.now() > 0;
+    return <any>this.expiryDate[key] - Date.now() > 0;
   }
 
   private setExpiryDate(key:string) {
