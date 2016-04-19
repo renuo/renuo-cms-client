@@ -33,7 +33,10 @@ class DataService {
   };
 
   loadReadonlyContent(contentBlock:ContentBlock):JQueryPromise<ContentBlock> {
-    return this.loadContent(contentBlock, true);
+    return this.loadContent(contentBlock, true).then((freshContentBlock) => {
+      this.dataLocalStorage.set(freshContentBlock);
+      return freshContentBlock;
+    });
   }
 
   loadEditableContent(contentBlock:ContentBlock, privateApiKey:string):JQueryPromise<EditableContentBlock> {
@@ -64,9 +67,7 @@ class DataService {
     if (!this.dataCache[cacheKey]) this.dataCache[cacheKey] = this.loadAllContents(contentBlock, enableHttpCaching);
 
     return this.dataCache[cacheKey].then((hash) => {
-      const cb = this.dataConverter.extractObjectFromHash(contentBlock, hash);
-      this.dataLocalStorage.set(cb);
-      return cb;
+      return this.dataConverter.extractObjectFromHash(contentBlock, hash);
     });
   }
 }
