@@ -71,7 +71,7 @@ describe('DataService', function () {
       const cachedContentBlock = new ContentBlock('some content', 'my-path', 'api-key', 'host');
       window.localStorage.setItem('renuo-cms-blocks', JSON.stringify(cachedContentBlock));
       const service = new DataService(ajaxService);
-      const block = service.loadContentFromCache(cachedContentBlock);
+      const block = service.loadReadonlyContentFromCache(cachedContentBlock);
       expect(block.content).toBe('some content');
       expect(block.contentPath).toBe('my-path');
       expect(block.apiKey).toBe('api-key');

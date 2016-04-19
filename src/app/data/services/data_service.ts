@@ -8,15 +8,11 @@
 
 class DataService {
   private dataCache:{[cacheKey: string]: JQueryPromise<AjaxContentBlocksHash>} = {};
-  private dataLocalStorage = new LocalStorageService();
+  private localStorageService = new LocalStorageService();
   private renuoUploadCredentials:{[cacheKey: string]: JQueryPromise<RenuoUploadCredentials>} = {};
   private dataConverter = new DataConverter();
 
   constructor(private ajaxService:AjaxService) {
-  }
-
-  loadContentFromCache(contentBlock:ContentBlock):ContentBlock {
-    return this.dataLocalStorage.get(contentBlock);
   }
 
   cacheKey(contentBlock:ContentBlock, enableHttpCaching:boolean) {
@@ -33,10 +29,17 @@ class DataService {
   };
 
   loadReadonlyContent(contentBlock:ContentBlock):JQueryPromise<ContentBlock> {
-    return this.loadContent(contentBlock, true).then((freshContentBlock) => {
-      this.dataLocalStorage.set(freshContentBlock);
-      return freshContentBlock;
-    });
+    return this.loadContent(contentBlock, true);
+  }
+
+  loadReadonlyContentFromCache(contentBlock:ContentBlock):ContentBlock {
+    //const cacheKey = this.cacheKey(contentBlock, true);
+    //const hash = this.localStorageService.fetch(cacheKey);
+
+    const hash = null;
+    if(!hash) return contentBlock;
+
+    return this.dataConverter.extractObjectFromHash(contentBlock, hash);
   }
 
   loadEditableContent(contentBlock:ContentBlock, privateApiKey:string):JQueryPromise<EditableContentBlock> {
@@ -67,6 +70,7 @@ class DataService {
     if (!this.dataCache[cacheKey]) this.dataCache[cacheKey] = this.loadAllContents(contentBlock, enableHttpCaching);
 
     return this.dataCache[cacheKey].then((hash) => {
+      //this.localStorageService.put(cacheKey, hash);
       return this.dataConverter.extractObjectFromHash(contentBlock, hash);
     });
   }
