@@ -1,4 +1,10 @@
+#!/bin/zsh
+
+source ~/.zshrc
+
 rbenv install
+gem install bundler --conservative
+bundle check || bundle install
 pyenv install
 nvm install
 npm install -g npm
