@@ -64,8 +64,8 @@ describe('DataService', function () {
     });
 
     it('returns the same block on local storage cache miss', function() {
-      const spy = spyOn(ajaxService, 'fetchContentBlocks');
-      spy.and.callFake(() => jQuery.Deferred().resolve(blocks).promise());
+      const localStorageGetterSpy = spyOn(localStorage, 'getItem');
+      localStorageGetterSpy.and.returnValue(null);
 
       const service = new DataService(ajaxService);
       const block = service.loadReadonlyContentFromCache(contentBlock);
@@ -73,13 +73,21 @@ describe('DataService', function () {
     });
 
     it('fetches a content block from the local storage', function() {
-      const spy = spyOn(ajaxService, 'fetchContentBlocks');
-      spy.and.callFake(() => jQuery.Deferred().resolve(blocks).promise());
+      const contentBlocksSpy = spyOn(ajaxService, 'fetchContentBlocks');
+      contentBlocksSpy.and.callFake(() => jQuery.Deferred().resolve(blocks).promise());
 
       const service = new DataService(ajaxService);
-      service.loadReadonlyContent(contentBlock).then((block:ContentBlock) => {
-        const cachedBlock = service.loadReadonlyContentFromCache(block);
-        expect(cachedBlock).toBe(block);
+
+      service.loadReadonlyContent(contentBlock).then((requestedBlock) => {
+        const cachedBlock = service.loadReadonlyContentFromCache(requestedBlock);
+
+        expect(cachedBlock).not.toBe(requestedBlock);
+        expect(cachedBlock.content).toEqual(requestedBlock.content);
+        expect(cachedBlock.contentPath).toEqual(requestedBlock.contentPath);
+        expect(cachedBlock.apiKey).toEqual(requestedBlock.apiKey);
+        expect(cachedBlock.apiHost).toEqual(requestedBlock.apiHost);
+        //expect(cachedBlock.createdAt).toEqual(requestedBlock.createdAt);
+        //expect(cachedBlock.updatedAt).toEqual(requestedBlock.updatedAt);
       });
     });
   });
