@@ -59,23 +59,17 @@ describe('DataService', function () {
       expect(ajaxService.fetchContentBlocks).toHaveBeenCalledWith(contentBlock.apiKey, contentBlock.apiHost, false);
       expect(contentBlocksSpy.calls.count()).toBe(1);
       expect(renuoUploadCredentialsSpy.calls.count()).toBe(1);
-      service.loadEditableContent(contentBlock, 'pk').then((block:EditableContentBlock) => {
-      });
+      service.loadEditableContent(contentBlock, 'pk').then((block:EditableContentBlock) => {});
       expect(renuoUploadCredentialsSpy.calls.count()).toBe(1);
     });
 
-    it('loads a content block from local storage', function() {
+    it('loads default content block if not present in local storage', function() {
       const spy = spyOn(ajaxService, 'fetchContentBlocks');
       spy.and.callFake(() => jQuery.Deferred().resolve(blocks).promise());
 
-      const cachedContentBlock = new ContentBlock('some content', 'my-path', 'api-key', 'host');
-      window.localStorage.setItem('renuo-cms-blocks', JSON.stringify(cachedContentBlock));
       const service = new DataService(ajaxService);
-      const block = service.loadReadonlyContentFromCache(cachedContentBlock);
-      expect(block.content).toBe('some content');
-      expect(block.contentPath).toBe('my-path');
-      expect(block.apiKey).toBe('api-key');
-      expect(block.apiHost).toBe('host');
+      const block = service.loadReadonlyContentFromCache(contentBlock);
+      expect(block).toBe(contentBlock);
     });
   });
 

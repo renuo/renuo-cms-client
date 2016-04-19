@@ -33,10 +33,9 @@ class DataService {
   }
 
   loadReadonlyContentFromCache(contentBlock:ContentBlock):ContentBlock {
-    //const cacheKey = this.cacheKey(contentBlock, true);
-    //const hash = this.localStorageService.fetch(cacheKey);
+    const cacheKey = this.cacheKey(contentBlock, true);
+    const hash = this.localStorageService.fetch(cacheKey);
 
-    const hash = null;
     if(!hash) return contentBlock;
 
     return this.dataConverter.extractObjectFromHash(contentBlock, hash);
@@ -70,7 +69,7 @@ class DataService {
     if (!this.dataCache[cacheKey]) this.dataCache[cacheKey] = this.loadAllContents(contentBlock, enableHttpCaching);
 
     return this.dataCache[cacheKey].then((hash) => {
-      //this.localStorageService.put(cacheKey, hash);
+      this.localStorageService.put(cacheKey, hash);
       return this.dataConverter.extractObjectFromHash(contentBlock, hash);
     });
   }
