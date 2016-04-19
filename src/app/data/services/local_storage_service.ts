@@ -2,9 +2,10 @@
 
 class LocalStorageService {
   fetch(key:string):AjaxContentBlocksHash {
-    return <AjaxContentBlocksHash> '';
+    return JSON.parse(localStorage.getItem(key));
   }
 
   put(key:string, hash:AjaxContentBlocksHash) {
+    localStorage.setItem(key, JSON.stringify(hash));
   }
 }
