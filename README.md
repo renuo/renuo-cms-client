@@ -23,6 +23,7 @@ Prerequisites
 git clone git@github.com:renuo/renuo-cms-client.git
 cd renuo-cms-client
 nvm install
+pyenv install
 source bin/setup
 bin/check
 ```
