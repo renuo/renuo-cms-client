@@ -64,8 +64,7 @@ describe('DataService', function () {
     });
 
     it('returns the same block on local storage cache miss', function() {
-      const localStorageGetterSpy = spyOn(localStorage, 'getItem');
-      localStorageGetterSpy.and.returnValue(null);
+      localStorage.clear();
 
       const service = new DataService(ajaxService);
       const block = service.loadReadonlyContentFromCache(contentBlock);
