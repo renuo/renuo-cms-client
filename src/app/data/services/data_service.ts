@@ -13,6 +13,18 @@ class DataService {
   constructor(private ajaxService:AjaxService) {
   }
 
+  loadContent(contentBlock:ContentBlock, enableHttpCaching:boolean):JQueryPromise<ContentBlock> {
+    const cacheKey = this.cacheKey(contentBlock, enableHttpCaching);
+
+    if (!this.dataCache[cacheKey]) this.dataCache[cacheKey] = this.loadAllContents(contentBlock, enableHttpCaching);
+
+    return this.dataCache[cacheKey].then((hash) => this.dataConverter.extractObjectFromHash(contentBlock, hash));
+  }
+
+  loadContentFromCache(contentBlock:ContentBlock):ContentBlock {
+    return <ContentBlock>JSON.parse(JSON.stringify(contentBlock));
+  }
+
   cacheKey(contentBlock:ContentBlock, enableHttpCaching:boolean) {
     return [contentBlock.apiHost, contentBlock.apiKey, enableHttpCaching].join('|');
   }

@@ -63,6 +63,20 @@ describe('DataService', function () {
       });
       expect(renuoUploadCredentialsSpy.calls.count()).toBe(1);
     });
+
+    it('loads a content block from local storage', function() {
+      const spy = spyOn(ajaxService, 'fetchContentBlocks');
+      spy.and.callFake(() => jQuery.Deferred().resolve(blocks).promise());
+
+      const cachedContentBlock = new ContentBlock('some content', 'my-path', 'api-key', 'host');
+      window.localStorage.setItem('renuo-cms-blocks', JSON.stringify(cachedContentBlock));
+      const service = new DataService(ajaxService);
+      const block = service.loadContentFromCache(cachedContentBlock);
+      expect(block.content).toBe('some content');
+      expect(block.contentPath).toBe('my-path');
+      expect(block.apiKey).toBe('api-key');
+      expect(block.apiHost).toBe('host');
+    });
   });
 
   it('stores a content block', function () {
