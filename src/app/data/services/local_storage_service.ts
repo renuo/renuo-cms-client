@@ -5,22 +5,22 @@ class LocalStorageService {
   private expiryDate:{[key: string]: Date} = {};
 
   fetch(key:string):AjaxContentBlocksHash {
-    return JSON.parse(window.localStorage.getItem(key));
+    return JSON.parse(localStorage.getItem(key));
   }
 
   put(key:string, hash:AjaxContentBlocksHash) {
     if (this.isValid(key)) return;
     this.setExpiryDate(key);
-    window.localStorage.setItem(key, JSON.stringify(hash));
+    localStorage.setItem(key, JSON.stringify(hash));
   }
 
-  private isValid(key: string) {
+  private isValid(key:string) {
     return this.expiryDate[key] - Date.now() > 0;
   }
 
-  private setExpiryDate(key: string) {
+  private setExpiryDate(key:string) {
     const expiryDate = new Date;
-    expiryDate.setMinutes ( expiryDate.getMinutes() + LocalStorageService.EXPIRATIONTIME );
+    expiryDate.setMinutes (expiryDate.getMinutes() + LocalStorageService.EXPIRATIONTIME);
     this.expiryDate[key] = expiryDate;
   }
 }
