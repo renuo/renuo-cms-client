@@ -17,7 +17,7 @@ class ViewController {
 
     domContentBlocks.forEach((dom:DomContentBlock) => {
       if (dom.isEditable()) return edit.loadContent(dom);
-      readOnly.loadContent(dom);
+      readOnly.loadContent(dom, false);
     });
   }
 }

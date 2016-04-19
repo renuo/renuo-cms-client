@@ -8,11 +8,18 @@ class ReadonlyViewController {
               private drawer:ContentBlockDrawer) {
   }
 
-  loadContent(dom:DomContentBlock) {
+  loadContent(dom:DomContentBlock, enableCaching:boolean = true) {
+    if(enableCaching) this.loadCachedContent(dom);
+
     return this.dataService.loadReadonlyContent(dom.contentBlock).then((contentBlock) =>
       this.handleElement(this.converter.createNewBlock(dom, contentBlock))
     );
   };
+
+  private loadCachedContent(dom:DomContentBlock) {
+    const cachedContentBlock = this.dataService.loadReadonlyContentFromCache(dom.contentBlock);
+    this.handleElement(this.converter.createNewBlock(dom, cachedContentBlock));
+  }
 
   private handleElement(domContentBlock:DomContentBlock) {
     this.drawer.draw(domContentBlock);
