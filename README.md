@@ -18,14 +18,13 @@ implementation for such a server (not released as of now, but it will follow soo
 Prerequisites
 
 * Install [https://github.com/creationix/nvm](NVM)
+* Install [https://github.com/rbenv/rbenv](rbenv)
+* Install [https://github.com/yyuu/pyenv](pyenv)
 
 ```sh
 git clone git@github.com:renuo/renuo-cms-client.git
 cd renuo-cms-client
-nvm install
-pyenv install
-source bin/setup
-bin/check
+source bin/setup && bin/check
 ```
 
 ### Commands Summary
