@@ -1,4 +1,4 @@
-///<reference path="../../../../typings/jquery/jquery.d.ts"/>
+///<reference path="../../../../typings/browser.d.ts"/>
 ///<reference path="../editors/editor_loader.ts"/>
 
 class ScriptLoader {

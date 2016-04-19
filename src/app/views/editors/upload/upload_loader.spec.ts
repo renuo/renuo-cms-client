@@ -1,5 +1,4 @@
-///<reference path="../../../../../typings/jasmine/jasmine.d.ts"/>
-///<reference path="../../../../../typings/ckeditor/ckeditor.d.ts"/>
+///<reference path="../../../../../typings/browser.d.ts"/>
 ///<reference path="upload_loader.ts"/>
 ///<reference path="../../helpers/script_loader.ts"/>
 

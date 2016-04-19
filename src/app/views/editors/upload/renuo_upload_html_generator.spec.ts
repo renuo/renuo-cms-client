@@ -1,4 +1,4 @@
-///<reference path="../../../../../typings/jasmine/jasmine.d.ts"/>
+///<reference path="../../../../../typings/browser.d.ts"/>
 ///<reference path="renuo_upload_html_generator.ts"/>
 
 describe('RenuoUploadHtmlGenerator', function () {
