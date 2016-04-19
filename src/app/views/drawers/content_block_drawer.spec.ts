@@ -1,4 +1,4 @@
-///<reference path="../../../../typings/jasmine/jasmine.d.ts"/>
+///<reference path="../../../../typings/browser/ambient/jasmine/index.d.ts"/>
 ///<reference path="content_block_drawer.ts"/>
 
 describe('ContentBlockDrawer', function () {

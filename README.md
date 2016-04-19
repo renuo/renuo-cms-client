@@ -18,13 +18,13 @@ implementation for such a server (not released as of now, but it will follow soo
 Prerequisites
 
 * Install [https://github.com/creationix/nvm](NVM)
+* Install [https://github.com/rbenv/rbenv](rbenv)
+* Install [https://github.com/yyuu/pyenv](pyenv)
 
 ```sh
 git clone git@github.com:renuo/renuo-cms-client.git
 cd renuo-cms-client
-nvm install
-source bin/setup
-bin/check
+source bin/setup && bin/check
 ```
 
 ### Commands Summary
@@ -51,20 +51,20 @@ MULTIPLE_BROWSERS=1 gulp test
 ### Important URLs
 
 * [https://github.com/renuo/renuo-cms-client](https://github.com/renuo/renuo-cms-client)
-* [https://git.renuo.ch/renuo/renuo-cms-api](https://git.renuo.ch/renuo/renuo-cms-api)
+* [https://github.com/renuo/renuo-cms-api](https://github.com/renuo/renuo-cms-api)
 
 ### Dependencies / Type Definitions
 
 Install a new dependency (e.g. jquery): 
 
 ```sh
-tsd query jquery --action install --save
+typings install jquery --ambient --save
 ```
 
-Reinstall dependencies: 
+Reinstall dependencies:
 
-```
-tsd reinstall --save --overwrite
+```sh
+typings install
 ```
 
 ### Tests

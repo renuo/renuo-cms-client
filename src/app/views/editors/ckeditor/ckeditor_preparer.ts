@@ -1,5 +1,5 @@
 ///<reference path="../editor_preparer.ts"/>
-///<reference path="../../../../../typings/ckeditor/ckeditor.d.ts"/>
+///<reference path="../../../../../typings/browser/ambient/ckeditor/index.d.ts"/>
 ///<reference path="ckeditor_upload_plugin.ts"/>
 
 class CkeditorPreparer implements EditorPreparer {
@@ -49,6 +49,7 @@ class CkeditorPreparer implements EditorPreparer {
     /*allowedContent: { 'b i li ul ol table thead tbody tr': true, 'h1 h2 h3 h4 p th td': {  styles: 'text-align,text-decoration' },
      a: {attributes: '!href,target'} img: { attributes: '!src,alt', styles: 'width,height', classes: 'left,right' } },*/
     // TODO: enable images
+    // TODO: add ImageButton to removeButtons list
     return jQuery.extend({
       toolbarGroups: [
         {name: 'styles', groups: ['styles']},
@@ -57,13 +58,13 @@ class CkeditorPreparer implements EditorPreparer {
         {name: 'links', groups: ['links']},
         {name: 'insert', groups: ['insert']},
         {name: 'clipboard', groups: ['clipboard', 'undo']},
-        {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
+        {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']}
       ],
       removePlugins: 'bidi,font,forms,flash,horizontalrule,iframe',
       removeButtons: 'Source,Save,NewPage,Preview,Templates,Print,SelectAll,Form,Checkbox,Radio,TextField,Textarea,' +
-      'Select,Button,ImageButton,HiddenField,Outdent,Indent,Blockquote,CreateDiv,BidiLtr,BidiRtl,Language,Anchor,' +
+      'Select,Button,HiddenField,Outdent,Indent,Blockquote,CreateDiv,BidiLtr,BidiRtl,Language,Anchor,' +
       'WidgetbootstrapAlert,WidgetbootstrapThreeCol,WidgetbootstrapTwoCol,WidgetbootstrapRightCol,WidgetbootstrapLeftCol,' +
-      'Flash,Image,Btgrid,Glyphicons,SpecialChar,Smiley,PageBreak,Iframe,Styles,Font,FontSize,TextColor,BGColor,' +
+      'Flash,ImageButton,Btgrid,Glyphicons,SpecialChar,Smiley,PageBreak,Iframe,Styles,Font,FontSize,TextColor,BGColor,' +
       'Maximize,ShowBlocks,About',
       format_tags: 'p;h1;h2;h3;h4;h5;h6;pre;address'
     }, this.enterMethod(block));

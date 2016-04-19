@@ -1,8 +1,7 @@
-///<reference path="../../../../typings/tsd.d.ts"/>
-
 class ContentBlock {
   constructor(public content:string, public contentPath:string, public apiKey:string, public apiHost:string,
               public createdAt:Date = null, public updatedAt:Date = null, public defaultContent:string = null) {
+    this.contentPath = this.contentPath.split('.').join('-');
   }
 
   isNew():boolean {

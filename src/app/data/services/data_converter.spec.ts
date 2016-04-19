@@ -1,4 +1,4 @@
-///<reference path="../../../../typings/jasmine/jasmine.d.ts"/>
+///<reference path="../../../../typings/browser/ambient/jasmine/index.d.ts"/>
 ///<reference path="../../mocks/ajax_service_mock_data.ts"/>
 ///<reference path="data_converter.ts"/>
 ///<reference path="../models/renuo_upload_credentials.ts"/>

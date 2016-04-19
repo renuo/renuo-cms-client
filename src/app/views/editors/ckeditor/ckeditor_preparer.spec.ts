@@ -1,5 +1,5 @@
-///<reference path="../../../../../typings/jasmine/jasmine.d.ts"/>
-///<reference path="../../../../../typings/ckeditor/ckeditor.d.ts"/>
+///<reference path="../../../../../typings/browser/ambient/jasmine/index.d.ts"/>
+///<reference path="../../../../../typings/browser/ambient/ckeditor/index.d.ts"/>
 ///<reference path="ckeditor_preparer.ts"/>
 ///<reference path="../edit_content_block_callback.ts"/>
 ///<reference path="../../../data/models/renuo_upload_credentials.ts"/>
