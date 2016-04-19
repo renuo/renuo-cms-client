@@ -4,16 +4,22 @@
 ///<reference path="../models/content_block.ts"/>
 
 
-//describe('LocalStorageService', function () {
-//  const service = new LocalStorageService();
-//  const rawHash = '';
-//  const hash = JSON.parse(rawHash);
-//  const key = 'key';
-//
-//  describe('The content block saver', function () {
-//    it('can save a contentBlock', function () {
-//      service.put(key, hash);
-//      expect(localStorage.getItem(key)).toEqual(rawHash);
-//      });
-//  });
-//});
+describe('LocalStorageService', function () {
+  const service = new LocalStorageService();
+  const hash = { blub: 'blub' };
+  const key = 'blub';
+
+  describe('The content block saver', function () {
+    it('can save a hash', function () {
+      service.put(key, hash);
+      expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash));
+    });
+
+    it('can load a hash', function () {
+      const spy = spyOn(localStorage, 'getItem');
+      spy.and.returnValue(JSON.stringify(hash));
+
+      expect(service.fetch(key)).toEqual(hash);
+    });
+  });
+});
