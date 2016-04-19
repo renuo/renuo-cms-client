@@ -13,24 +13,24 @@ describe('LocalStorageService', function () {
   describe('The content block saver', function () {
     it('can save a hash and it gets only updated if it is expired', function () {
       service.put(key, hash);
-      expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash));
+      expect(window.localStorage.getItem(key)).toEqual(JSON.stringify(hash));
 
       service.put(key, hash2);
-      expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash));
+      expect(window.localStorage.getItem(key)).toEqual(JSON.stringify(hash));
     });
 
     it('can save a hash and it gets updated if it is expired', function () {
       service.put(key, hash);
-      expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash));
+      expect(window.localStorage.getItem(key)).toEqual(JSON.stringify(hash));
 
       spyOn(service, 'isValid').and.returnValue(false);
 
       service.put(key, hash2);
-      expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash2));
+      expect(window.localStorage.getItem(key)).toEqual(JSON.stringify(hash2));
     });
 
     it('can load a hash', function () {
-      spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(hash));
+      spyOn(window.localStorage, 'getItem').and.returnValue(JSON.stringify(hash));
       expect(service.fetch(key)).toEqual(hash);
     });
   });

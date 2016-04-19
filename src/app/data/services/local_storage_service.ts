@@ -5,13 +5,13 @@ class LocalStorageService {
   private expiryDate:{[key: string]: Date} = {};
 
   fetch(key:string):AjaxContentBlocksHash {
-    return JSON.parse(localStorage.getItem(key));
+    return JSON.parse(window.localStorage.getItem(key));
   }
 
   put(key:string, hash:AjaxContentBlocksHash) {
     if (this.isValid(key)) return;
     this.setExpiryDate(key);
-    localStorage.setItem(key, JSON.stringify(hash));
+    window.localStorage.setItem(key, JSON.stringify(hash));
   }
 
   private isValid(key: string) {
