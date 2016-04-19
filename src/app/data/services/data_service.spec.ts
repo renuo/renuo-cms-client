@@ -63,13 +63,24 @@ describe('DataService', function () {
       expect(renuoUploadCredentialsSpy.calls.count()).toBe(1);
     });
 
-    it('loads default content block if not present in local storage', function() {
+    it('returns the same block on local storage cache miss', function() {
       const spy = spyOn(ajaxService, 'fetchContentBlocks');
       spy.and.callFake(() => jQuery.Deferred().resolve(blocks).promise());
 
       const service = new DataService(ajaxService);
       const block = service.loadReadonlyContentFromCache(contentBlock);
       expect(block).toBe(contentBlock);
+    });
+
+    it('fetches a content block from the local storage', function() {
+      const spy = spyOn(ajaxService, 'fetchContentBlocks');
+      spy.and.callFake(() => jQuery.Deferred().resolve(blocks).promise());
+
+      const service = new DataService(ajaxService);
+      service.loadReadonlyContent(contentBlock).then((block:ContentBlock) => {
+        const cachedBlock = service.loadReadonlyContentFromCache(block);
+        expect(cachedBlock).toBe(block);
+      });
     });
   });
 
