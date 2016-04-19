@@ -61,6 +61,7 @@ describe('DataService', function () {
       expect(renuoUploadCredentialsSpy.calls.count()).toBe(1);
       service.loadEditableContent(contentBlock, 'pk').then((block:EditableContentBlock) => {
       });
+      expect(contentBlocksSpy.calls.count()).toBe(1);
       expect(renuoUploadCredentialsSpy.calls.count()).toBe(1);
     });
   });
