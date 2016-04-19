@@ -43,4 +43,9 @@ describe('ContentBlock', function () {
     expect(new ContentBlock('', '', '', '', createdAt, updatedAt, 'some text').shouldUseParagraphs()).toEqual(false);
     expect(new ContentBlock('', '', '', '', createdAt, updatedAt, '<p>yay</p>').shouldUseParagraphs()).toEqual(true);
   });
+
+  it('replaces . with - in the content path', function(){
+    expect(new ContentBlock('', 'some.path', '', '', createdAt, updatedAt, '').contentPath).toEqual('some-path');
+    expect(new ContentBlock('', 'x..a...z', '', '', createdAt, updatedAt, '').contentPath).toEqual('x--a---z');
+  });
 });
