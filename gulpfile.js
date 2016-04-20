@@ -26,9 +26,7 @@ gulp.task('test-raw', function (done) {
   new karma.Server({
     configFile: __dirname + '/karma.conf.coffee',
     singleRun: true
-  }, function() {
-    done();
-  }).start();
+  }, done).start();
 });
 
 gulp.task('tslint', function () {
