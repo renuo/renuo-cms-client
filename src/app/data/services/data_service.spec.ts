@@ -59,10 +59,36 @@ describe('DataService', function () {
       expect(ajaxService.fetchContentBlocks).toHaveBeenCalledWith(contentBlock.apiKey, contentBlock.apiHost, false);
       expect(contentBlocksSpy.calls.count()).toBe(1);
       expect(renuoUploadCredentialsSpy.calls.count()).toBe(1);
-      service.loadEditableContent(contentBlock, 'pk').then((block:EditableContentBlock) => {
-      });
+      service.loadEditableContent(contentBlock, 'pk').then((block:EditableContentBlock) => {});
       expect(contentBlocksSpy.calls.count()).toBe(1);
       expect(renuoUploadCredentialsSpy.calls.count()).toBe(1);
+    });
+
+    it('returns the same block on local storage cache miss', function() {
+      localStorage.clear();
+
+      const service = new DataService(ajaxService);
+      const block = service.loadReadonlyContentFromCache(contentBlock);
+      expect(block).toBe(contentBlock);
+    });
+
+    it('fetches a content block from the local storage', function() {
+      const contentBlocksSpy = spyOn(ajaxService, 'fetchContentBlocks');
+      contentBlocksSpy.and.callFake(() => jQuery.Deferred().resolve(blocks).promise());
+
+      const service = new DataService(ajaxService);
+
+      service.loadReadonlyContent(contentBlock).then((requestedBlock) => {
+        const cachedBlock = service.loadReadonlyContentFromCache(requestedBlock);
+
+        expect(cachedBlock).not.toBe(requestedBlock);
+        expect(cachedBlock.content).toEqual(requestedBlock.content);
+        expect(cachedBlock.contentPath).toEqual(requestedBlock.contentPath);
+        expect(cachedBlock.apiKey).toEqual(requestedBlock.apiKey);
+        expect(cachedBlock.apiHost).toEqual(requestedBlock.apiHost);
+        expect(cachedBlock.createdAt).toEqual(requestedBlock.createdAt);
+        expect(cachedBlock.updatedAt).toEqual(requestedBlock.updatedAt);
+      });
     });
   });
 

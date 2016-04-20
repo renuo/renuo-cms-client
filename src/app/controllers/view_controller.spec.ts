@@ -30,20 +30,23 @@ describe('ViewController', function () {
 
     spyOn(dataService, 'loadEditableContent').and.callFake((cb:ContentBlock) => {
       const d = new Date(2015, 11, 21);
-      const filledCb = new ContentBlock(`new content ${cb.contentPath}`, cb.contentPath, cb.apiKey, cb.apiHost, d, d);
+      const filledCb = new ContentBlock(`real content ${cb.contentPath}`, cb.contentPath, cb.apiKey, cb.apiHost, d, d);
       const editableCb = new EditableContentBlock(filledCb, null);
       return jQuery.Deferred().resolve(editableCb).promise();
     });
 
     spyOn(dataService, 'loadReadonlyContent').and.callFake((cb:ContentBlock) => {
       const d = new Date(2015, 11, 21);
-      const filledCb = new ContentBlock(`new content ${cb.contentPath}`, cb.contentPath, cb.apiKey, cb.apiHost, d, d);
+      const filledCb = new ContentBlock(`real content ${cb.contentPath}`, cb.contentPath, cb.apiKey, cb.apiHost, d, d);
       return jQuery.Deferred().resolve(filledCb).promise();
     });
 
-    spyOn(drawer, 'draw').and.callFake((dom:DomContentBlock) => {
-      expect(dom.contentBlock.content).toBe(`new content ${dom.contentBlock.contentPath}`);
+    spyOn(dataService, 'loadReadonlyContentFromCache').and.callFake((cb:ContentBlock) => {
+      const d = new Date(2015, 11, 21);
+      return new ContentBlock(`cached content ${cb.contentPath}`, cb.contentPath, cb.apiKey, cb.apiHost, d, d);
     });
+
+    const drawerSpy = spyOn(drawer, 'draw').and.stub();
 
     controller.init();
 
@@ -53,7 +56,12 @@ describe('ViewController', function () {
     expect(dataService.loadReadonlyContent).toHaveBeenCalledWith(domContent1.contentBlock);
     expect(dataService.loadEditableContent).toHaveBeenCalledWith(domContent2.contentBlock, domContent2.privateApiKey);
     expect(drawer.draw).toHaveBeenCalled();
-    expect(editController.prepareEdit).toHaveBeenCalled();
     expect(editControllerSpy.calls.count()).toBe(1);
+    expect(editController.prepareEdit).toHaveBeenCalled();
+
+    const drawFirstDom = drawerSpy.calls.first().args[0];
+    expect(drawFirstDom.contentBlock.content).toBe(`cached content ${drawFirstDom.contentBlock.contentPath}`);
+    const drawSecondDom = drawerSpy.calls.mostRecent().args[0];
+    expect(drawSecondDom.contentBlock.content).toBe(`real content ${drawSecondDom.contentBlock.contentPath}`);
   });
 });
