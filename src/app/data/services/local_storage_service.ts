@@ -1,8 +1,8 @@
 ///<reference path="../models/content_block.ts"/>
 
 class LocalStorageService {
-  static EXPIRATIONTIME = 5; //minutes
-  private expiryDate:{[key: string]: Date} = {};
+  static EXPIRATIONTIME = 2592000000; //ms (30 days)
+  private expiryDate:{[key: string]: number} = {};
 
   fetch(key:string):AjaxContentBlocksHash {
     return JSON.parse(localStorage.getItem(key));
@@ -15,12 +15,14 @@ class LocalStorageService {
   }
 
   private isValid(key:string) {
-    return <any>this.expiryDate[key] - Date.now() > 0;
+    return this.expiryDate[key] - this.timestamp() > 0;
   }
 
   private setExpiryDate(key:string) {
-    const expiryDate = new Date;
-    expiryDate.setMinutes (expiryDate.getMinutes() + LocalStorageService.EXPIRATIONTIME);
-    this.expiryDate[key] = expiryDate;
+    this.expiryDate[key] = this.timestamp() + LocalStorageService.EXPIRATIONTIME;
+  }
+
+  private timestamp():number {
+    return Date.now();
   }
 }

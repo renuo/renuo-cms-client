@@ -6,40 +6,41 @@
 
 describe('LocalStorageService', function () {
   const service = new LocalStorageService();
-  const hash:AjaxContentBlocksHash =  { blub: <any> { blub: '1' } };
+  const hash1:AjaxContentBlocksHash =  { blub: <any> { blub: '1' } };
   const hash2:AjaxContentBlocksHash = { blub: <any> { blub2: '2' } };
 
   describe('The content block saver', function () {
-    beforeEach(function() {
+    afterEach(function() {
       localStorage.clear();
     });
 
     it('can save a hash and it gets only updated if it is expired', function () {
       const key = '1';
-      service.put(key, hash);
+      service.put(key, hash1);
 
-      expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash));
+      expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash1));
 
       service.put(key, hash2);
-      expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash));
+      expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash1));
     });
 
     it('can save a hash and it gets updated if it is expired', function () {
       const key = '2';
-      service.put(key, hash);
+      const timestampSpy = spyOn(service, 'timestamp');
 
-      expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash));
+      timestampSpy.and.returnValue(0);
+      service.put(key, hash1);
+      expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash1));
 
-      spyOn(service, 'isValid').and.returnValue(false);
-
+      timestampSpy.and.returnValue(1 + LocalStorageService.EXPIRATIONTIME);
       service.put(key, hash2);
       expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash2));
     });
 
     it('can load a hash', function () {
       const key = '3';
-      localStorage.setItem(key, JSON.stringify(hash));
-      expect(service.fetch(key)).toEqual(hash);
+      localStorage.setItem(key, JSON.stringify(hash1));
+      expect(service.fetch(key)).toEqual(hash1);
     });
   });
 });
