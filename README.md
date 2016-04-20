@@ -24,7 +24,7 @@ Prerequisites
 ```sh
 git clone git@github.com:renuo/renuo-cms-client.git
 cd renuo-cms-client
-source bin/setup && bin/check
+bin/setup && bin/check
 ```
 
 ### Commands Summary
@@ -90,7 +90,6 @@ MULTIPLE_BROWSERS=1 gulp test
 ## Release
 
 ```sh
-bundle install
 bundle exec ruby release.rb
 ```
 

@@ -12,12 +12,12 @@ class ViewController {
 
   init():void {
     const domContentBlocks = this.finder.find().map((el) => this.converter.convert(el));
-    const edit = new EditableViewController(this.converter, this.dataService, this.drawer, this.editController);
-    const readonly = new ReadonlyViewController(this.converter, this.dataService, this.drawer);
+    const editView = new EditableViewController(this.converter, this.dataService, this.drawer, this.editController);
+    const readonlyView = new ReadonlyViewController(this.converter, this.dataService, this.drawer);
 
     domContentBlocks.forEach((dom:DomContentBlock) => {
-      if (dom.isEditable()) return edit.loadContent(dom);
-      readonly.loadContent(dom);
+      if (dom.isEditable()) return editView.loadContent(dom);
+      readonlyView.loadContent(dom);
     });
   }
 }
