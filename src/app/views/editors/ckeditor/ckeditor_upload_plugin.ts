@@ -37,10 +37,10 @@ class CkeditorUploadPlugin {
     jQuery('body').append(dropzoneOverlay);
     jQuery('<style type="text/css">' +
       '#dropzone-overlay { top: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,.7); z-index: 10000; ' +
-      'position: fixed }' +
+      'position: fixed; cursor: pointer; }' +
       '.dropzone, .dropzone.dz-drag-hover { height:100%; border: none; }' +
       '.dropzone-container { top: 25%; left: 25%; position: absolute; width: 50vw; border-radius: 5px; ' +
-      'height: 50vh; padding:1em; background: #fff; z-index: 10001; margin: auto; }' +
+      'height: 50vh; padding:1em; background: #fff; z-index: 10001; margin: auto; cursor: default; }' +
       '.dz-default { height:100%; border: 3px dashed #ccc; }' +
       '.dropzone .dz-preview { width: 100%; }' +
       '.dropzone .dz-default.dz-message { margin:0px; }' +
