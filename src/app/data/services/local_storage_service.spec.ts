@@ -32,7 +32,11 @@ describe('LocalStorageService', function () {
       service.put(key, hash1);
       expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash1));
 
-      timestampSpy.and.returnValue(1 + LocalStorageService.EXPIRATIONTIME);
+      timestampSpy.and.returnValue(LocalStorageService.EXPIRATIONTIME - 1);
+      service.put(key, hash2);
+      expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash1));
+
+      timestampSpy.and.returnValue(LocalStorageService.EXPIRATIONTIME + 1);
       service.put(key, hash2);
       expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash2));
     });
