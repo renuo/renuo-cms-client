@@ -44,12 +44,7 @@ class CkeditorUploadPlugin {
     return {
       acceptedFiles: 'image/*,application/pdf',
       uploadMultiple: false,
-      maxFiles: 1,
-      dictDefaultMessage: 'Ziehen Sie eine Bild-Datei oder ein PDF hier herein, oder klicken Sie hier um '
-      + 'die Datei hochzuladen.',
-      dictFallbackMessage: 'Sie verwenden einen veralteten Browser was das verwenden des Uploads verhindert.',
-      dictInvalidFileType: 'Hier können nur Bild-Dateien hochgeladen werden.',
-      dictFileTooBig: 'Die Datei ist zu gross.'
+      maxFiles: 1
     };
   }
 
