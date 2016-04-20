@@ -8,8 +8,8 @@ class ReadonlyViewController {
               private drawer:ContentBlockDrawer) {
   }
 
-  loadContent(dom:DomContentBlock, enableCaching:boolean = true) {
-    if(enableCaching) this.loadCachedContent(dom);
+  loadContent(dom:DomContentBlock) {
+    this.loadCachedContent(dom);
 
     return this.dataService.loadReadonlyContent(dom.contentBlock).then((contentBlock) =>
       this.handleElement(this.converter.createNewBlock(dom, contentBlock))
