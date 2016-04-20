@@ -8,6 +8,6 @@ class DomContentBlock {
   }
 
   hasRenuoUpload():boolean {
-    return this.renuoUploadCredentials !== null;
+    return this.renuoUploadCredentials !== null && this.renuoUploadCredentials.hasCredentials();
   }
 }

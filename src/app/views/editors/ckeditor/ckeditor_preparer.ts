@@ -29,10 +29,9 @@ class CkeditorPreparer implements EditorPreparer {
 
   private initCkeditor(dom:DomContentBlock, editCallback:EditContentBlockCallback) {
 
-    const editor = this.ckeditor.inline(dom.element, this.ckeditorConfig(dom.contentBlock)).on('blur', (event:CKEDITOR.eventInfo) => {
-      this.checkForUpdate(event, editCallback, dom);
-    });
-    new CkeditorUploadPlugin().registerPlugin(editor);
+    const editor = this.ckeditor.inline(dom.element, this.ckeditorConfig(dom.contentBlock));
+    editor.on('blur', (event:CKEDITOR.eventInfo) => this.checkForUpdate(event, editCallback, dom));
+    new CkeditorUploadPlugin(dom).registerPlugin(editor);
   };
 
   private checkForUpdate(event:CKEDITOR.eventInfo, editCallback:EditContentBlockCallback, dom:DomContentBlock) {
