@@ -1,5 +1,6 @@
 ///<reference path="../upload/renuo_upload_html_generator.ts"/>
 ///<reference path="../upload/renuo_upload.d.ts"/>
+
 class CkeditorUploadPlugin {
   constructor(private domContentBlock:DomContentBlock) {
   }
