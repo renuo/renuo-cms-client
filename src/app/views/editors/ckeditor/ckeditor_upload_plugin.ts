@@ -26,15 +26,49 @@ class CkeditorUploadPlugin {
   }
 
   private openDropzone(editor:CKEDITOR.editor):void {
-    const dropzoneOverlay = jQuery(`<div id="dropzone-overlay"></div>`);
-    const dropzoneContainer = jQuery(`<div class="dropzone-container"></div>`);
-    const dropzone = jQuery('<div></div>');
+    const dropzone = this.createDropzoneHTML();
+    this.createDropzoneCSS();
+    jQuery('#dropzone-overlay').click((event) => {
+      if ($(event.target).attr('id') !== 'dropzone-overlay') return;
+      this.closeDropzone();
+    });
+    const upload = new window.RenuoUpload(dropzone, this.dropzoneOptions(), (event:RenuoUploadEvent) => {
+      const htmlElement:HTMLElement = new RenuoUploadHtmlGenerator(event).generateElement();
+      const domElement = new CKEDITOR.dom.element(htmlElement);
+      editor.insertElement(domElement);
+      this.closeDropzone();
+    });
+  }
+
+  private dropzoneOptions() {
+    return {
+      acceptedFiles: 'image/*,application/pdf',
+      uploadMultiple: false,
+      maxFiles: 1,
+      dictDefaultMessage: 'Ziehen Sie eine Bild-Datei oder ein PDF hier herein, oder klicken Sie hier um '
+      + 'die Datei hochzuladen.',
+      dictFallbackMessage: 'Sie verwenden einen veralteten Browser was das verwenden des Uploads verhindert.',
+      dictInvalidFileType: 'Hier können nur Bild-Dateien hochgeladen werden.',
+      dictFileTooBig: 'Die Datei ist zu gross.'
+    };
+  }
+
+  private createDropzoneHTML() {
+    const dropzoneHTML = jQuery('<div id="dropzone-overlay">' +
+      ' <div class="dropzone-container">' +
+      '   <div class="renuo-upload dz-clickable"></div>' +
+      ' </div>' +
+      '</div>');
     const renuoUploadCredentials = this.domContentBlock.renuoUploadCredentials;
-    dropzone.addClass('renuo-upload dz-clickable').attr('data-apikey', renuoUploadCredentials.apiKey)
+    const dropzone = jQuery(dropzoneHTML).find('.renuo-upload');
+    dropzone.attr('data-apikey', renuoUploadCredentials.apiKey)
       .attr('data-signingurl', renuoUploadCredentials.signingUrl);
-    dropzoneOverlay.append(dropzoneContainer);
-    dropzoneContainer.append(dropzone);
-    jQuery('body').append(dropzoneOverlay);
+    jQuery('body').append(dropzoneHTML);
+    return dropzone;
+  }
+
+
+  private createDropzoneCSS() {
     jQuery('<style type="text/css">' +
       '#dropzone-overlay { top: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,.7); z-index: 10000; ' +
       'position: fixed; cursor: pointer; }' +
@@ -47,29 +81,5 @@ class CkeditorUploadPlugin {
       '.dropzone .dz-preview .dz-image { margin: auto; }' +
       '.dz-default span { font-size: 2em; text-align: center; margin-top:3em; display: inline-block; }' +
       '</style>').appendTo('head');
-
-    jQuery(dropzoneOverlay).click((event) => {
-      if ($(event.target).attr('id') !== 'dropzone-overlay') return;
-      this.closeDropzone();
-    });
-
-    const dropzoneOptions = {
-      acceptedFiles: 'image/*,application/pdf',
-      uploadMultiple: false,
-      maxFiles: 1,
-      dictDefaultMessage: 'Ziehen Sie eine Bild-Datei oder ein PDF hier herein, oder klicken Sie hier um '
-      + 'die Datei hochzuladen.',
-      dictFallbackMessage: 'Sie verwenden einen veralteten Browser was das verwenden des Uploads verhindert.',
-      dictInvalidFileType: 'Hier können nur Bild-Dateien hochgeladen werden.',
-      dictFileTooBig: 'Die Datei ist zu gross.'
-    };
-    const upload = new window.RenuoUpload(jQuery(dropzone), dropzoneOptions, (event:RenuoUploadEvent) => {
-      const htmlElement:HTMLElement = new RenuoUploadHtmlGenerator(event).generateElement();
-      const domElement = new CKEDITOR.dom.element(htmlElement);
-      editor.insertElement(domElement);
-      this.closeDropzone();
-    });
   }
-
-
 }
