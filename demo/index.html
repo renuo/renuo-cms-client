@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
         integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg=="
         crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/dropzone/4.3.0/basic.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/dropzone/4.3.0/dropzone.min.css" />
+
 
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -26,12 +29,12 @@
     <div class="row">
       <article class="col-sm-6">
         <h3>This exists and is cached</h3>
-        <div data-content-path="some/path/to/some/content" data-api-host="//renuo-cms-api.dev:3000"
+        <div data-content-path="some/path/to/some/content" data-api-host="//renuo-cms-api.dev:3002"
              data-api-key="aValidApiKey"></div>
       </article>
       <article class="col-sm-6">
         <h3>This doesn't exist</h3>
-        <div data-content-path="some/other-path/to/some/nonexisting-content" data-api-host="//renuo-cms-api.dev:3000"
+        <div data-content-path="some/other-path/to/some/nonexisting-content" data-api-host="//renuo-cms-api.dev:3002"
              data-api-key="aValidApiKey"></div>
       </article>
     </div>
@@ -41,18 +44,18 @@
     <h2>These can be edited</h2>
     <div class="row">
       <article class="col-sm-4">
-        <div data-content-path="content/blub" data-api-host="//renuo-cms-api.dev:3000"
+        <div data-content-path="content/blub" data-api-host="//renuo-cms-api.dev:3002"
              data-api-key="aValidApiKey"
              data-private-api-key="AdminONLY"></div>
       </article>
       <article class="col-sm-4">
-        <div data-content-path="content/bla" data-api-host="//renuo-cms-api.dev:3000"
+        <div data-content-path="content/bla" data-api-host="//renuo-cms-api.dev:3002"
              data-api-key="aValidApiKey"
              data-private-api-key="AdminONLY"></div>
       </article>
       <article class="col-sm-4">
         <div data-content-path="even-more-content"
-             data-api-host="//renuo-cms-api.dev:3000"
+             data-api-host="//renuo-cms-api.dev:3002"
              data-api-key="aValidApiKey"
              data-private-api-key="AdminONLY"></div>
       </article>
@@ -65,19 +68,19 @@
     <div class="row">
       <article class="col-sm-4">
         <h3>Same path as above, but not editable</h3>
-        <div data-content-path="content/blub" data-api-host="//renuo-cms-api.dev:3000"
+        <div data-content-path="content/blub" data-api-host="//renuo-cms-api.dev:3002"
              data-api-key="aValidApiKey"></div>
       </article>
 
       <article class="col-sm-4">
         <h3>Same path as above, also editable</h3>
-        <div data-content-path="content/blub" data-api-host="//renuo-cms-api.dev:3000" data-api-key="aValidApiKey"
+        <div data-content-path="content/blub" data-api-host="//renuo-cms-api.dev:3002" data-api-key="aValidApiKey"
              data-private-api-key="AdminONLY"></div>
       </article>
 
       <article class="col-sm-4">
         <h3>Different API Key</h3>
-        <div data-content-path="content/blub" data-api-host="//renuo-cms-api.dev:3000" data-api-key="anotherPublicKey"
+        <div data-content-path="content/blub" data-api-host="//renuo-cms-api.dev:3002" data-api-key="anotherPublicKey"
              data-private-api-key="SuperAdminOnly"></div>
       </article>
     </div>
@@ -89,7 +92,7 @@
     <div class="row">
       <article class="col-xs-4">
         <h3>Simple default content</h3>
-        <div data-content-path="content/new-default-static" data-api-host="//renuo-cms-api.dev:3000"
+        <div data-content-path="content/new-default-static" data-api-host="//renuo-cms-api.dev:3002"
              data-api-key="anotherPublicKey">
           <h4>Default Content</h4>
           <p>This is some default content. It is the default when the API doesn't have a content block for it yet.</p>
@@ -98,7 +101,7 @@
 
       <article class="col-xs-4">
         <h3>Editable default content</h3>
-        <div data-content-path="content/new-default-editable" data-api-host="//renuo-cms-api.dev:3000"
+        <div data-content-path="content/new-default-editable" data-api-host="//renuo-cms-api.dev:3002"
              data-api-key="anotherPublicKey" data-private-api-key="SuperAdminOnly">
           <h4>Editable default Content (don't save...)</h4>
           <p>This is some default content. It is the default when the API doesn't have a content block for it yet.</p>
@@ -107,7 +110,7 @@
 
       <article class="col-xs-4">
         <h3>Editable (wrong private api key)</h3>
-        <div data-content-path="content/new-default-not-editable" data-api-host="//renuo-cms-api.dev:3000"
+        <div data-content-path="content/new-default-not-editable" data-api-host="//renuo-cms-api.dev:3002"
              data-api-key="anotherPublicKey" data-private-api-key="InvalidPrivateAPIKey">
           <h4>Editable default Content (cannot be saved, wrong private api key)</h4>
           <p>This is some default content. It is the default when the API doesn't have a content block for it yet.</p>
@@ -122,7 +125,7 @@
     <div class="row">
       <article class="col-xs-6">
         <h3>Editable list</h3>
-        <div data-content-path="list-1" data-api-host="//renuo-cms-api.dev:3000" data-api-key="aValidApiKey"
+        <div data-content-path="list-1" data-api-host="//renuo-cms-api.dev:3002" data-api-key="aValidApiKey"
              data-private-api-key="AdminONLY">
           <ul>
             <li>Some</li>
@@ -138,19 +141,20 @@
         <ul class="fa-ul">
           <li>
             <i class="fa-li fa fa-check-square"></i>
-            <div data-content-path="list-2/li-1a" data-api-host="//renuo-cms-api.dev:3000" data-api-key="aValidApiKey"
+            <div data-content-path="list-2/li-1a" data-api-host="//renuo-cms-api.dev:3002" data-api-key="aValidApiKey"
                  data-private-api-key="AdminONLY">Some
             </div>
           </li>
           <li>
             <i class="fa-li fa fa-check-square"></i>
-            <div data-content-path="list-2/li-2a" data-api-host="//renuo-cms-api.dev:3000" data-api-key="aValidApiKey"
+            <div data-content-path="list-2/li-2a" data-api-host="//renuo-cms-api.dev:3002" data-api-key="aValidApiKey"
                  data-private-api-key="AdminONLY">List
             </div>
           </li>
           <li>
             <i class="fa-li fa fa-check-square"></i>
-            <div class="pull-left" data-content-path="list-2/li-3a" data-api-host="//renuo-cms-api.dev:3000" data-api-key="aValidApiKey"
+            <div class="pull-left" data-content-path="list-2/li-3a" data-api-host="//renuo-cms-api.dev:3002"
+                 data-api-key="aValidApiKey"
                  data-private-api-key="AdminONLY">Items
             </div>
           </li>
@@ -164,7 +168,7 @@
     <article>
       <h3>This becomes editable after 2 seconds</h3>
 
-      <div data-content-path="i-am-late" data-api-host="//renuo-cms-api.dev:3000" data-api-key="aValidApiKey">
+      <div data-content-path="i-am-late" data-api-host="//renuo-cms-api.dev:3002" data-api-key="aValidApiKey">
         <p>Some more <b>default</b> content</p>
       </div>
     </article>
