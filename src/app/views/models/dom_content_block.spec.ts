@@ -6,12 +6,24 @@ describe('DomContentBlock', function () {
   it('constructs a dom content block', function () {
     const block = new ContentBlock('content', 'path', 'api-key', 'host');
     const element = jQuery('<div>')[0];
-    const credentials = new RenuoUploadCredentials('', '');
+    const credentials = new RenuoUploadCredentials('a', 'b');
     const dom = new DomContentBlock(element, block, 'private-key', credentials);
     expect(dom.element).toBe(element);
     expect(dom.contentBlock).toBe(block);
     expect(dom.privateApiKey).toBe('private-key');
     expect(dom.isEditable()).toBe(true);
+    expect(dom.hasRenuoUpload()).toBe(true);
+  });
+
+  it('tells if has renuo credentials', function () {
+    const block = new ContentBlock('content', 'path', 'api-key', 'host');
+    const element = jQuery('<div>')[0];
+    const dom = new DomContentBlock(element, block, 'private-key', null);
+    expect(dom.hasRenuoUpload()).toBe(false);
+    dom.renuoUploadCredentials = new RenuoUploadCredentials('', '');
+    expect(dom.hasRenuoUpload()).toBe(false);
+    dom.renuoUploadCredentials.apiKey = 'a';
+    dom.renuoUploadCredentials.signingUrl = 'b';
     expect(dom.hasRenuoUpload()).toBe(true);
   });
 
