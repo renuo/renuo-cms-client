@@ -11,12 +11,13 @@ class LocalStorageService {
   }
 
   put(key:string, hash:AjaxContentBlocksHash) {
-    if (this.isValid(key)) return;
+    if (this.skipStoring(key)) return;
+
     this.setExpiryDate(key);
     localStorage.setItem(key, this.serializer.stringify(hash));
   }
 
-  private isValid(key:string) {
+  private skipStoring(key:string) {
     return this.expiryDate[key] - this.timestamp() > 0;
   }
 
