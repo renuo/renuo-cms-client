@@ -2,12 +2,19 @@
 ///<reference path="../../../../../typings/browser/ambient/ckeditor/index.d.ts"/>
 ///<reference path="ckeditor_preparer.ts"/>
 ///<reference path="../edit_content_block_callback.ts"/>
+///<reference path="../../../data/models/renuo_upload_credentials.ts"/>
 
 describe('CkeditorPreparer', function () {
+  jasmine.Ajax.install();
+  new ScriptLoader().loadScript('/renuo-upload-mock').then(null);
+  const testResponse = {status: 200, responseText: 'var CKEDITOR={"version":"yay-a-mock"};'};
+  jasmine.Ajax.requests.mostRecent().respondWith(testResponse);
+  jasmine.Ajax.uninstall();
+
   const blockWithParagraphs = new ContentBlock('<p>content</p>', 'path', 'api-key', 'host', null, null, '');
   const blockWithoutParagraphs = new ContentBlock('content', 'path', 'api-key', 'host', null, null, 'no paragraphs');
   const element = jQuery('<div>')[0];
-  const dom = new DomContentBlock(element, blockWithParagraphs, 'private-key');
+  const dom = new DomContentBlock(element, blockWithParagraphs, 'private-key', new RenuoUploadCredentials('', ''));
 
   const spy = jasmine.createSpy('ckeditor');
   let calledEventName:string;

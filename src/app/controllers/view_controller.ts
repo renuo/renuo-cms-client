@@ -1,6 +1,8 @@
 ///<reference path="../views/services/content_block_finder.ts"/>
 ///<reference path="../views/drawers/content_block_drawer.ts"/>
 ///<reference path="edit_controller.ts"/>
+///<reference path="editable_view_controller.ts"/>
+///<reference path="readonly_view_controller.ts"/>
 
 class ViewController {
   constructor(private finder:ContentBlockFinder, private converter:DomContentBlockConverter,
@@ -10,15 +12,12 @@ class ViewController {
 
   init():void {
     const domContentBlocks = this.finder.find().map((el) => this.converter.convert(el));
+    const edit = new EditableViewController(this.converter, this.dataService, this.drawer, this.editController);
+    const readonly = new ReadonlyViewController(this.converter, this.dataService, this.drawer);
 
-    domContentBlocks.forEach((dom:DomContentBlock) =>
-      this.dataService.loadContent(dom.contentBlock, !dom.isEditable()).then((contentBlock) =>
-        this.handleElement(this.converter.createNewBlock(dom, contentBlock))
-      ));
-  }
-
-  private handleElement(domContentBlock:DomContentBlock):void {
-    this.drawer.draw(domContentBlock);
-    if (domContentBlock.isEditable()) this.editController.prepareEdit(domContentBlock);
+    domContentBlocks.forEach((dom:DomContentBlock) => {
+      if (dom.isEditable()) return edit.loadContent(dom);
+      readonly.loadContent(dom);
+    });
   }
 }

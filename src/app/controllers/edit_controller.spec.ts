@@ -4,36 +4,47 @@
 ///<reference path="edit_controller.ts"/>
 ///<reference path="../views/editors/ckeditor/ckeditor_preparer.ts"/>
 ///<reference path="../views/editors/ckeditor/ckeditor_loader.ts"/>
+///<reference path="../views/helpers/script_loader.ts"/>
+///<reference path="../views/editors/upload/upload_loader.ts"/>
+///<reference path="../data/models/renuo_upload_credentials.ts"/>
 
 describe('EditController', function () {
   const block = new ContentBlock('content', 'path', 'api-key', 'host', new Date(2015, 10, 1), new Date(2015, 10, 1),
     'default');
   const element = jQuery('<div>')[0];
-  const dom = new DomContentBlock(element, block, 'private-key');
+  const dom = new DomContentBlock(element, block, 'private-key', new RenuoUploadCredentials('', ''));
   const preparer:EditorPreparer = new CkeditorPreparer();
-  const loader = new CkeditorLoader();
+  const editorLoader:EditorLoader = new CkeditorLoader(new ScriptLoader());
+  const uploadLoader = new UploadLoader(new ScriptLoader());
   const dataService = new DataService(null);
-  const controller = new EditController(dataService, loader, preparer);
+  const controller = new EditController(dataService, editorLoader, uploadLoader, preparer);
 
   it('prepares an element for editing', function () {
     spyOn(preparer, 'prepare');
-    const loaderSpy = spyOn(loader, 'loadEditor');
-    const deferred = jQuery.Deferred();
-    loaderSpy.and.returnValue(deferred.promise());
+    const loaderSpy = spyOn(editorLoader, 'loadEditor');
+    const uploadSpy = spyOn(uploadLoader, 'loadUpload');
+    const deferredEditor = jQuery.Deferred();
+    const deferredUpload = jQuery.Deferred();
+    loaderSpy.and.returnValue(deferredEditor.promise());
+    uploadSpy.and.returnValue(deferredUpload.promise());
 
     controller.prepareEdit(dom);
 
-    expect(loader.loadEditor).toHaveBeenCalled();
+    expect(editorLoader.loadEditor).toHaveBeenCalled();
     expect(preparer.prepare).not.toHaveBeenCalled();
-
-    deferred.resolve();
+    deferredEditor.resolve();
+    expect(preparer.prepare).not.toHaveBeenCalled();
+    deferredUpload.resolve();
 
     expect(preparer.prepare).toHaveBeenCalledWith(dom, jasmine.any(Function));
     expect(loaderSpy.calls.count()).toBe(1);
-
+    expect(uploadSpy.calls.count()).toBe(1);
     controller.prepareEdit(dom);
-
     expect(loaderSpy.calls.count()).toBe(1);
+    expect(uploadSpy.calls.count()).toBe(1);
+  });
+
+  it('loads the upload', function () {
   });
 
   it('edits a dom element successfully', function () {

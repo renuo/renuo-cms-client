@@ -1,4 +1,5 @@
 ///<reference path="../data/models/ajax_content_block.ts"/>
+///<reference path="../data/models/ajax_renuo_upload_credentials.ts"/>
 
 class AjaxServiceMockData {
   public static newContentBlock():AjaxContentBlock {
@@ -28,6 +29,14 @@ class AjaxServiceMockData {
       content: 'some different content',
       created_at: new Date(2015, 11, 30),
       updated_at: new Date(2015, 12, 3)
+    };
+  }
+
+  public static existingRenuoUploadCredentials():AjaxRenuoUploadCredentials {
+    return {
+      renuo_upload_credentials: {
+        api_key: 'uploadKey',
+        signing_url: 'http://some.thing'}
     };
   }
 }

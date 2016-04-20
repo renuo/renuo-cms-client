@@ -1,17 +1,19 @@
 ///<reference path="../views/editors/editor_loader.ts"/>
 ///<reference path="../views/editors/editor_preparer.ts"/>
 ///<reference path="../data/services/data_service.ts"/>
+///<reference path="../views/editors/upload/upload_loader.ts"/>
 
 class EditController {
-  private editorLoadingCallback:JQueryPromise<any> = null;
+  private loadingCallback:JQueryPromise<any> = null;
 
-  constructor(private dataService:DataService, private loader:EditorLoader, private preparer:EditorPreparer) {
+  constructor(private dataService:DataService, private loader:EditorLoader, private uploadLoader:UploadLoader,
+              private preparer:EditorPreparer) {
   }
 
   prepareEdit(dom:DomContentBlock):void {
-    if (this.editorLoadingCallback === null) this.editorLoadingCallback = this.loader.loadEditor();
+    this.loadDependencies();
 
-    this.editorLoadingCallback.done(() =>
+    this.loadingCallback.done(() =>
       this.preparer.prepare(dom, (dom:DomContentBlock, newContent:string) => this.editContent(dom, newContent)));
   }
 
@@ -23,4 +25,10 @@ class EditController {
       .then(() => this.preparer.notifySave(dom, true))
       .fail(() => this.preparer.notifySave(dom, false));
   }
+
+  private loadDependencies() {
+    if (this.loadingCallback !== null) return;
+
+    this.loadingCallback = jQuery.when(this.loader.loadEditor(), this.uploadLoader.loadUpload());
+  };
 }

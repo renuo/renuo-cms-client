@@ -1,6 +1,8 @@
 ///<reference path="../../../../typings/browser/ambient/jasmine/index.d.ts"/>
 ///<reference path="../../mocks/ajax_service_mock_data.ts"/>
 ///<reference path="data_converter.ts"/>
+///<reference path="../models/renuo_upload_credentials.ts"/>
+///<reference path="../models/ajax_renuo_upload_credentials.ts"/>
 
 describe('DataConverter', function () {
   const service = new DataConverter();
@@ -39,5 +41,12 @@ describe('DataConverter', function () {
     const blocks:AjaxContentBlocks = {content_blocks: [rawData1, rawData2]};
     const hash = service.convertJsonObjectToHash(blocks);
     expect(hash).toEqual({'my-path': rawData1, 'my-path2': rawData2});
+  });
+
+  it('converts the renuo upload credentials ajax response to an object', function () {
+    const credentials:AjaxRenuoUploadCredentials = {renuo_upload_credentials: {api_key: 'some', signing_url: 'other'}};
+    const object:RenuoUploadCredentials = service.convertJsonObjectToCredentials(credentials);
+    expect(object.apiKey).toEqual('some');
+    expect(object.signingUrl).toEqual('other');
   });
 });

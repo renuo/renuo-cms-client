@@ -2,11 +2,11 @@
 ///<reference path="../editor_loader.ts"/>
 ///<reference path="../../helpers/script_loader.ts"/>
 
-class CkeditorLoader implements EditorLoader {
+class UploadLoader {
   constructor(public scriptLoader:ScriptLoader) {
   }
 
-  loadEditor():JQueryPromise<any> {
-    return this.scriptLoader.loadCkeditor();
+  loadUpload():JQueryPromise<any> {
+    return jQuery.when(this.scriptLoader.loadRenuoUpload(), this.scriptLoader.loadCustomDropzone());
   }
 }
