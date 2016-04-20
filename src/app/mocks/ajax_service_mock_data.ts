@@ -39,4 +39,18 @@ class AjaxServiceMockData {
         signing_url: 'http://some.thing'}
     };
   }
+
+  public static existingContentBlocksHash1():AjaxContentBlocksHash {
+    return {
+      'my-path': AjaxServiceMockData.existingContentBlock1(),
+      'my-path2': AjaxServiceMockData.existingContentBlock2()
+    };
+  }
+
+  public static existingContentBlocksHash2():AjaxContentBlocksHash {
+    return {
+      'my-path3': AjaxServiceMockData.existingContentBlock2(),
+      'my-path4': AjaxServiceMockData.existingContentBlock1()
+    };
+  }
 }
