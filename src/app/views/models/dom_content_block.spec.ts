@@ -15,7 +15,7 @@ describe('DomContentBlock', function () {
     expect(dom.hasRenuoUpload()).toBe(true);
   });
 
-  it('tells if has renuo credentials', function () {
+  it('tells if has renuo upload', function () {
     const block = new ContentBlock('content', 'path', 'api-key', 'host');
     const element = jQuery('<div>')[0];
     const dom = new DomContentBlock(element, block, 'private-key', null);
