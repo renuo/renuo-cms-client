@@ -6,8 +6,8 @@
 
 describe('LocalStorageService', function () {
   const service = new LocalStorageService();
-  const hash1:AjaxContentBlocksHash =  { blub: <any> { blub: '1' } };
-  const hash2:AjaxContentBlocksHash = { blub: <any> { blub2: '2' } };
+  const hash1 =  AjaxServiceMockData.existingContentBlocksHash1();
+  const hash2 = AjaxServiceMockData.existingContentBlocksHash2();
 
   describe('The content block saver', function () {
     afterEach(function() {

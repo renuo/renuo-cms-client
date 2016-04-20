@@ -85,8 +85,8 @@ describe('DataService', function () {
         expect(cachedBlock.contentPath).toEqual(requestedBlock.contentPath);
         expect(cachedBlock.apiKey).toEqual(requestedBlock.apiKey);
         expect(cachedBlock.apiHost).toEqual(requestedBlock.apiHost);
-        //expect(cachedBlock.createdAt).toEqual(requestedBlock.createdAt);
-        //expect(cachedBlock.updatedAt).toEqual(requestedBlock.updatedAt);
+        expect(cachedBlock.createdAt).toEqual(requestedBlock.createdAt);
+        expect(cachedBlock.updatedAt).toEqual(requestedBlock.updatedAt);
       });
     });
   });
