@@ -8,8 +8,8 @@ See https://renuo.gitbooks.io/renuo-cms-doc/content/
 
 ### Renuo CMS API
 
-This project works with any backend implementing the correct API. [https://github.com/renuo/renuo-cms-api] is a reference
-implementation for such a server (not released as of now, but it will follow soon).
+This project works with any backend implementing the correct API. https://github.com/renuo/renuo-cms-api is a reference
+implementation for such a server.
 
 ## Development
 
