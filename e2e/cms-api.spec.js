@@ -4,13 +4,13 @@ describe('renuo cms api', function () {
   browser.ignoreSynchronization = true;
 
   it('connects to the site and selects an element', function () {
-    goToUrl('/travis.html');
+    browser.get('http://localhost:8080/travis.html');
     var el = element(by.css('[data-content-path="some/path/to/some/content"]'));
     expect(el.getAttribute('data-api-key')).toEqual('aValidApiKey');
   });
 
   it('loads some content', function () {
-    goToUrl('/travis.html');
+    browser.get('http://localhost:8080/travis.html');
     var el = element(by.css('[data-content-path="a"]'));
     el.getText().then(function (text) {
       var newContent = text + 'x';
@@ -23,7 +23,7 @@ describe('renuo cms api', function () {
       el2.click();
       browser.sleep(100);
 
-      goToUrl('/travis.html?t=2');
+      browser.get('http://localhost:8080/travis.html?t=2');
       browser.sleep(100);
       var newEl = element(by.css('[data-content-path="a"]'));
       expect(newEl.getText()).toEqual(newContent);
