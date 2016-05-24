@@ -1,13 +1,14 @@
 {
   "name": "renuo-cms-client",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "keywords": [
     "renuo",
     "cms",
     "client"
   ],
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+  },
   "main": "dist/renuo-cms-client.min.js",
   "homepage": "https://github.com/renuo/renuo-cms-client",
   "repository": "renuo/renuo-cms-client",
