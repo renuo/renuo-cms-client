@@ -9,11 +9,13 @@
 ///<reference path="views/editors/ckeditor/ckeditor_preparer.ts"/>
 ///<reference path="controllers/edit_controller.ts"/>
 ///<reference path="views/helpers/script_loader.ts"/>
+///<reference path="views/helpers/css_injector.ts"/>
 
 (function () {
   const initContentBlocks = function () {
     const dataService = new DataService(new AjaxService());
     const scriptLoader = new ScriptLoader();
+    const cssInjector = new CSSInjector();
     const controller = new ViewController(
       new ContentBlockFinder(),
       new DomContentBlockConverter(),
@@ -22,7 +24,7 @@
       new EditController(
         dataService,
         new CkeditorLoader(scriptLoader),
-        new UploadLoader(scriptLoader),
+        new UploadLoader(scriptLoader, cssInjector),
         new CkeditorPreparer()
       )
     );

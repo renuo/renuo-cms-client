@@ -33,8 +33,8 @@ describe('ScriptLoader', function () {
 
   it('loads the custom dropzone', function () {
     const spy = spyOn(loader, 'loadScript');
-    loader.loadCustomDropzone();
-    expect(spy).toHaveBeenCalledWith('//cdn.rawgit.com/renuo/dropzone/v4.0.4/dist/min/dropzone.min.js');
+    loader.loadDropzone();
+    expect(spy).toHaveBeenCalledWith('//cdn.jsdelivr.net/dropzone/4.3.0/dropzone.min.js');
   });
 
   it('loads the ckeditor', function () {
