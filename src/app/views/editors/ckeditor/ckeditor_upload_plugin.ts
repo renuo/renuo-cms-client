@@ -9,8 +9,8 @@ class CkeditorUploadPlugin {
     if (!this.domContentBlock.hasRenuoUpload()) return true;
 
     editor.addCommand('renuoUpload', {
-      exec: (e) => {
-        this.openDropzone(editor);
+      exec: (editorExec) => {
+        this.openDropzone(editorExec);
         return true;
       }
     });
@@ -35,12 +35,12 @@ class CkeditorUploadPlugin {
     });
     // tslint:disable:no-unused-expression
     new window.RenuoUpload(dropzone, this.dropzoneOptions(), (event:RenuoUploadEvent) => {
+      // tslint:enable:no-unused-expression
       const htmlElement:HTMLElement = new RenuoUploadHtmlGenerator(event).generateElement();
       const domElement = new CKEDITOR.dom.element(htmlElement);
       editor.insertElement(domElement);
       this.closeDropzone();
     });
-    // tslint:enable:no-unused-expression
   }
 
   private dropzoneOptions() {

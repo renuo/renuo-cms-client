@@ -46,8 +46,7 @@ class DataService {
     const uploadPromise = this.loadRenuoUploadCredentials(contentBlock, privateApiKey);
 
     return jQuery.when<ContentBlock|RenuoUploadCredentials>(cbPromise, uploadPromise).then(
-      (cb:ContentBlock, credentials:RenuoUploadCredentials) =>
-        new EditableContentBlock(contentBlock, credentials)
+      (cb:ContentBlock, credentials:RenuoUploadCredentials) => new EditableContentBlock(cb, credentials)
     );
   }
 

@@ -14,7 +14,7 @@ class EditController {
     this.loadDependencies();
 
     this.loadingCallback.done(() =>
-      this.preparer.prepare(dom, (domB:DomContentBlock, newContent:string) => this.editContent(dom, newContent)));
+      this.preparer.prepare(dom, (domB:DomContentBlock, newContent:string) => this.editContent(domB, newContent)));
   }
 
   editContent(dom:DomContentBlock, newContent:string) {
