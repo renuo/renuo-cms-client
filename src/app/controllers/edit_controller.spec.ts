@@ -15,7 +15,7 @@ describe('EditController', function () {
   const dom = new DomContentBlock(element, block, 'private-key', new RenuoUploadCredentials('', ''));
   const preparer:EditorPreparer = new CkeditorPreparer();
   const editorLoader:EditorLoader = new CkeditorLoader(new ScriptLoader());
-  const uploadLoader = new UploadLoader(new ScriptLoader());
+  const uploadLoader = new UploadLoader(new ScriptLoader(), new CSSInjector());
   const dataService = new DataService(null);
   const controller = new EditController(dataService, editorLoader, uploadLoader, preparer);
 

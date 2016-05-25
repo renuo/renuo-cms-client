@@ -2,9 +2,11 @@
 ///<reference path="../../../../../typings/browser/ambient/ckeditor/index.d.ts"/>
 ///<reference path="upload_loader.ts"/>
 ///<reference path="../../helpers/script_loader.ts"/>
+///<reference path="../../helpers/css_injector.ts"/>
 
 describe('UploadLoader', function () {
   const scriptLoader = new ScriptLoader();
+  const cssInjector = new CSSInjector();
 
   it('loads the upload scripts', function () {
 
@@ -12,9 +14,9 @@ describe('UploadLoader', function () {
     const deferredDropzone = jQuery.Deferred();
 
     const uploadSpy = spyOn(scriptLoader, 'loadRenuoUpload').and.returnValue(deferredUpload.promise());
-    const dropzoneSpy = spyOn(scriptLoader, 'loadCustomDropzone').and.returnValue(deferredDropzone.promise());
+    const dropzoneSpy = spyOn(scriptLoader, 'loadDropzone').and.returnValue(deferredDropzone.promise());
 
-    const loader = new UploadLoader(scriptLoader);
+    const loader = new UploadLoader(scriptLoader, cssInjector);
     loader.loadUpload();
 
     expect(uploadSpy).toHaveBeenCalled();
@@ -26,9 +28,9 @@ describe('UploadLoader', function () {
     const deferredDropzone = jQuery.Deferred();
 
     spyOn(scriptLoader, 'loadRenuoUpload').and.returnValue(deferredUpload.promise());
-    spyOn(scriptLoader, 'loadCustomDropzone').and.returnValue(deferredDropzone.promise());
+    spyOn(scriptLoader, 'loadDropzone').and.returnValue(deferredDropzone.promise());
 
-    const loader = new UploadLoader(scriptLoader);
+    const loader = new UploadLoader(scriptLoader, cssInjector);
     const deferred = loader.loadUpload();
 
     expect(deferred.state()).toEqual('pending');
@@ -43,9 +45,9 @@ describe('UploadLoader', function () {
     const deferredDropzone = jQuery.Deferred();
 
     spyOn(scriptLoader, 'loadRenuoUpload').and.returnValue(deferredUpload.promise());
-    spyOn(scriptLoader, 'loadCustomDropzone').and.returnValue(deferredDropzone.promise());
+    spyOn(scriptLoader, 'loadDropzone').and.returnValue(deferredDropzone.promise());
 
-    const loader = new UploadLoader(scriptLoader);
+    const loader = new UploadLoader(scriptLoader, cssInjector);
     const deferred = loader.loadUpload();
 
     expect(deferred.state()).toEqual('pending');
