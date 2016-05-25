@@ -10,11 +10,11 @@ class EditController {
               private preparer:EditorPreparer) {
   }
 
-  prepareEdit(dom:DomContentBlock):void {
+  prepareEdit(domOuter:DomContentBlock):void {
     this.loadDependencies();
 
     this.loadingCallback.done(() =>
-      this.preparer.prepare(dom, (domB:DomContentBlock, newContent:string) => this.editContent(domB, newContent)));
+      this.preparer.prepare(domOuter, (dom:DomContentBlock, newContent:string) => this.editContent(dom, newContent)));
   }
 
   editContent(dom:DomContentBlock, newContent:string) {
