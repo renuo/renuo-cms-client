@@ -4,7 +4,7 @@
 ///<reference path="../../helpers/css_injector.ts"/>
 
 class UploadLoader {
-  static DROPZONE_VERSION = '4.3.0';
+  static DROPZONE_VERSION:string = '4.3.0';
 
   constructor(public scriptLoader:ScriptLoader, private cssInjector:CSSInjector) {
   }
