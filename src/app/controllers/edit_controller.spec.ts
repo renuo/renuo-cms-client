@@ -44,9 +44,6 @@ describe('EditController', function () {
     expect(uploadSpy.calls.count()).toBe(1);
   });
 
-  it('loads the upload', function () {
-  });
-
   it('edits a dom element successfully', function () {
     const deferred = jQuery.Deferred();
     spyOn(preparer, 'notifySave');

@@ -7,7 +7,9 @@ describe('RenuoUploadHtmlGenerator', function () {
     }
   }
 
+  // tslint:disable:no-inferrable-types
   function element(publicUrl:string, extension:string, cleanName:string = 'Some description') {
+    // tslint:enable:no-inferrable-types
     const event = new RenuoUploadEventMock(publicUrl, extension, cleanName);
     return new RenuoUploadHtmlGenerator(event).generateElement();
   }

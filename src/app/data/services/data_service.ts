@@ -7,10 +7,10 @@
 ///<reference path="../models/renuo_upload_credentials.ts"/>
 
 class DataService {
-  private dataCache:{[cacheKey: string]: JQueryPromise<AjaxContentBlocksHash>} = {};
-  private localStorageService = new LocalStorageService();
-  private renuoUploadCredentials:{[cacheKey: string]: JQueryPromise<RenuoUploadCredentials>} = {};
-  private dataConverter = new DataConverter();
+  private dataCache:{[cacheKey:string]:JQueryPromise<AjaxContentBlocksHash>} = {};
+  private localStorageService:LocalStorageService = new LocalStorageService();
+  private renuoUploadCredentials:{[cacheKey:string]:JQueryPromise<RenuoUploadCredentials>} = {};
+  private dataConverter:DataConverter = new DataConverter();
 
   constructor(private ajaxService:AjaxService) {
   }
@@ -46,8 +46,7 @@ class DataService {
     const uploadPromise = this.loadRenuoUploadCredentials(contentBlock, privateApiKey);
 
     return jQuery.when<ContentBlock|RenuoUploadCredentials>(cbPromise, uploadPromise).then(
-      (contentBlock:ContentBlock, credentials:RenuoUploadCredentials) =>
-        new EditableContentBlock(contentBlock, credentials)
+      (cb:ContentBlock, credentials:RenuoUploadCredentials) => new EditableContentBlock(cb, credentials)
     );
   }
 
