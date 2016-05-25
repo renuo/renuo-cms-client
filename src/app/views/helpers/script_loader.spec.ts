@@ -33,7 +33,7 @@ describe('ScriptLoader', function () {
 
   it('loads the custom dropzone', function () {
     const spy = spyOn(loader, 'loadScript');
-    loader.loadDropzone();
+    loader.loadDropzone('4.3.0');
     expect(spy).toHaveBeenCalledWith('//cdn.jsdelivr.net/dropzone/4.3.0/dropzone.min.js');
   });
 

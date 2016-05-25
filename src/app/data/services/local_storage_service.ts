@@ -2,7 +2,7 @@
 ///<reference path="ajax_content_blocks_hash_serializer.ts"/>
 
 class LocalStorageService {
-  static EXPIRATIONTIME = 3600000; //ms (=1h)
+  static EXPIRATIONTIME = 1000 * 60 * 60; //ms (=1h)
   private expiryDate:{[key: string]: number} = {};
   private serializer = new AjaxContentBlocksHashSerializer();
 

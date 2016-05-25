@@ -6,8 +6,8 @@ class CSSInjector {
     jQuery('<link>', {rel: 'stylesheet', type: 'text/css', 'href': url}).appendTo('head');
   }
 
-  loadDropzoneCSS(): void {
-    this.addCSSToHead('//cdn.jsdelivr.net/dropzone/4.3.0/basic.min.css');
-    this.addCSSToHead('//cdn.jsdelivr.net/dropzone/4.3.0/dropzone.min.css');
+  loadDropzoneCSS(dropzoneVersion: string): void {
+    this.addCSSToHead(`//cdn.jsdelivr.net/dropzone/${dropzoneVersion}/basic.min.css`);
+    this.addCSSToHead(`//cdn.jsdelivr.net/dropzone/${dropzoneVersion}/dropzone.min.css`);
   }
 }

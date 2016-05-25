@@ -4,11 +4,14 @@
 ///<reference path="../../helpers/css_injector.ts"/>
 
 class UploadLoader {
-  constructor(public scriptLoader:ScriptLoader, public cssInjector:CSSInjector) {
+  static DROPZONE_VERSION = '4.3.0';
+
+  constructor(public scriptLoader:ScriptLoader, private cssInjector:CSSInjector) {
   }
 
   loadUpload():JQueryPromise<any> {
-    this.cssInjector.loadDropzoneCSS();
-    return jQuery.when(this.scriptLoader.loadRenuoUpload(), this.scriptLoader.loadDropzone());
+    this.cssInjector.loadDropzoneCSS(UploadLoader.DROPZONE_VERSION);
+    return jQuery.when(this.scriptLoader.loadRenuoUpload(),
+      this.scriptLoader.loadDropzone(UploadLoader.DROPZONE_VERSION));
   }
 }

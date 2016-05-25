@@ -15,8 +15,15 @@ describe('CSSInjector', function () {
 
   it('loads the dropzone css files', function () {
     const spy = spyOn(injector, 'addCSSToHead');
-    injector.loadDropzoneCSS();
+    injector.loadDropzoneCSS('4.3.0');
     expect(spy).toHaveBeenCalledWith('//cdn.jsdelivr.net/dropzone/4.3.0/basic.min.css');
     expect(spy).toHaveBeenCalledWith('//cdn.jsdelivr.net/dropzone/4.3.0/dropzone.min.css');
+  });
+
+  it('calls the load pending on the version given', function () {
+    const spy = spyOn(injector, 'addCSSToHead');
+    injector.loadDropzoneCSS('4.4.0');
+    expect(spy).toHaveBeenCalledWith('//cdn.jsdelivr.net/dropzone/4.4.0/basic.min.css');
+    expect(spy).toHaveBeenCalledWith('//cdn.jsdelivr.net/dropzone/4.4.0/dropzone.min.css');
   });
 });

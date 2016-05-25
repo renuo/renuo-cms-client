@@ -14,7 +14,7 @@ class ScriptLoader {
     return this.loadScript('//cdn.ckeditor.com/4.5.5/full/ckeditor.js');
   }
 
-  loadDropzone():JQueryPromise<any> {
-    return this.loadScript('//cdn.jsdelivr.net/dropzone/4.3.0/dropzone.min.js');
+  loadDropzone(dropzoneVersion: string):JQueryPromise<any> {
+    return this.loadScript(`//cdn.jsdelivr.net/dropzone/${dropzoneVersion}/dropzone.min.js`);
   }
 }
