@@ -3,7 +3,6 @@
 ///<reference path="local_storage_service.ts"/>
 ///<reference path="../models/content_block.ts"/>
 
-
 describe('LocalStorageService', function () {
   const service = new LocalStorageService();
   const hash1 =  AjaxServiceMockData.existingContentBlocksHash1();

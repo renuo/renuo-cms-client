@@ -2,9 +2,9 @@
 ///<reference path="ajax_content_blocks_hash_serializer.ts"/>
 
 class LocalStorageService {
-  static EXPIRATIONTIME = 1000 * 60 * 60; // 1h in ms
-  private expiryDate:{[key: string]: number} = {};
-  private serializer = new AjaxContentBlocksHashSerializer();
+  static EXPIRATIONTIME:number = 1000 * 60 * 60; // 1h in ms
+  private expiryDate:{[key:string]:number} = {};
+  private serializer:AjaxContentBlocksHashSerializer = new AjaxContentBlocksHashSerializer();
 
   fetch(key:string):AjaxContentBlocksHash {
     return this.serializer.parse(localStorage.getItem(key));

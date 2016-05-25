@@ -9,7 +9,7 @@ class CkeditorUploadPlugin {
     if (!this.domContentBlock.hasRenuoUpload()) return true;
 
     editor.addCommand('renuoUpload', {
-      exec: (editor) => {
+      exec: (e) => {
         this.openDropzone(editor);
         return true;
       }
@@ -33,12 +33,14 @@ class CkeditorUploadPlugin {
       if ($(event.target).attr('id') !== 'dropzone-overlay') return;
       this.closeDropzone();
     });
-    const upload = new window.RenuoUpload(dropzone, this.dropzoneOptions(), (event:RenuoUploadEvent) => {
+    // tslint:disable:no-unused-expression
+    new window.RenuoUpload(dropzone, this.dropzoneOptions(), (event:RenuoUploadEvent) => {
       const htmlElement:HTMLElement = new RenuoUploadHtmlGenerator(event).generateElement();
       const domElement = new CKEDITOR.dom.element(htmlElement);
       editor.insertElement(domElement);
       this.closeDropzone();
     });
+    // tslint:enable:no-unused-expression
   }
 
   private dropzoneOptions() {
@@ -62,7 +64,6 @@ class CkeditorUploadPlugin {
     jQuery('body').append(dropzoneHTML);
     return dropzone;
   }
-
 
   private createDropzoneCSS() {
     jQuery('<style type="text/css">' +

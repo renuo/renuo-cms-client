@@ -14,6 +14,6 @@ class AjaxContentBlocksHashSerializer {
         parsedHash[key].updated_at = new Date(parsedHash[key].updated_at);
       }
     }
-    return <AjaxContentBlocksHash>parsedHash;
+    return parsedHash as AjaxContentBlocksHash;
   }
 }
