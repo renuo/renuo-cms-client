@@ -1,24 +1,29 @@
 {
   "rules": {
-    // align
-    // ban
+    "align": "todo",
+    "ban": "todo",
     "class-name": true,
-    // "comment-format": ,
+    "comment-format": "todo",
     "curly": false,
     "eofline": true,
     "forin": true,
     "indent": [true, "spaces"],
-    // "interface-name": ,
-    // "jsdoc-format": ''
+    "interface-name": "todo",
+    "jsdoc-format": "todo",
     "label-position": true,
     "label-undefined": true,
     "max-line-length": [true, 140],
-    // "member-access": [true, "check-accessor", "check-constructor"],
-    // TODO: "member-ordering": [true, { "order": "fields-first" }],
-    // see: http://palantir.github.io/tslint/rules/member-ordering/
+    "member-access": [false, "check-accessor", "check-constructor"],
+    "member-ordering": [
+      false,
+      "todo see: http://palantir.github.io/tslint/rules/member-ordering/",
+      {
+        "order": "fields-first"
+      }
+    ],
     "new-parens": true,
     "no-angle-bracket-type-assertion": true,
-    // "no-any": true,
+    "no-any": false,
     "no-arg": true,
     "no-bitwise": true,
     "no-conditional-assignment": true,
@@ -35,16 +40,14 @@
     "no-default-export": true,
     "no-duplicate-key": true,
     "no-duplicate-variable": true,
-    // TODO:
-    "no-empty": false,
+    "no-empty": [false, "TODO"],
     "no-eval": true,
     "no-inferrable-types": true,
-    // TODO: "no-internal-module": true,
+    "no-internal-module": [false, "TODO"],
     "no-invalid-this": true,
-    // TODO: "no-mergeable-namespace": true,
-    // TODO: "no-namespace": true,
-    //"no-null-keyword": true,
-    //"no-reference": true,
+    "no-namespace":  [false, "TODO"],
+    "no-null-keyword": false,
+    "no-reference": false,
     "no-require-imports": true,
     "no-shadowed-variable": true,
     "no-string-literal": true,
@@ -56,7 +59,7 @@
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "no-var-requires": true,
-    // TODO: "object-literal-sort-keys": true,
+    "object-literal-sort-keys": [false, "TODO"],
     "one-line": [true,
         "check-catch",
         "check-else",
@@ -68,7 +71,7 @@
     "quotemark": [true, "single", "jsx-single", "avoid-escape"],
     "radix": true,
     "semicolon": [true, "always"],
-    // switch-default
+    "switch-default": true,
     "trailing-comma": [true, {
       "multiline": "never",
       "singleline": "never"
@@ -76,10 +79,10 @@
     "triple-equals": [true, "allow-null-check"],
     "typedef": [
       true,
-      // "call-signature",
-      // "arrow-parameter",
-      // "property-declaration",
-      // "variable-declaration",
+      "ignore call-signature",
+      "ignore arrow-parameter",
+      "ignore property-declaration",
+      "ignore variable-declaration",
       "member-variable-declaration",
       "parameter"
     ],
@@ -107,9 +110,9 @@
     "variable-name": [
       true,
       "check-format",
-      //"allow-leading-underscore",
-      //"allow-trailing-underscore",
-      //"allow-pascal-case",
+      "ignore allow-leading-underscore",
+      "ignore allow-trailing-underscore",
+      "ignore allow-pascal-case",
       "ban-keywords"
     ],
     "whitespace": [false,
