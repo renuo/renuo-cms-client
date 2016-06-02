@@ -1,4 +1,4 @@
-///<reference path="../../../../../typings/browser/ambient/jquery/index.d.ts"/>
+///<reference path="../../../../../typings/globals/jquery/index.d.ts"/>
 ///<reference path="../editor_loader.ts"/>
 ///<reference path="../../helpers/script_loader.ts"/>
 ///<reference path="../../helpers/css_injector.ts"/>

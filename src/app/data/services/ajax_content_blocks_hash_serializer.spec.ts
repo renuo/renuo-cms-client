@@ -1,4 +1,4 @@
-///<reference path="../../../../typings/browser/ambient/jasmine/index.d.ts"/>
+///<reference path="../../../../typings/globals/jasmine/index.d.ts"/>
 ///<reference path="../../mocks/ajax_service_mock_data.ts"/>
 ///<reference path="ajax_content_blocks_hash_serializer.ts"/>
 
