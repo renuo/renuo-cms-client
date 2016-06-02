@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/715df764419937a75a25dcd76bfc954157bc7b96/jasmine-ajax/jasmine-ajax.d.ts",
+    "raw": "github:DefinitelyTyped/DefinitelyTyped/jasmine-ajax/jasmine-ajax.d.ts#715df764419937a75a25dcd76bfc954157bc7b96",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/715df764419937a75a25dcd76bfc954157bc7b96/jasmine-ajax/jasmine-ajax.d.ts"
+  }
+}
