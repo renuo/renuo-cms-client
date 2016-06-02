@@ -47,8 +47,6 @@ class CkeditorPreparer implements EditorPreparer {
     // TODO: ACF: http://sdk.ckeditor.com/samples/acf.html
     /*allowedContent: { 'b i li ul ol table thead tbody tr': true, 'h1 h2 h3 h4 p th td': {  styles: 'text-align,text-decoration' },
      a: {attributes: '!href,target'} img: { attributes: '!src,alt', styles: 'width,height', classes: 'left,right' } },*/
-    // TODO: enable images
-    // TODO: add ImageButton to removeButtons list
     return jQuery.extend({
       toolbarGroups: [
         {name: 'styles', groups: ['styles']},
@@ -64,7 +62,7 @@ class CkeditorPreparer implements EditorPreparer {
       'Select,Button,HiddenField,Outdent,Indent,Blockquote,CreateDiv,BidiLtr,BidiRtl,Language,Anchor,' +
       'WidgetbootstrapAlert,WidgetbootstrapThreeCol,WidgetbootstrapTwoCol,WidgetbootstrapRightCol,WidgetbootstrapLeftCol,' +
       'Flash,ImageButton,Btgrid,Glyphicons,SpecialChar,Smiley,PageBreak,Iframe,Styles,Font,FontSize,TextColor,BGColor,' +
-      'Maximize,ShowBlocks,About',
+      'Maximize,ShowBlocks,About,Image',
       format_tags: 'p;h1;h2;h3;h4;h5;h6;pre;address'
     }, this.enterMethod(block));
   }

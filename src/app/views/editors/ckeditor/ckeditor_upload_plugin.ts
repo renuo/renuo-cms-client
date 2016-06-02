@@ -18,7 +18,7 @@ class CkeditorUploadPlugin {
       label: 'File/Image Upload',
       command: 'renuoUpload',
       toolbar: 'insert',
-      icon: 'imagebutton'
+      icon: 'image'
     });
   }
 
