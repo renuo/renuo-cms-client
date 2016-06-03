@@ -1,5 +1,5 @@
-///<reference path="../../../../typings/browser/ambient/jasmine/index.d.ts"/>
-///<reference path="../../../../typings/browser/ambient/ckeditor/index.d.ts"/>
+///<reference path="../../../../typings/globals/jasmine/index.d.ts"/>
+///<reference path="../../../../typings/globals/ckeditor/index.d.ts"/>
 ///<reference path="css_injector.ts"/>
 ///<reference path="../editors/upload/renuo_upload.d.ts"/>
 
