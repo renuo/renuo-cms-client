@@ -33,6 +33,10 @@
     jQuery(document).on('renuo-cms-reload', function () {
       controller.init();
     });
+
+    jQuery(document).on('renuo-cms-reload', function (event:Event, htmlContentBlocks:HTMLElement[]) {
+      controller.init(htmlContentBlocks);
+    });
   };
   jQuery(initContentBlocks);
 })();
