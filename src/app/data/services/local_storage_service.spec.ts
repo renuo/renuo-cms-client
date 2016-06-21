@@ -48,14 +48,18 @@ describe('LocalStorageService', function () {
 
     it('catches QuotaExceededError', function () {
       const key = '2';
+      const error = new Error('An error occurred');
 
       spyOn(localStorage, 'setItem').and.callFake(() => {
-        throw new Error();
+        throw error;
       });
+      spyOn(console, 'error');
 
       expect(function() {
         service.put(key, hash1);
       }).not.toThrow();
+
+      expect(console.error).toHaveBeenCalledWith(error);
     });
   });
 });

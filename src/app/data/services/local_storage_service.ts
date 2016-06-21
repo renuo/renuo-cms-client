@@ -17,6 +17,9 @@ class LocalStorageService {
     try {
       localStorage.setItem(key, this.serializer.stringify(hash));
     } catch (error) {
+      if( console && console.error) {
+        console.error(error);
+      }
     }
   }
 
