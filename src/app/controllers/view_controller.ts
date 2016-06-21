@@ -10,8 +10,9 @@ class ViewController {
               private editController:EditController) {
   }
 
-  init():void {
-    const domContentBlocks = this.finder.find().map((el) => this.converter.convert(el));
+  init(htmlContentBlocks:HTMLElement[] = null):void {
+    if (htmlContentBlocks == null) htmlContentBlocks = this.finder.find();
+    const domContentBlocks = htmlContentBlocks.map((el) => this.converter.convert(el));
     const editView = new EditableViewController(this.converter, this.dataService, this.drawer, this.editController);
     const readonlyView = new ReadonlyViewController(this.converter, this.dataService, this.drawer);
 
