@@ -45,5 +45,17 @@ describe('LocalStorageService', function () {
       localStorage.setItem(key, JSON.stringify(hash1));
       expect(service.fetch(key)).toEqual(hash1);
     });
+
+    it('catches QuotaExceededError', function () {
+      const key = '2';
+
+      spyOn(localStorage, 'setItem').and.callFake(() => {
+        throw new Error();
+      });
+
+      expect(function() {
+        service.put(key, hash1);
+      }).not.toThrow();
+    });
   });
 });

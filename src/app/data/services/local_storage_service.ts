@@ -14,7 +14,10 @@ class LocalStorageService {
     if (this.skipStoring(key)) return;
 
     this.setExpiryDate(key);
-    localStorage.setItem(key, this.serializer.stringify(hash));
+    try {
+      localStorage.setItem(key, this.serializer.stringify(hash));
+    } catch (error) {
+    }
   }
 
   private skipStoring(key:string) {
