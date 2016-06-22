@@ -45,5 +45,24 @@ describe('LocalStorageService', function () {
       localStorage.setItem(key, JSON.stringify(hash1));
       expect(service.fetch(key)).toEqual(hash1);
     });
+
+    it('catches QuotaExceededError', function () {
+      const key = '2';
+      const error = new Error('An error occurred');
+
+      spyOn(localStorage, 'setItem').and.callFake(() => {
+        throw error;
+      });
+      spyOn(console, 'error');
+
+      expect(function() {
+        service.put(key, hash1);
+      }).not.toThrow();
+
+      // it is not possible to mock the localStorage in firefox. Thats why we skip this test if it's run on firefox
+      if (navigator.userAgent.toLowerCase().indexOf('firefox') < -1) {
+        expect(console.error).toHaveBeenCalledWith(error);
+      }
+    });
   });
 });
