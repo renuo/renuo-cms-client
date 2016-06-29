@@ -2,6 +2,7 @@
 ///<reference path="../data/models/content_block.ts"/>
 ///<reference path="../views/models/dom_content_block.ts"/>
 ///<reference path="edit_controller.ts"/>
+///<reference path="../views/drawers/content_block_drawer.ts"/>
 ///<reference path="../views/editors/ckeditor/ckeditor_preparer.ts"/>
 ///<reference path="../views/editors/ckeditor/ckeditor_loader.ts"/>
 ///<reference path="../views/helpers/script_loader.ts"/>
@@ -10,14 +11,15 @@
 
 describe('EditController', function () {
   const block = new ContentBlock('content', 'path', 'api-key', 'host', new Date(2015, 10, 1), new Date(2015, 10, 1),
-    'default');
+    'default', 17);
   const element = jQuery('<div>')[0];
   const dom = new DomContentBlock(element, block, 'private-key', new RenuoUploadCredentials('', ''));
   const preparer:EditorPreparer = new CkeditorPreparer();
   const editorLoader:EditorLoader = new CkeditorLoader(new ScriptLoader());
   const uploadLoader = new UploadLoader(new ScriptLoader(), new CSSInjector());
   const dataService = new DataService(null);
-  const controller = new EditController(dataService, editorLoader, uploadLoader, preparer);
+  const contentBlockDrawer = new ContentBlockDrawer();
+  const controller = new EditController(dataService, editorLoader, uploadLoader, preparer, contentBlockDrawer);
 
   it('prepares an element for editing', function () {
     spyOn(preparer, 'prepare');
@@ -47,15 +49,18 @@ describe('EditController', function () {
   it('edits a dom element successfully', function () {
     const deferred = jQuery.Deferred();
     spyOn(preparer, 'notifySave');
+    spyOn(contentBlockDrawer, 'update');
     const dataServiceSpy = spyOn(dataService, 'storeContent');
     dataServiceSpy.and.returnValue(deferred);
     controller.editContent(dom, 'this is new content');
     const newContentBlock = new ContentBlock('this is new content', block.contentPath, block.apiKey, block.apiHost,
-      block.createdAt, block.updatedAt, block.defaultContent);
+      block.createdAt, block.updatedAt, block.defaultContent, block.version);
     expect(dataServiceSpy).toHaveBeenCalledWith(newContentBlock, 'private-key');
     expect(preparer.notifySave).not.toHaveBeenCalled();
-    deferred.resolve('');
+    const response = {foo: 'bar'};
+    deferred.resolve(response);
     expect(preparer.notifySave).toHaveBeenCalledWith(dom, true);
+    expect(contentBlockDrawer.update).toHaveBeenCalledWith(dom, response);
   });
 
   it('edits a dom element unsuccessfully', function () {
@@ -65,7 +70,7 @@ describe('EditController', function () {
     dataServiceSpy.and.returnValue(deferred);
     controller.editContent(dom, 'this is new content');
     const newContentBlock = new ContentBlock('this is new content', block.contentPath, block.apiKey, block.apiHost,
-      block.createdAt, block.updatedAt, block.defaultContent);
+      block.createdAt, block.updatedAt, block.defaultContent, block.version);
     expect(dataServiceSpy).toHaveBeenCalledWith(newContentBlock, 'private-key');
     expect(preparer.notifySave).not.toHaveBeenCalled();
     deferred.reject();

@@ -25,7 +25,8 @@
         dataService,
         new CkeditorLoader(scriptLoader),
         new UploadLoader(scriptLoader, cssInjector),
-        new CkeditorPreparer()
+        new CkeditorPreparer(),
+        new ContentBlockDrawer()
       )
     );
     controller.init();

@@ -16,7 +16,8 @@ class AjaxService {
       data: JSON.stringify({
         content_block: {
           content: contentBlock.content,
-          content_path: contentBlock.contentPath
+          content_path: contentBlock.contentPath,
+          version: contentBlock.version
         },
         private_api_key: privateApiKey
       }),

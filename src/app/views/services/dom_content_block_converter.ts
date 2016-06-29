@@ -8,7 +8,8 @@ class DomContentBlockConverter {
     const apiHost = this.valueOf(element, 'api-host');
     const privateApiKey = this.extractPrivateApiKey(element);
     const defaultContent = this.extractDefaultContent(element);
-    const contentBlock = new ContentBlock('', contentPath, apiKey, apiHost, null, null, defaultContent);
+    const version = this.intValueOf(element, 'version');
+    const contentBlock = new ContentBlock('', contentPath, apiKey, apiHost, null, null, defaultContent, version);
     return new DomContentBlock(element, contentBlock, privateApiKey, null);
   }
 
@@ -16,6 +17,12 @@ class DomContentBlockConverter {
     const privateApiKey = this.valueOf(element, 'private-api-key');
     return privateApiKey === '' ? null : privateApiKey;
   };
+
+  private intValueOf(element:HTMLElement, attributeName:string):number {
+    const rawValue = this.valueOf(element, attributeName);
+    const value = parseInt(rawValue, 10);
+    return isNaN(value) ? null : value;
+  }
 
   private valueOf(element:HTMLElement, attributeName:string):string {
     const attr = element.attributes.getNamedItem(`data-${attributeName}`);
