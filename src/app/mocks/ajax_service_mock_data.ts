@@ -8,7 +8,8 @@ class AjaxServiceMockData {
       content_path: 'my-path',
       content: '',
       created_at: new Date(0),
-      updated_at: new Date(0)
+      updated_at: new Date(0),
+      version: null
     };
   }
 
@@ -18,7 +19,8 @@ class AjaxServiceMockData {
       content_path: 'my-path',
       content: 'some content',
       created_at: new Date(2015, 11, 30),
-      updated_at: new Date(2015, 12, 3)
+      updated_at: new Date(2015, 12, 3),
+      version: 10
     };
   }
 
@@ -28,7 +30,8 @@ class AjaxServiceMockData {
       content_path: 'my-path2',
       content: 'some different content',
       created_at: new Date(2015, 11, 30),
-      updated_at: new Date(2015, 12, 3)
+      updated_at: new Date(2015, 12, 3),
+      version: 20
     };
   }
 
