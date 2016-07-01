@@ -22,8 +22,8 @@ class EditController {
     const newContentBlock = new ContentBlock(newContent, cb.contentPath, cb.apiKey, cb.apiHost, cb.createdAt,
       cb.updatedAt, cb.defaultContent, cb.version);
     return this.dataService.storeContent(newContentBlock, dom.privateApiKey)
-      .then((response) => {this.preparer.notifySave(dom, true); this.contentBlockDrawer.update(dom, response);})
-      .fail(() => this.preparer.notifySave(dom, false));
+      .done((response) => {this.preparer.notifySave(dom, true, response); this.contentBlockDrawer.update(dom, response);})
+      .fail((response) => this.preparer.notifySave(dom, false, response));
   }
 
   private loadDependencies() {

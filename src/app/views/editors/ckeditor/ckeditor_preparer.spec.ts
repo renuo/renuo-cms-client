@@ -86,13 +86,19 @@ describe('CkeditorPreparer', function () {
       expect(callback).toHaveBeenCalledWith(dom, 'bla bla bla new content');
       expect(resetCalled).toBeTruthy();
     });
+  });
 
-    describe('#notifySave', function () {
-      it('runs an animation', function () {
-        // TODO: test the animation?
-        preparer.notifySave(dom, true);
-        preparer.notifySave(dom, false);
-      });
+  describe('#notifySave', function () {
+    it('runs an animation', function () {
+      // TODO: test the animation?
+      preparer.notifySave(dom, true, {});
+      preparer.notifySave(dom, false, {});
+    });
+
+    it('shows an error message for error 409', function () {
+      spyOn(window, 'alert');
+      preparer.notifySave(dom, false, {status: 409});
+      expect(window.alert).toHaveBeenCalledWith(I18n.t('cms.edit.message.conflict'));
     });
   });
 });

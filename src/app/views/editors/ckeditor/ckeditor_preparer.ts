@@ -1,6 +1,7 @@
 ///<reference path="../editor_preparer.ts"/>
 ///<reference path="../../../../../typings/globals/ckeditor/index.d.ts"/>
 ///<reference path="ckeditor_upload_plugin.ts"/>
+///<reference path="../../../data/services/i18n.ts"/>
 
 class CkeditorPreparer implements EditorPreparer {
   constructor(private ckeditor:any = null) {
@@ -21,10 +22,23 @@ class CkeditorPreparer implements EditorPreparer {
     this.initCkeditor(dom, editCallback);
   }
 
-  notifySave(dom:DomContentBlock, success:boolean):void {
+  notifySave(dom:DomContentBlock, success:boolean, response:any):void {
     const cssClass = success ? 'success' : 'error';
     jQuery(dom.element).addClass(`renuo-cms-edit-${cssClass}`).delay(2000).queue(() =>
       jQuery(dom.element).removeClass(`renuo-cms-edit-${cssClass}`).dequeue());
+    if (!success) {
+      this.showErrorMessage(response.status);
+    }
+  }
+
+  private showErrorMessage(status:number):void {
+    const errorMessages:{[key:number]:string} = {
+      409: 'cms.edit.message.conflict'
+    };
+    const message = errorMessages[status];
+    if (message) {
+      alert(I18n.t(message));
+    }
   }
 
   private initCkeditor(dom:DomContentBlock, editCallback:EditContentBlockCallback) {

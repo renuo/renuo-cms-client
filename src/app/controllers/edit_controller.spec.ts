@@ -59,7 +59,7 @@ describe('EditController', function () {
     expect(preparer.notifySave).not.toHaveBeenCalled();
     const response = {foo: 'bar'};
     deferred.resolve(response);
-    expect(preparer.notifySave).toHaveBeenCalledWith(dom, true);
+    expect(preparer.notifySave).toHaveBeenCalledWith(dom, true, response);
     expect(contentBlockDrawer.update).toHaveBeenCalledWith(dom, response);
   });
 
@@ -73,7 +73,8 @@ describe('EditController', function () {
       block.createdAt, block.updatedAt, block.defaultContent, block.version);
     expect(dataServiceSpy).toHaveBeenCalledWith(newContentBlock, 'private-key');
     expect(preparer.notifySave).not.toHaveBeenCalled();
-    deferred.reject();
-    expect(preparer.notifySave).toHaveBeenCalledWith(dom, false);
+    const response = {foo: 'baz'};
+    deferred.reject(response);
+    expect(preparer.notifySave).toHaveBeenCalledWith(dom, false, response);
   });
 });
