@@ -34,4 +34,14 @@ describe('ContentBlockFinder', function () {
     expect(pairs).toContain(['other-path', 'my-key']);
     expect(pairs).toContain(['xxx-path', 'my-key']);
   });
+
+  it('finds given content block', function () {
+    testDiv.append('<div data-content-path="my-path" data-api-key="my-key"></div>')
+      .append('<div data-content-path="other-path" data-api-key="my-key"></div>')
+      .append('<div data-content-path="xxx-path" data-api-key="my-key"></div>');
+    const elements:HTMLElement[] = finder.find_by('other-path');
+    expect(elements.length).toBe(1);
+    expect(elements[0].attributes.getNamedItem('data-content-path').value).toBe('other-path');
+    expect(elements[0].attributes.getNamedItem('data-api-key').value).toBe('my-key');
+  });
 });
