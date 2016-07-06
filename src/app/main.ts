@@ -34,8 +34,8 @@
       controller.init();
     });
 
-    jQuery(document).on('renuo-cms-reload', function (event:Event, htmlContentBlocks:HTMLElement[]) {
-      controller.init(htmlContentBlocks);
+    jQuery(document).on('renuo-cms-reload-single', function (event:Event, contentBlockPath:String) {
+      controller.init(contentBlockPath);
     });
   };
   jQuery(initContentBlocks);
