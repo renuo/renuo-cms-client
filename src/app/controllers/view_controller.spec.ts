@@ -22,6 +22,7 @@ describe('ViewController', function () {
 
   beforeEach(function() {
     spyOn(finder, 'find').and.returnValue(elements);
+    spyOn(finder, 'find_by').and.returnValue([elements[1]]);
     spyOn(converter, 'convert').and.callThrough();
 
     spyOn(dataService, 'loadEditableContent').and.callFake((cb:ContentBlock) => {
@@ -72,22 +73,20 @@ describe('ViewController', function () {
     editControllerSpy.and.callFake((dom:DomContentBlock) => {
       expect(dom.contentBlock.contentPath).toBe('editable-path');
     });
-
     const drawerSpy = spyOn(drawer, 'draw').and.stub();
 
-    controller.init(elements);
+    controller.init('editable-path');
 
     expect(finder.find).not.toHaveBeenCalled();
-    expect(converter.convert).toHaveBeenCalledWith(elements[0]);
+    expect(finder.find_by).toHaveBeenCalledWith('editable-path');
+    expect(converter.convert).not.toHaveBeenCalledWith(elements[0]);
     expect(converter.convert).toHaveBeenCalledWith(elements[1]);
-    expect(dataService.loadReadonlyContent).toHaveBeenCalledWith(domContent1.contentBlock);
+    expect(dataService.loadReadonlyContent).not.toHaveBeenCalledWith(domContent1.contentBlock);
     expect(dataService.loadEditableContent).toHaveBeenCalledWith(domContent2.contentBlock, domContent2.privateApiKey);
     expect(drawer.draw).toHaveBeenCalled();
     expect(editControllerSpy.calls.count()).toBe(1);
     expect(editController.prepareEdit).toHaveBeenCalled();
 
-    const drawFirstDom = drawerSpy.calls.first().args[0];
-    expect(drawFirstDom.contentBlock.content).toBe(`cached content ${drawFirstDom.contentBlock.contentPath}`);
     const drawSecondDom = drawerSpy.calls.mostRecent().args[0];
     expect(drawSecondDom.contentBlock.content).toBe(`real content ${drawSecondDom.contentBlock.contentPath}`);
   });
