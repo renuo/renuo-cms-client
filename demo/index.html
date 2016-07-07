@@ -238,7 +238,7 @@
     var oldValue = block.attr(attribute);
     var newValue = oldValue == value1 ? value2 : value1;
     block.attr(attribute, newValue);
-    jQuery(document).trigger('renuo-cms-reload');
+    jQuery(document).trigger('renuo-cms-reload-single', [block.attr('data-content-path')]);
   });
 </script>
 
