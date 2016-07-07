@@ -3,5 +3,5 @@
 
 interface EditorPreparer {
   prepare(dom:DomContentBlock, callback:EditContentBlockCallback):void;
-  notifySave(dom:DomContentBlock, success:boolean):void;
+  notifySave(dom:DomContentBlock, success:boolean, response:any):void;
 }

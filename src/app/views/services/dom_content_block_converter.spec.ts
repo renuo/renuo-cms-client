@@ -81,4 +81,19 @@ describe('DomContentBlockConverter', function () {
     const str2 = '<div data-content-path="p" data-api-host="h" data-api-key="k" data-private-api-key="">test</div>';
     expect(converter.convert(jQuery(str2)[0]).contentBlock.defaultContent).toBe('test');
   });
+
+  it('sets the version to null if no version attribute is available', function () {
+    const str1 = '<div data-content-path="p" data-api-host="h" data-api-key="k" data-private-api-key=""></div>';
+    expect(converter.convert(jQuery(str1)[0]).contentBlock.version).toBe(null);
+  });
+
+  it('sets the version to null if the version attribute is empty', function () {
+    const str1 = '<div data-content-path="p" data-api-host="h" data-api-key="k" data-version=""></div>';
+    expect(converter.convert(jQuery(str1)[0]).contentBlock.version).toBe(null);
+  });
+
+  it('sets the version to the value specified in the correstponding data attribute', function () {
+    const str1 = '<div data-content-path="p" data-api-host="h" data-api-key="k" data-version="15"></div>';
+    expect(converter.convert(jQuery(str1)[0]).contentBlock.version).toBe(15);
+  });
 });

@@ -38,6 +38,13 @@ describe('ContentBlock', function () {
     expect(existingBlock3.defaultContent).toEqual(null);
   });
 
+  it('sets the version correctly', function () {
+    const existingBlock2 = new ContentBlock('content', 'path', 'api-key', 'my-host', createdAt, updatedAt, 'xyz', 15);
+    expect(existingBlock2.version).toEqual(15);
+    const existingBlock3 = new ContentBlock('content', 'path', 'api-key', 'my-host');
+    expect(existingBlock3.version).toEqual(null);
+  });
+
   it('knows if the content should be rendered as paragraph or not', function(){
     expect(new ContentBlock('', '', '', '', createdAt, updatedAt, '').shouldUseParagraphs()).toEqual(true);
     expect(new ContentBlock('', '', '', '', createdAt, updatedAt, 'some text').shouldUseParagraphs()).toEqual(false);

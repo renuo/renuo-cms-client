@@ -6,6 +6,7 @@
 ///<reference path="../views/services/dom_content_block_converter.ts"/>
 
 describe('ViewController', function () {
+
   const elements:HTMLElement[] = [
     jQuery('<div data-content-path="my-path" data-api-host="host" data-api-key="my-key"></div>')[0],
     jQuery('<div data-content-path="editable-path" data-api-host="host" data-api-key="my-key" data-private-api-key="PK"></div>')[0]
@@ -14,7 +15,7 @@ describe('ViewController', function () {
   const converter = new DomContentBlockConverter();
   const dataService = new DataService(null);
   const drawer = new ContentBlockDrawer();
-  const editController = new EditController(null, null, null, null);
+  const editController = new EditController(null, null, null, null, null);
   const controller = new ViewController(finder, converter, dataService, drawer, editController);
 
   const domContent1:DomContentBlock = converter.convert(elements[0]);

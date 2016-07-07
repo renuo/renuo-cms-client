@@ -22,6 +22,7 @@ describe('DataConverter', function () {
     expect(block.createdAt).toEqual(new Date(2015, 11, 30));
     expect(block.updatedAt).toEqual(new Date(2015, 12, 3));
     expect(block.defaultContent).toEqual('-1');
+    expect(block.version).toEqual(10);
   });
 
   it('extracts the correct content block', function () {
