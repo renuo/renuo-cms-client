@@ -7,7 +7,8 @@ class LocalStorageService {
   private serializer:AjaxContentBlocksHashSerializer = new AjaxContentBlocksHashSerializer();
 
   fetch(key:string):AjaxContentBlocksHash {
-    return this.serializer.parse(localStorage.getItem(key));
+    const result = this.serializer.parse(localStorage.getItem(key));
+    return result ? result : {};
   }
 
   put(key:string, hash:AjaxContentBlocksHash) {

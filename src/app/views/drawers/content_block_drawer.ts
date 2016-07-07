@@ -11,14 +11,4 @@ class ContentBlockDrawer {
       dom.element.attributes.setNamedItem(dataAttribute);
     }
   }
-
-  update(dom:DomContentBlock, data:{content_block:AjaxContentBlock}) {
-    const version = data.content_block.version;
-    if (version) {
-      const dataAttribute = document.createAttribute('data-version');
-      dataAttribute.value = version.toString();
-      dom.element.attributes.setNamedItem(dataAttribute);
-      dom.contentBlock.version = version;
-    }
-  }
 }

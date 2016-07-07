@@ -47,9 +47,10 @@ describe('EditController', function () {
   });
 
   it('edits a dom element successfully', function () {
+    dom.contentBlock = block;
     const deferred = jQuery.Deferred();
     spyOn(preparer, 'notifySave');
-    spyOn(contentBlockDrawer, 'update');
+    spyOn(contentBlockDrawer, 'draw');
     const dataServiceSpy = spyOn(dataService, 'storeContent');
     dataServiceSpy.and.returnValue(deferred);
     controller.editContent(dom, 'this is new content');
@@ -57,13 +58,15 @@ describe('EditController', function () {
       block.createdAt, block.updatedAt, block.defaultContent, block.version);
     expect(dataServiceSpy).toHaveBeenCalledWith(newContentBlock, 'private-key');
     expect(preparer.notifySave).not.toHaveBeenCalled();
-    const response = {foo: 'bar'};
+    const response = {content_block: {version: 234}};
     deferred.resolve(response);
     expect(preparer.notifySave).toHaveBeenCalledWith(dom, true, response);
-    expect(contentBlockDrawer.update).toHaveBeenCalledWith(dom, response);
+    expect(contentBlockDrawer.draw).toHaveBeenCalledWith(dom);
+    expect(dom.contentBlock.version).toEqual(234);
   });
 
   it('edits a dom element unsuccessfully', function () {
+    dom.contentBlock = block;
     const deferred = jQuery.Deferred();
     spyOn(preparer, 'notifySave');
     const dataServiceSpy = spyOn(dataService, 'storeContent');

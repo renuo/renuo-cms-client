@@ -49,23 +49,4 @@ describe('ContentBlockDrawer', function () {
     drawer.draw(dom);
     expect(element.attributes.getNamedItem(`data-version`)).toBe(null);
   });
-
-  describe('#update', function () {
-    it('updates the dom element if a version is provided', function () {
-      const element = jQuery('<div>')[0];
-      const contentBlock = {version: 38} as ContentBlock;
-      const dom = new DomContentBlock(element, contentBlock, null, null);
-      const data = {content_block: {} as AjaxContentBlock};
-      data.content_block.version = 39;
-      drawer.update(dom, data);
-      expect(contentBlock.version).toBe(39);
-      expect(element.attributes.getNamedItem(`data-version`).value).toBe('39');
-    });
-
-    it('does not fail if no version is provided', function () {
-      const dom = {} as DomContentBlock;
-      const data = {content_block: {} as AjaxContentBlock};
-      drawer.update(dom, data);
-    });
-  });
 });
