@@ -12,7 +12,8 @@ class DataService {
   private renuoUploadCredentials:{[cacheKey:string]:JQueryPromise<RenuoUploadCredentials>} = {};
   private dataConverter:DataConverter = new DataConverter();
 
-  constructor(private ajaxService:AjaxService) {
+  constructor(private ajaxService:AjaxService, localStorageService:LocalStorageService = null) {
+    this.localStorageService = localStorageService ? localStorageService : new LocalStorageService();
   }
 
   cacheKey(contentBlock:ContentBlock, enableHttpCaching:boolean) {
@@ -20,7 +21,24 @@ class DataService {
   }
 
   storeContent(contentBlock:ContentBlock, privateApiKey:string):JQueryPromise<any> {
-    return this.ajaxService.storeContentBlock(contentBlock, privateApiKey);
+    const promise = this.ajaxService.storeContentBlock(contentBlock, privateApiKey);
+    promise.done(ajaxResponse => {
+        contentBlock.version = ajaxResponse.content_block.version;
+        this.updateCache(contentBlock, ajaxResponse.content_block, true);
+        this.updateCache(contentBlock, ajaxResponse.content_block, false);
+      }
+    );
+    return promise;
+  }
+
+  private updateCache(contentBlock:ContentBlock, data:AjaxContentBlock, httpCaching:boolean) {
+    const cacheKey = this.cacheKey(contentBlock, httpCaching);
+    const cacheEntry = this.localStorageService.fetch(cacheKey);
+    cacheEntry[contentBlock.contentPath] = data;
+    this.localStorageService.put(cacheKey, cacheEntry);
+    const deferred:JQueryDeferred<AjaxContentBlocksHash> = $.Deferred<AjaxContentBlocksHash>();
+    this.dataCache[cacheKey] = deferred.promise();
+    deferred.resolve(cacheEntry);
   }
 
   private loadAllContents(contentBlock:ContentBlock, enableHttpCaching:boolean):JQueryPromise<AjaxContentBlocksHash> {

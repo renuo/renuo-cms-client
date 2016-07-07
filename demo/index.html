@@ -178,6 +178,42 @@
       </div>
     </article>
   </section>
+
+  <section>
+    <h2>Dynamic content block</h2>
+    <div class="row">
+      <article class="col-sm-3">
+        <button class="toggle-button" data-target-id="toggle-content-path-block" data-attribute="data-content-path" data-value1="content/bla" data-value2="content/blub">
+          Toggle content path!
+        </button>
+
+        <div id="toggle-content-path-block" data-content-path="content/blub" data-api-host="//renuo-cms-api.dev:3002" data-api-key="aValidApiKey">
+          <p>default content</p>
+        </div>
+      </article>
+      <article class="col-sm-3">
+        <button class="toggle-button" data-target-id="toggle-api-host-block" data-attribute="data-api-host" data-value1="//renuo-cms-api.dev:3002" data-value2="//special@renuo-cms-api.dev:3002">Toggle API host!</button>
+
+        <div id="toggle-api-host-block" data-content-path="content/blub" data-api-host="//renuo-cms-api.dev:3002" data-api-key="aValidApiKey">
+          <p>default content</p>
+        </div>
+      </article>
+      <article class="col-sm-3">
+        <button class="toggle-button" data-target-id="toggle-api-key-block" data-attribute="data-api-key" data-value1="aValidApiKey" data-value2="anotherPublicKey">Toggle API key!</button>
+
+        <div id="toggle-api-key-block" data-content-path="content/blub" data-api-host="//renuo-cms-api.dev:3002" data-api-key="aValidApiKey">
+          <p>default content</p>
+        </div>
+      </article>
+      <article class="col-sm-3">
+        <button class="toggle-button" data-target-id="toggle-private-api-key-block" data-attribute="data-private-api-key" data-value1="AdminONLY" data-value2="invalid">Toggle private API key!</button>
+
+        <div id="toggle-private-api-key-block" data-content-path="content/blub" data-api-host="//renuo-cms-api.dev:3002" data-api-key="aValidApiKey" data-private-api-key="AdminONLY">
+          <p>default content</p>
+        </div>
+      </article>
+    </div>
+  </section>
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/jquery/2.2.3/jquery.min.js"></script>
@@ -191,6 +227,19 @@
     div.attr('data-private-api-key', 'AdminONLY');
     jQuery(document).trigger('renuo-cms-reload');
   }, 2000);
+
+  $('.toggle-button').click(function (event) {
+    var button = $(event.target);
+    var block = $('#' + button.data('targetId'));
+    var attribute = button.data('attribute');
+    var value1 = button.data('value1');
+    var value2 = button.data('value2');
+
+    var oldValue = block.attr(attribute);
+    var newValue = oldValue == value1 ? value2 : value1;
+    block.attr(attribute, newValue);
+    jQuery(document).trigger('renuo-cms-reload-single', [block.attr('data-content-path')]);
+  });
 </script>
 
 <script>

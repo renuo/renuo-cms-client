@@ -46,6 +46,11 @@ describe('LocalStorageService', function () {
       expect(service.fetch(key)).toEqual(hash1);
     });
 
+    it('fetch returns an empty map if key does not exist', function () {
+      const key = 'invalidKey';
+      expect(service.fetch(key)).toEqual({});
+    });
+
     it('catches QuotaExceededError', function () {
       const key = '2';
       const error = new Error('An error occurred');

@@ -93,13 +93,24 @@ describe('DataService', function () {
   });
 
   it('stores a content block', function () {
+    const ajaxContentBlock = AjaxServiceMockData.existingContentBlock1();
+    const existingContentBlock = AjaxServiceMockData.existingContentBlock1();
+
     const ajaxService = new AjaxService();
     spyOn(ajaxService, 'storeContentBlock').and.callFake(
-      () => jQuery.Deferred().resolve({content_block: AjaxServiceMockData.existingContentBlock1()}).promise());
+      () => jQuery.Deferred().resolve({content_block: ajaxContentBlock}).promise());
 
-    const service = new DataService(ajaxService);
+    const localStorageService = new LocalStorageService();
+    spyOn(localStorageService, 'put');
+    spyOn(localStorageService, 'fetch').and.returnValue({'my-path2': existingContentBlock});
+
+    const service = new DataService(ajaxService, localStorageService);
     service.storeContent(contentBlock, 'pk');
     expect(ajaxService.storeContentBlock).toHaveBeenCalledWith(contentBlock, 'pk');
+
+    const expectedCacheValue = {'my-path': ajaxContentBlock, 'my-path2': existingContentBlock};
+    expect(localStorageService.put).toHaveBeenCalledWith('host|api-key|true', expectedCacheValue);
+    expect(localStorageService.put).toHaveBeenCalledWith('host|api-key|false', expectedCacheValue);
   });
 
   it('calculates the cache key correctly', function () {
