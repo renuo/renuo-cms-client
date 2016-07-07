@@ -169,6 +169,17 @@
   </section>
 
   <section>
+    <h2>Delayed editability</h2>
+    <article>
+      <h3>This becomes editable after 5 seconds, single triggered</h3>
+
+      <div data-content-path="i-am-single-triggered" data-api-host="//renuo-cms-api.dev:3002" data-api-key="aValidApiKey">
+        <p>Some more <b>default</b> content</p>
+      </div>
+    </article>
+  </section>
+
+  <section>
     <h2>Dynamic content block</h2>
     <div class="row">
       <article class="col-sm-3">
@@ -229,5 +240,13 @@
     block.attr(attribute, newValue);
     jQuery(document).trigger('renuo-cms-reload');
   });
+</script>
+
+<script>
+  setTimeout(function () {
+    var div = jQuery('[data-content-path=i-am-single-triggered]').eq(0);
+    div.attr('data-private-api-key', 'AdminONLY');
+    jQuery(document).trigger('renuo-cms-reload-single', ['i-am-single-triggered']);
+  }, 5000);
 </script>
 </html>
