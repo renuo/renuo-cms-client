@@ -33,7 +33,9 @@ class CkeditorPreparer implements EditorPreparer {
 
   private showErrorMessage(status:number):void {
     const errorMessages:{[key:number]:string} = {
-      409: 'cms.edit.message.conflict'
+      409: 'cms.edit.message.conflict',
+      401: 'cms.edit.message.unauthorized',
+      0: 'cms.edit.message.no-connection'
     };
     const message = errorMessages[status];
     if (message) {

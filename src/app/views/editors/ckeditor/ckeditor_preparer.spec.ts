@@ -100,5 +100,17 @@ describe('CkeditorPreparer', function () {
       preparer.notifySave(dom, false, {status: 409});
       expect(window.alert).toHaveBeenCalledWith(I18n.t('cms.edit.message.conflict'));
     });
+
+    it('shows an error message for error 401', function () {
+      spyOn(window, 'alert');
+      preparer.notifySave(dom, false, {status: 401});
+      expect(window.alert).toHaveBeenCalledWith(I18n.t('cms.edit.message.unauthorized'));
+    });
+
+    it('shows an error message for error 0', function () {
+      spyOn(window, 'alert');
+      preparer.notifySave(dom, false, {status: 0});
+      expect(window.alert).toHaveBeenCalledWith(I18n.t('cms.edit.message.no-connection'));
+    });
   });
 });
