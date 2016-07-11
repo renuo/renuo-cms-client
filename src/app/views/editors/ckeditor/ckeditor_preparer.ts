@@ -23,6 +23,7 @@ class CkeditorPreparer implements EditorPreparer {
   }
 
   notifySave(dom:DomContentBlock, success:boolean, response:any):void {
+    alert(response.status);
     const cssClass = success ? 'success' : 'error';
     jQuery(dom.element).addClass(`renuo-cms-edit-${cssClass}`).delay(2000).queue(() =>
       jQuery(dom.element).removeClass(`renuo-cms-edit-${cssClass}`).dequeue());
@@ -33,7 +34,8 @@ class CkeditorPreparer implements EditorPreparer {
 
   private showErrorMessage(status:number):void {
     const errorMessages:{[key:number]:string} = {
-      409: 'cms.edit.message.conflict'
+      409: 'cms.edit.message.conflict',
+      401: 'cms.edit.message.unauthorized'
     };
     const message = errorMessages[status];
     if (message) {
