@@ -1,8 +1,8 @@
 class I18n {
   private static translations:{[key:string]:string} = {
     'cms.edit.message.conflict': 'Could not save the content. A newer Version already exists on the server.',
-    'cms.edit.message.unauthorized': 'You are not authorized to change the content of this block.',
-    'cms.edit.message.no-connection': 'No connection to the server. Either you are offline or the server is down.'
+    'cms.edit.message.unauthorized': 'Could not save the content. You are not authorized to change it.',
+    'cms.edit.message.no-connection': 'Could not save the content. You could not connect to the server.'
   };
 
   static t(key:string):string {
