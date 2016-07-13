@@ -33,7 +33,7 @@ class LocalStorageService {
     this.expiryDate[key] = this.timestamp() + LocalStorageService.EXPIRATIONTIME;
   }
 
-  public timestamp():number {
+  private timestamp():number {
     return Date.now();
   }
 }
