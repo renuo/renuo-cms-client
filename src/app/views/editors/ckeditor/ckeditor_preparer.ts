@@ -64,6 +64,13 @@ class CkeditorPreparer implements EditorPreparer {
     /*allowedContent: { 'b i li ul ol table thead tbody tr': true, 'h1 h2 h3 h4 p th td': {  styles: 'text-align,text-decoration' },
      a: {attributes: '!href,target'} img: { attributes: '!src,alt', styles: 'width,height', classes: 'left,right' } },*/
     return jQuery.extend({
+      extraAllowedContent: {
+        // Rule taken from https://github.com/ckeditor/ckeditor-dev/blob/bd5101a/plugins/image/plugin.js#L30
+        img: {
+          attributes: 'alt,!src',
+          styles: 'border-style,border-width,float,height,margin,margin-bottom,margin-left,margin-right,margin-top,width'
+        }
+      },
       toolbarGroups: [
         {name: 'styles', groups: ['styles']},
         {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
