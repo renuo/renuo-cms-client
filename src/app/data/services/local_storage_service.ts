@@ -7,16 +7,17 @@ class LocalStorageService {
   private serializer:AjaxContentBlocksHashSerializer = new AjaxContentBlocksHashSerializer();
 
   fetch(key:string):AjaxContentBlocksHash {
+    if (this.isExpired(key)) {
+      return {};
+    }
     const result = this.serializer.parse(localStorage.getItem(key));
     return result ? result : {};
   }
 
   put(key:string, hash:AjaxContentBlocksHash) {
-    if (this.skipStoring(key)) return;
-
-    this.setExpiryDate(key);
     try {
       localStorage.setItem(key, this.serializer.stringify(hash));
+      this.setExpiryDate(key);
     } catch (error) {
       if( console && console.error) {
         console.error(error);
@@ -24,8 +25,8 @@ class LocalStorageService {
     }
   }
 
-  private skipStoring(key:string) {
-    return this.expiryDate[key] - this.timestamp() > 0;
+  private isExpired(key:string) {
+    return this.expiryDate[key] <= this.timestamp();
   }
 
   private setExpiryDate(key:string) {

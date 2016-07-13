@@ -13,31 +13,28 @@ describe('LocalStorageService', function () {
       localStorage.clear();
     });
 
-    it('can save a hash and it gets only updated if it is expired', function () {
+    it('put always updates the local storage', function () {
       const key = '1';
       service.put(key, hash1);
 
       expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash1));
 
       service.put(key, hash2);
-      expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash1));
+      expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash2));
     });
 
-    it('can save a hash and it gets updated if it is expired', function () {
+    it('fetch returns an empty object, if the contained element is expired', function () {
       const key = '2';
       const timestampSpy = spyOn(service, 'timestamp');
 
       timestampSpy.and.returnValue(0);
       service.put(key, hash1);
-      expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash1));
 
       timestampSpy.and.returnValue(LocalStorageService.EXPIRATIONTIME - 1);
-      service.put(key, hash2);
-      expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash1));
+      expect(service.fetch(key)).toEqual(hash1);
 
-      timestampSpy.and.returnValue(LocalStorageService.EXPIRATIONTIME + 1);
-      service.put(key, hash2);
-      expect(localStorage.getItem(key)).toEqual(JSON.stringify(hash2));
+      timestampSpy.and.returnValue(LocalStorageService.EXPIRATIONTIME);
+      expect(service.fetch(key)).toEqual({});
     });
 
     it('can load a hash', function () {
