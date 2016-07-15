@@ -52,7 +52,7 @@ describe('ViewController', function () {
     });
     const drawerSpy = spyOn(drawer, 'draw').and.stub();
 
-    controller.init();
+    controller.initAll();
 
     expect(finder.find).toHaveBeenCalled();
     expect(converter.convert).toHaveBeenCalledWith(elements[0]);
@@ -76,7 +76,7 @@ describe('ViewController', function () {
     });
     const drawerSpy = spyOn(drawer, 'draw').and.stub();
 
-    controller.init('editable-path');
+    controller.initSingle('editable-path');
 
     expect(finder.find).not.toHaveBeenCalled();
     expect(finder.find_by).toHaveBeenCalledWith('editable-path');

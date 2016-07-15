@@ -10,13 +10,15 @@ class ViewController {
               private editController:EditController) {
   }
 
-  init(contentBlockPath:String = null):void {
-    let htmlContentBlocks:HTMLElement[];
-    if (contentBlockPath == null) {
-      htmlContentBlocks = this.finder.find();
-    } else {
-      htmlContentBlocks = this.finder.find_by(contentBlockPath);
-    }
+  initAll():void {
+    this.initBlocks(this.finder.find());
+  }
+
+  initSingle(contentBlockPath:String):void {
+    this.initBlocks(this.finder.find_by(contentBlockPath));
+  }
+
+  private initBlocks(htmlContentBlocks:HTMLElement[]):void {
     const domContentBlocks = htmlContentBlocks.map((el) => this.converter.convert(el));
     const editView = new EditableViewController(this.converter, this.dataService, this.drawer, this.editController);
     const readonlyView = new ReadonlyViewController(this.converter, this.dataService, this.drawer);

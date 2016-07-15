@@ -29,14 +29,14 @@
         new ContentBlockDrawer()
       )
     );
-    controller.init();
+    controller.initAll();
 
     jQuery(document).on('renuo-cms-reload', function () {
-      controller.init();
+      controller.initAll();
     });
 
     jQuery(document).on('renuo-cms-reload-single', function (event:Event, contentBlockPath:String) {
-      controller.init(contentBlockPath);
+      controller.initSingle(contentBlockPath);
     });
   };
   jQuery(initContentBlocks);
