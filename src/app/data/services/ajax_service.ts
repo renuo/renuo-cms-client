@@ -35,7 +35,8 @@ class AjaxService {
     return Date.now() / 1000;
   }
 
-  public getRenuoUploadCredentials(contentBlock:ContentBlock, privateApiKey:String):JQueryPromise<any> {
+  public getRenuoUploadCredentials(contentBlock:ContentBlock,
+                                   privateApiKey:String):JQueryPromise<AjaxRenuoUploadCredentials> {
     return jQuery.getJSON(`${contentBlock.apiHost}/v1/${contentBlock.apiKey}/` +
       `renuo_upload_credentials?private_api_key=${privateApiKey}`);
   }
