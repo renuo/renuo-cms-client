@@ -40,6 +40,6 @@ describe('ScriptLoader', function () {
   it('loads the ckeditor', function () {
     const spy = spyOn(loader, 'loadScript');
     loader.loadCkeditor();
-    expect(spy).toHaveBeenCalledWith('//cdn.ckeditor.com/4.5.5/full/ckeditor.js');
+    expect(spy).toHaveBeenCalledWith('//cdn.ckeditor.com/4.5.10/full/ckeditor.js');
   });
 });
