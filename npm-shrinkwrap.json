@@ -9721,7 +9721,7 @@
         "adm-zip": "0.4.4",
         "rimraf": "2.6.1",
         "tmp": "0.0.24",
-        "ws": "1.0.1",
+        "ws": "1.1.4",
         "xml2js": "0.4.4"
       },
       "dependencies": {
@@ -11024,9 +11024,9 @@
       }
     },
     "ws": {
-      "version": "1.0.1",
-      "resolved": "https://registry.npmjs.org/ws/-/ws-1.0.1.tgz",
-      "integrity": "sha1-fQsqLljN3YGQOcKcneZQReGzEOk=",
+      "version": "1.1.4",
+      "resolved": "https://registry.npmjs.org/ws/-/ws-1.1.4.tgz",
+      "integrity": "sha1-V/QNA2gy5fUFVmKjl8Tedu1mv2E=",
       "dev": true,
       "requires": {
         "options": "0.0.6",
