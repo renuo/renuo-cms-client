@@ -44,7 +44,7 @@
     "protractor": "^3.2.2",
     "socket.io": "^1.4.5",
     "tslint": "^3.7.1",
-    "typescript": "^1.8.9",
+    "typescript": "^1.8.10",
     "typings": "^0.8.1"
   },
   "engines": {
