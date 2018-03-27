@@ -36,6 +36,18 @@ describe('RenuoUploadHtmlGenerator', function () {
       expect(element('//something.com/some.Jpg', 'Jpg')).toEqual(jasmine.any(HTMLImageElement));
       expect(element('//something.com/some.JpG', 'JpG')).toEqual(jasmine.any(HTMLImageElement));
     });
+
+    describe('thumborPath', () => {
+      it('redirects renuo-upload links to thumbor', () => {
+        const testElement:HTMLImageElement = element('//example.com/o/some.JPG', 'JPG') as HTMLImageElement;
+        expect(testElement.src).toEqual('https://example.com/t/x/u/o/some.JPG');
+      });
+
+      it('does not redirect if is not renuo upload', () => {
+        const testElement:HTMLImageElement = element('//example.com/some.JPG', 'JPG') as HTMLImageElement;
+        expect(testElement.src).toEqual('http://example.com/some.JPG');
+      });
+    });
   });
 
   describe('generate other file', function () {
@@ -58,5 +70,9 @@ describe('RenuoUploadHtmlGenerator', function () {
       expect(element('//something.com/some.PdF', 'PdF')).toEqual(jasmine.any(HTMLAnchorElement));
     });
 
+    it('does not redirect to renuo-upload-proxy if is not an image', () => {
+      const testElement:HTMLAnchorElement = element('//example.com/o/some.pdf', 'pdf') as HTMLAnchorElement;
+      expect(testElement.href).toEqual('http://example.com/o/some.pdf');
+    });
   });
 });

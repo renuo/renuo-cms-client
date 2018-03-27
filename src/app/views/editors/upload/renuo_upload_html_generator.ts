@@ -14,8 +14,18 @@ class RenuoUploadHtmlGenerator {
 
   private imageElement():HTMLImageElement {
     const element = new Image();
-    element.src = this.event.publicUrl;
+    element.src = this.thumborPath(this.event.publicUrl);
     return element;
+  }
+
+  private thumborPath(imageUrl:string) {
+    const index = imageUrl.indexOf('/o/');
+    if (index === -1) {
+      return imageUrl;
+    }
+    const filePath = imageUrl.slice(index);
+    const host = imageUrl.slice(0, index);
+    return `https:${host}/t/x/u${filePath}`;
   }
 
   private anchorElement():HTMLAnchorElement {
