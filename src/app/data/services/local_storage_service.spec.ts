@@ -4,14 +4,15 @@
 ///<reference path="../models/content_block.ts"/>
 
 describe('LocalStorageService', function () {
-  const service = new LocalStorageService(localStorage);
   const hash1 =  AjaxServiceMockData.existingContentBlocksHash1();
   const hash2 = AjaxServiceMockData.existingContentBlocksHash2();
 
-  describe('The content block saver', function () {
-    afterEach(function() {
-      localStorage.clear();
-    });
+  afterEach(function() {
+    localStorage.clear();
+  });
+
+  describe('when localStorage is available', function () {
+    const service = new LocalStorageService(localStorage);
 
     it('can save a hash and it gets only updated if it is expired', function () {
       const key = '1';
@@ -51,14 +52,6 @@ describe('LocalStorageService', function () {
       expect(service.fetch(key)).toEqual({});
     });
 
-    it('fetch returns and empty map if localStorage is null', function () {
-      const serviceNoStorage = new LocalStorageService(null);
-      const key = '1';
-      serviceNoStorage.put(key, hash1);
-
-      expect(serviceNoStorage.fetch(key)).toEqual({});
-    });
-
     it('catches QuotaExceededError', function () {
       const key = '2';
       const error = new Error('An error occurred');
@@ -76,6 +69,17 @@ describe('LocalStorageService', function () {
       if (navigator.userAgent.toLowerCase().indexOf('firefox') < -1) {
         expect(console.error).toHaveBeenCalledWith(error);
       }
+    });
+  });
+
+  describe('when localStorage is not available', function () {
+    const service = new LocalStorageService(undefined);
+
+    it('fetch returns and empty map if localStorage is null', function () {
+      const key = '1';
+      service.put(key, hash1);
+
+      expect(service.fetch(key)).toEqual({});
     });
   });
 });

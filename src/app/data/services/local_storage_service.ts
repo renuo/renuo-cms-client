@@ -18,7 +18,6 @@ class LocalStorageService {
   }
 
   put(key:string, hash:AjaxContentBlocksHash) {
-    if (!this.localStorage) return;
     if (this.skipStoring(key)) return;
 
     this.setExpiryDate(key);
