@@ -100,7 +100,7 @@ describe('DataService', function () {
     spyOn(ajaxService, 'storeContentBlock').and.callFake(
       () => jQuery.Deferred().resolve({content_block: ajaxContentBlock}).promise());
 
-    const localStorageService = new LocalStorageService();
+    const localStorageService = new LocalStorageService(localStorage);
     spyOn(localStorageService, 'put');
     spyOn(localStorageService, 'fetch').and.returnValue({'my-path2': existingContentBlock});
 
