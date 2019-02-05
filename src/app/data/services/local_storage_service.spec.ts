@@ -4,7 +4,7 @@
 ///<reference path="../models/content_block.ts"/>
 
 describe('LocalStorageService', function () {
-  const service = new LocalStorageService();
+  const service = new LocalStorageService(localStorage);
   const hash1 =  AjaxServiceMockData.existingContentBlocksHash1();
   const hash2 = AjaxServiceMockData.existingContentBlocksHash2();
 
@@ -49,6 +49,14 @@ describe('LocalStorageService', function () {
     it('fetch returns an empty map if key does not exist', function () {
       const key = 'invalidKey';
       expect(service.fetch(key)).toEqual({});
+    });
+
+    it('fetch returns and empty map if localStorage is null', function () {
+      const serviceNoStorage = new LocalStorageService(null);
+      const key = '1';
+      serviceNoStorage.put(key, hash1);
+
+      expect(serviceNoStorage.fetch(key)).toEqual({});
     });
 
     it('catches QuotaExceededError', function () {

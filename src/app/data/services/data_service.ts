@@ -8,12 +8,12 @@
 
 class DataService {
   private dataCache:{[cacheKey:string]:JQueryPromise<AjaxContentBlocksHash>} = {};
-  private localStorageService:LocalStorageService = new LocalStorageService();
+  private localStorageService:LocalStorageService = new LocalStorageService(localStorage);
   private renuoUploadCredentials:{[cacheKey:string]:JQueryPromise<RenuoUploadCredentials>} = {};
   private dataConverter:DataConverter = new DataConverter();
 
   constructor(private ajaxService:AjaxService, localStorageService:LocalStorageService = null) {
-    this.localStorageService = localStorageService ? localStorageService : new LocalStorageService();
+    this.localStorageService = localStorageService ? localStorageService : new LocalStorageService(localStorage);
   }
 
   cacheKey(contentBlock:ContentBlock, enableHttpCaching:boolean) {
