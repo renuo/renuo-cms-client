@@ -5,8 +5,8 @@ class LocalStorageService {
   static EXPIRATIONTIME:number = 1000 * 60 * 60; // 1h in ms
   private expiryDate:{[key:string]:number} = {};
   private serializer:AjaxContentBlocksHashSerializer = new AjaxContentBlocksHashSerializer();
+  private localStorage:Storage;
 
-  localStorage:Storage;
   constructor(storage:Storage) {
     this.localStorage = storage;
   }
