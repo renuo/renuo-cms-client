@@ -54,9 +54,9 @@ gulp.task('serve', ['copyhtml', 'tslint', 'tscompile', 'tscompile-specs'], funct
   connect.server({
     root: ['.tmp', './bower_components'],
     livereload: true,
-    host: 'renuo-cms-client.dev'
+    host: 'renuo-cms-client.localhost'
   });
-  open('http://renuo-cms-client.dev:8080');
+  open('http://renuo-cms-client.localhost:8080');
   gulp.start('watch');
   return callback();
 });
